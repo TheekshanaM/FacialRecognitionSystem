@@ -174,7 +174,7 @@ namespace FacialRecognitionSystem.Controllers
 
             var fromEmail = new MailAddress("thrinduchulle@gmail.com", "thrindu chulle");//your email address
             var toEmail = new MailAddress(email);
-            var fromEmailPassword = "inspiron15";//your email password
+            var fromEmailPassword = "******";//your email password
 
             string subject = "";
             string body = "";

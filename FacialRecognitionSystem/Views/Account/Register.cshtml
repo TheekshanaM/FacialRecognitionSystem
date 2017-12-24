@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+
+@model FacialRecognitionSystem.Models.Admin
+
+@{
+    ViewBag.Title = "Registration";
+}
+
+<div class="card card-login mx-auto mt-5">
+    <div class="card-header">
+        Register
+    </div>
+    
+    <div class="card-body">
+
+        @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+        {
+            if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    <strong>Success !</strong>@ViewBag.Message
+                </div>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <label>First Name : </label>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+
+                        <div class="form-group">
+                            <label>Last Name : </label>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email address : </label>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password : </label>
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Confirm Password : </label>
+                            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter confirm Password" } })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Sign Up" class="btn btn-info" />
+                            </div>
+                        </div>
+
+
+                if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger">
+                        <strong>Error !</strong>@ViewBag.Message
+                    </div>
+                }
+            }
+        }
+
+
+
+    </div>
+</div>

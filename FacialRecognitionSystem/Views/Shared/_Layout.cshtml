@@ -1,42 +1,147 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Collapsible sidebar using Bootstrap 3</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Our Custom CSS -->
+    <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+
+
+    <div class="wrapper">
+
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>Bootstrap</h3>
+                <strong>Admin</strong>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+
+            <ul class="list-unstyled components">
+
+                <li class="admin-title">
+                    <h3>Admin</h3>
+                </li>
+
+                <li class="admin-box">
+                    <img src="Image/Profile picture.jpg">
+                    <h4>Theekshana</h4>
+                    <h4>Madushan</h4>
+                    <a href="">
+                        <i class="glyphicon glyphicon-user" title="Profile"></i>
+                    </a>
+                    <a href="">
+                        <i class="glyphicon glyphicon-cog" title="Change setting"></i>
+                    </a>
+                    <a href="@Url.Action("Logout","Account")">
+                        
+                        <i class="glyphicon glyphicon-off" title="Log Out"></i>
+                    </a>
+                </li>
+
+                <li class="active">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-home"></i>
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-user"></i>
+                        Create Celebrity
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-search"></i>
+                        Users
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-globe"></i>
+                        Notification
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+            <div id="navigation">
+                <nav class="navbar navbar-default" style="background: linear-gradient(to bottom left, #3db9e2, #3888c4, #2277b7);">
+
+                    <div class="navbar-header">
+                        <button type="button" id="sidebarCollapse" class="btn navbar-btn" style="background:linear-gradient(#2f85af, #3076d1);">
+                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <form class="navbar-form navbar-left">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            
+                            <li>
+                                <a href="@Url.Action("Register", "Account")">Sign Up</a>
+                            </li>
+
+
+
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+
+                </nav>
             </div>
+
+            @RenderBody()
+            
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+
+
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+
+             $(document).ready(function () {
+                 $('#sidebarCollapse').on('click', function () {
+                     $('#sidebar').toggleClass('active');
+                     $('#content').toggleClass('active');
+                     $('#navigation').toggleClass('active');
+                 });
+             });
+    </script>
 </body>
 </html>

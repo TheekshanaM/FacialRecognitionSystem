@@ -3,15 +3,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Security;
 
 namespace FacialRecognitionSystem.Controllers
 {
     public class AccountController : Controller
     {
+        HttpClient client = new HttpClient();
+
+        public AccountController()
+        {
+            client.BaseAddress = new Uri("http://localhost:13138/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         // GET: Account
         public ActionResult Register()
         {
@@ -20,40 +35,30 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Exclude = "isEmailVerified , activationCode")] Admin admin)
+        public async Task<ActionResult> Register([Bind(Exclude = "isEmailVerified , activationCode")] Admin admin)
         {
             Boolean status = false;
             string message = "";
 
             if (ModelState.IsValid)
             {
-                //Email is already exist
-                var isExist = IsEmailExist(admin.Email);
-                if (isExist)
+                var serializer = new JavaScriptSerializer();
+                var json = serializer.Serialize(admin);
+                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync("API/AdminAccount/Register", stringContent);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    ModelState.AddModelError("EmailExist", "Email is already exist !");
-                    return View(admin);
-                }
-
-                //Generate Activation code
-                admin.ActivationCode = Guid.NewGuid();
-
-                //password encoding
-                admin.Password = Crypto.Hash(admin.Password);
-                admin.ConfirmPassword = Crypto.Hash(admin.ConfirmPassword);
-
-                admin.IsEmailVerified = false;
-
-                //save to database
-                using (MyDbEntities db = new MyDbEntities())
-                {
-                    db.Admins.Add(admin);
-                    db.SaveChanges();
-
-                    //send Email
-                    SendVerificationLinkEmail(admin.Email, admin.ActivationCode.ToString());
-                    message = "For activation check your email.";
-                    status = true;
+                    message = response.Content.ReadAsAsync<string>().Result;
+                    if(message == "EmailExist")
+                    {
+                        ModelState.AddModelError("EmailExist", "Email is already exist !");
+                        return View(admin);
+                    }else if(message == "For activation check your email.")
+                    {
+                        status = true;
+                    }
                 }
             }
             else
@@ -67,26 +72,31 @@ namespace FacialRecognitionSystem.Controllers
         }
 
         [HttpGet]
-        public ActionResult VerifyAccount(string id)
+        public async Task<ActionResult> VerifyAccount(string id)
         {
             Boolean status = false;
-            using (MyDbEntities db = new MyDbEntities())
+            if(id != null)
             {
-                db.Configuration.ValidateOnSaveEnabled = false;
-                var validActivation = db.Admins.Where(a => a.ActivationCode == new Guid(id)).FirstOrDefault();
-
-                if (validActivation != null)
+                HttpResponseMessage response = await client.GetAsync("API/AdminAccount?id="+id);
+                if (response.IsSuccessStatusCode)
                 {
-                    validActivation.IsEmailVerified = true;
-                    db.SaveChanges();
-                    status = true;
+                    status = response.Content.ReadAsAsync<Boolean>().Result;
+                    if (status == false)
+                    {
+                        ViewBag.Message = "Invalid Request !";
+                    }
                 }
                 else
                 {
-                    ViewBag.Message = "Invalid Request !";
+                    ViewBag.Message = "Invalid Request";
                 }
-            }
 
+            }
+            else
+            {
+                ViewBag.Message = "Invalid Request !";
+            }
+            
             ViewBag.Status = status;
             return View();
 
@@ -99,15 +109,21 @@ namespace FacialRecognitionSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(AdminLogin adminLogin, string returnUrl = "")
+        public async Task<ActionResult> Login(AdminLogin adminLogin, string returnUrl = "")
         {
             string message = "";
-            using (MyDbEntities db = new MyDbEntities())
+            if (ModelState.IsValid)
             {
-                var user = db.Admins.Where(a => a.Email == adminLogin.Email).FirstOrDefault();
-                if (user != null)
+                var serializer = new JavaScriptSerializer();
+                var json = serializer.Serialize(adminLogin);
+                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync("API/AdminAccount/Login", stringContent);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    if (string.Compare(Crypto.Hash(adminLogin.Password), user.Password) == 0)
+                    message = response.Content.ReadAsAsync<string>().Result;
+                    if (message == "Success")
                     {
                         int timeOut = 0;
                         if (adminLogin.RememberMe)
@@ -134,17 +150,18 @@ namespace FacialRecognitionSystem.Controllers
                             return RedirectToAction("Index", "Home");
                         }
                     }
-                    else
-                    {
-                        message = "Invalid credential Provided";
-                    }
 
                 }
                 else
                 {
-                    message = "Invalid credential Provided";
+                    message = "Invalid Request";
                 }
             }
+            else
+            {
+                message = "Invalid Request";
+            }
+            
             ViewBag.Message = message;
             return View();
         }
@@ -156,69 +173,7 @@ namespace FacialRecognitionSystem.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        [NonAction]
-        public Boolean IsEmailExist(string email)
-        {
-            using (MyDbEntities db = new MyDbEntities())
-            {
-                var existState = db.Admins.Where(a => a.Email == email).FirstOrDefault();
-                return existState != null;
-            }
-        }
-
-        [NonAction]
-        public void SendVerificationLinkEmail(string email, string activatonCode, string emailFor = "VerifyAccount")
-        {
-            var verifyUrl = "/Account/" + emailFor + "/" + activatonCode;
-            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-
-            var fromEmail = new MailAddress("thrinduchulle@gmail.com", "thrindu chulle");//your email address
-            var toEmail = new MailAddress(email);
-            var fromEmailPassword = "******";//your email password
-
-            string subject = "";
-            string body = "";
-
-            if (emailFor == "VerifyAccount")
-            {
-                subject = "Your account is successdully created !";
-                body = "<br/><br/>Click <a href='" + link + "'>here<a/>";
-            }
-            else
-            {
-                subject = "Reset password";
-                body = "Click <a href='" + link + "'>Here<a/> to Reset password.";
-            }
-
-
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
-            };
-
-            using (var message = new MailMessage(fromEmail, toEmail)
-            {
-                Subject = subject,
-                Body = body,
-                IsBodyHtml = true
-            })
-                try
-                {
-                    smtp.Send(message);
-
-                }
-                catch (Exception e)
-                {
-
-                }
-
-        }
+        
 
         [HttpGet]
         public ActionResult FogetPassword()
@@ -227,80 +182,94 @@ namespace FacialRecognitionSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult FogetPassword(string email)
+        public async Task<ActionResult> FogetPassword(string email)
         {
             string message = "";
-            Boolean status = false;
-
-            using (MyDbEntities db = new MyDbEntities())
+            if(email != null)
             {
-                var singlUeser = db.Admins.Where(a => a.Email == email).FirstOrDefault();
-                if (singlUeser != null)
+                HttpResponseMessage response = await client.GetAsync("API/AdminAccount?Email=" + email);
+                if (response.IsSuccessStatusCode)
                 {
-                    string resetCode = Guid.NewGuid().ToString();
-                    SendVerificationLinkEmail(singlUeser.Email, resetCode, "ResetPassword");
-                    singlUeser.ResetPasswordCode = resetCode;
-
-                    db.Configuration.ValidateOnSaveEnabled = false;
-
-                    db.SaveChanges();
-                    message = "Reset password link has been sent your Email.";
-                }
-                else
-                {
-                    message = "Account Not found !";
+                    message = response.Content.ReadAsAsync<string>().Result;
                 }
             }
+            else
+            {
+                message = "Enter Email";
+            }
+            
+
             ViewBag.Message = message;
             return View();
         }
 
         [HttpGet]
-        public ActionResult ResetPassword(string id)
+        public async Task<ActionResult> ResetPassword(string id)
         {
-            using (MyDbEntities db = new MyDbEntities())
+            
+            if (id != null)
             {
-                var singleUser = db.Admins.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
-                if (singleUser != null)
+                HttpResponseMessage response = await client.GetAsync("API/AdminAccount?ResetPasswordCode=" + id);
+                if (response.IsSuccessStatusCode)
                 {
-                    ResetPassword resetModle = new ResetPassword();
-                    resetModle.ResetCode = id;
-                    return View(resetModle);
+                    Admin singleUser = response.Content.ReadAsAsync<Admin>().Result;
+                    if (singleUser != null)
+                    {
+                        ResetPassword resetModle = new ResetPassword();
+                        resetModle.ResetCode = id;
+                        ViewBag.Status = false;
+                        return View(resetModle);
+                    }
+                    else
+                    {
+                        return HttpNotFound();
+                    }
                 }
                 else
                 {
                     return HttpNotFound();
                 }
-            }
 
+            }
+            else
+            {
+                return HttpNotFound();
+            }
 
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ResetPassword(ResetPassword model)
+        public async Task<ActionResult> ResetPassword(ResetPassword model)
         {
             var message = "";
+            Boolean status = false;
             if (ModelState.IsValid)
             {
-                using (MyDbEntities db = new MyDbEntities())
-                {
-                    var singelUser = db.Admins.Where(a => a.ResetPasswordCode == model.ResetCode).FirstOrDefault();
-                    if (singelUser != null)
-                    {
-                        singelUser.Password = Crypto.Hash(model.NewPassword);
-                        singelUser.ResetPasswordCode = "";
-                        db.Configuration.ValidateOnSaveEnabled = false;
-                        db.SaveChanges();
-                        message = "New password Updated Successfully";
-                    }
+                var serializer = new JavaScriptSerializer();
+                var json = serializer.Serialize(model);
+                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = await client.PostAsync("API/AdminAccount/ResetPassword", stringContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    message = response.Content.ReadAsAsync<string>().Result;
+                    if (message == "New password Updated Successfully")
+                    {
+                        status = true;
+                    }
+                }
+                else
+                {
+                    message = "invalid !";
                 }
             }
             else
             {
                 message = "invalid !";
             }
+            ViewBag.Status = status;
             ViewBag.Message = message;
             return View(model);
         }

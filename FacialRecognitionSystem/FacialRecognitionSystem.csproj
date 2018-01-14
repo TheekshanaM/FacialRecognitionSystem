@@ -173,6 +173,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AdminAccountController.cs" />
+    <Compile Include="Controllers\API\CelebrityController.cs" />
+    <Compile Include="Controllers\CelebrityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,6 +184,9 @@
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminLogin.cs" />
+    <Compile Include="Models\Celebrity.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DataBaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -198,6 +203,7 @@
       <DependentUpon>DataBaseModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\Admin.cs" />
+    <Compile Include="Models\Extended\Celebrity.cs" />
     <Compile Include="Models\ResetPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -266,6 +272,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\FogetPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Celebrity\NewCelebrity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

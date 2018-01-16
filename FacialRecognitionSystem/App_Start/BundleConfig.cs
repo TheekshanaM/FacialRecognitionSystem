@@ -26,6 +26,7 @@ namespace FacialRecognitionSystem
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       
                       "~/Content/style.css"));
+            
         }
     }
 }

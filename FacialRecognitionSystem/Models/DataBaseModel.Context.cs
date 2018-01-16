@@ -26,5 +26,6 @@ namespace FacialRecognitionSystem.Models
         }
     
         public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<Celebrity> Celebrities { get; set; }
     }
 }

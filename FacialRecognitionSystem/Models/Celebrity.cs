@@ -18,7 +18,10 @@ namespace FacialRecognitionSystem.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
-        public string Field { get; set; }
+        public string Feild { get; set; }
         public string Description { get; set; }
+
+        
     }
+     
 }

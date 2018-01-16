@@ -18,8 +18,20 @@
           <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="Celebrity">
+          <Key>
+            <PropertyRef Name="CelebrityId" />
+          </Key>
+          <Property Name="CelebrityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Feild" Type="varchar" MaxLength="20" />
+          <Property Name="Description" Type="varchar(max)" />
+        </EntityType>
         <EntityContainer Name="MyDbModelStoreContainer">
           <EntitySet Name="Admins" EntityType="Self.Admins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Celebrity" EntityType="Self.Celebrity" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -40,7 +52,19 @@
         </EntityType>
         <EntityContainer Name="MyDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Celebrities" EntityType="MyDbModel.Celebrity" />
         </EntityContainer>
+        <EntityType Name="Celebrity">
+          <Key>
+            <PropertyRef Name="CelebrityId" />
+          </Key>
+          <Property Name="CelebrityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Feild" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -58,6 +82,18 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
                 <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Celebrities">
+            <EntityTypeMapping TypeName="MyDbModel.Celebrity">
+              <MappingFragment StoreEntitySet="Celebrity">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Feild" ColumnName="Feild" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CelebrityId" ColumnName="CelebrityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

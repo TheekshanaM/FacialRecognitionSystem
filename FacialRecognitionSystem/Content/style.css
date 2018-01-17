@@ -76,10 +76,6 @@ i, span {
     left: 0;
     height: 100vh;
     z-index: 999;
-    
-    
-    
-
     min-width: 250px;
     max-width: 250px;
     background: linear-gradient(to bottom right, #3db9e2, #3888c4, #2277b7);
@@ -147,14 +143,14 @@ i, span {
     padding-bottom: 1px;
     padding-top: 1px;
     margin-top: -6px;
-    padding-left: 40px;
+    padding-left: 75px;
     background: linear-gradient(to right, #3ca0d1, #3076d1);
 }
 
 #sidebar .sidebar-header strong {
     
     display: none;
-    font-size: 1.8em;
+    font-size: 0.8em;
 }
 
 #sidebar ul.components {
@@ -169,14 +165,14 @@ i, span {
     display: block;
     background: linear-gradient(to bottom right, #0c68f2, #25b1ed);
 }
-#sidebar .admin-title h3{
+#sidebar ul li.admin-title h3{
     position: relative;
     text-align: center;
     margin: 0px;
     padding-top: 10px;
 }
 
-#sidebar .admin-box {
+#sidebar ul li.admin-box {
     position: relative;
     width: 80%;
     margin-left: 10%;
@@ -188,20 +184,24 @@ i, span {
     background-color: #fff;
 
 }
-#sidebar .admin-box img {
+
+
+#sidebar ul li.admin-box img {
     border-radius: 50%;
-    position: relative;
+    position: static;
     width:90px;
     height: 90px;
     margin-left: 30%;
     margin-top: 15px; 
 }
-#sidebar .admin-box h4 {
+#sidebar ul li.admin-box h4 {
     position: relative;
     text-align: center;
+    font-size: 1.1em;
     color: #558fed;
     margin-bottom: -11px;
     margin-top: 15px;
+
 }
 
 #sidebar .admin-box a {
@@ -217,10 +217,12 @@ i, span {
 
 #sidebar.active li.admin-title {
     display: none;
+
 }
 #sidebar.active li.admin-box {
     display: none;
 }
+
 
 #sidebar ul li a {
     padding: 10px;
@@ -376,6 +378,17 @@ a.article, a.article:hover {
         padding: 10px !important;
     }
 
+    #sidebar .admin-title h3 {
+        display: none;
+    }
+    #sidebar .admin-box img {
+        display: none;
+    }
+    #sidebar .admin-box h4 {
+         display: none;
+    }
+
+
     #sidebar ul li a i {
         font-size: 1.3em;
     }
@@ -386,14 +399,14 @@ a.article, a.article:hover {
         width: 100%;
     }
     #navigation.active {
-        width: calc(100% - 250px);
+        width: calc(100% - 80px);
     }
     
     #content {
         width: 100%;
     }
     #content.active {
-        width: calc(100% - 250px);
+        width: calc(100% - 83px);
     }
     #sidebarCollapse span {
         display: none;

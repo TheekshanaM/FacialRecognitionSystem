@@ -23,10 +23,25 @@ namespace FacialRecognitionSystem
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/avatar").Include(
+                      "~/Scripts/site.avatar.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jcrop").Include(
+                      "~/Scripts/jquery.Jcrop.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryform").Include(
+                      "~/Scripts/jquery.form.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      
-                      "~/Content/style.css"));
-            
+                      "~/Content/bootstrap.css",
+                      "~/Content/style.css",
+                      "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/jcrop").Include(
+                      "~/Content/jquery.Jcrop.css"));
+
+            bundles.Add(new StyleBundle("~/Content/avatar").Include(
+                      "~/Content/site.avatar.css"));
         }
     }
 }

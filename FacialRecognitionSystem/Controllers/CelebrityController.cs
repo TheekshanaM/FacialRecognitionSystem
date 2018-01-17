@@ -18,6 +18,8 @@ namespace FacialRecognitionSystem.Controllers
     {
         HttpClient client = new HttpClient();
 
+        
+
         public CelebrityController()
         {
             client.BaseAddress = new Uri("http://localhost:13138/");
@@ -36,7 +38,7 @@ namespace FacialRecognitionSystem.Controllers
         
         public async Task<ActionResult> NewCelebrity(Celebrity celebrity)
         {
-            string message = "";
+            int message;
             if (ModelState.IsValid)
             {
                 celebrity.Gender = celebrity.Gender.ToString();
@@ -48,11 +50,13 @@ namespace FacialRecognitionSystem.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    message = response.Content.ReadAsAsync<string>().Result;
-                    if (message == "Success")
+                    message = response.Content.ReadAsAsync<int>().Result;
+                    
+                     
+                    if (message != 0)
                     {
-
-                        return View();
+                        
+                        return RedirectToAction("UploadPhoto", new { id = message });
                     }
                     else
                     {
@@ -67,6 +71,49 @@ namespace FacialRecognitionSystem.Controllers
             return View(celebrity);
         }
 
+        
+        public ActionResult UploadPhoto(int id)
+        {
+            PhotoUploadModel model = new PhotoUploadModel();
+            model.id = id;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult UploadPhoto(PhotoUploadModel model)
+        {
+            HttpPostedFileBase file = model.imageBrowes;
+            try
+            {
+                string _path = "";
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    _path = Path.Combine(Server.MapPath("~/Photo/Celebrity"), _FileName);
+                    file.SaveAs(_path);
+                }
+                
+                CelebrityPhoto cmodel = new CelebrityPhoto();
+                cmodel.CelibrityID = model.id;
+                cmodel.Link = "/Photo/Celebrity/" + file.FileName;
+                using(MyDbEntities db = new MyDbEntities())
+                {
+                    db.CelebrityPhotoes.Add(cmodel);
+                    db.SaveChanges();
+                }
+                return RedirectToAction("CelebrityProfile");
+            }
+            catch
+            {
+                ViewBag.Message = "File upload failed!!";
+                return null;
+            }
+        }
+
+        public ActionResult CelebrityProfile()
+        {
+            return View();
+        }
         
     }
 }

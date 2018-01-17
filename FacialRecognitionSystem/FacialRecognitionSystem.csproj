@@ -174,6 +174,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AdminAccountController.cs" />
     <Compile Include="Controllers\API\CelebrityController.cs" />
+    <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Controllers\CelebrityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Crypto.cs" />
@@ -184,7 +185,16 @@
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminLogin.cs" />
+    <Compile Include="Models\AdminPhoto.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Celebrity.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CelebrityPhoto.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CelebritySuggestion.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataBaseModel.Context.cs">
@@ -203,7 +213,35 @@
       <DependentUpon>DataBaseModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Extended\Admin.cs" />
+    <Compile Include="Models\Location.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Login.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PhotoUploadModel.cs" />
+    <Compile Include="Models\RateSuggestion.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ResetPassword.cs" />
+    <Compile Include="Models\Search.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SearchType.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserPhoto.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -217,6 +255,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\Profile picture.jpg" />
     <Content Include="Models\DataBaseModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataBaseModel.edmx</DependentUpon>
@@ -277,6 +316,10 @@
     <Content Include="Views\Account\FogetPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Celebrity\NewCelebrity.cshtml" />
+    <Content Include="Views\Avatar\Upload.cshtml" />
+    <Content Include="Views\Avatar\_Upload.cshtml" />
+    <Content Include="Views\Celebrity\UploadPhoto.cshtml" />
+    <Content Include="Views\Celebrity\CelebrityProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

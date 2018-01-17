@@ -14,7 +14,7 @@ namespace FacialRecognitionSystem.Controllers.API
     {
         [HttpPost]
         [Route("api/Celebrity/NewCelebrity")]
-        public string NewCelebrity([FromBody]Celebrity celebrity)
+        public int NewCelebrity([FromBody]Celebrity celebrity)
         {
             
             if (ModelState.IsValid)
@@ -24,13 +24,14 @@ namespace FacialRecognitionSystem.Controllers.API
                 {
                     db.Celebrities.Add(celebrity);
                     db.SaveChanges();
+                    int celebrityId = celebrity.CelebrityId;
 
-                    return "Success";
+                    return celebrityId;
                 }
             }
             else
             {
-                return "Invalid Request";
+                return 0;
             }
 
         }

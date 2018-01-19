@@ -19,14 +19,15 @@ namespace FacialRecognitionSystem.Controllers.API
             
             if (ModelState.IsValid)
             {
+
                 //save to database
                 using (MyDbEntities db = new MyDbEntities())
                 {
                     db.Celebrities.Add(celebrity);
                     db.SaveChanges();
-                    int celebrityId = celebrity.CelebrityId;
+                    int id = celebrity.CelebrityId;
 
-                    return celebrityId;
+                    return id;
                 }
             }
             else
@@ -34,6 +35,29 @@ namespace FacialRecognitionSystem.Controllers.API
                 return 0;
             }
 
+        }
+
+        [HttpPost]
+        [Route("api/Celebrity/CelebrityPhoto")]
+        public string CelebrityPhoto([FromBody]CelebrityPhoto model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //save to database
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    db.CelebrityPhotoes.Add(model);
+                    db.SaveChanges();
+                    
+
+                    return "Success";
+                }
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }

@@ -11,8 +11,8 @@
 
     @using (Html.BeginForm("UploadPhoto", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
-        <div class="col-md-4">
-            <label class="btn btn-primary">Browse
+        <div class="col-md-4" >
+            <label class="btn btn-primary" id="imageButton"><img src="~/Image/Profile picture.jpg"  style="height:50px;">
 
                 <input id="imageBrowes" name="imageBrowes" type="file" style="display:none;">
             </label>
@@ -27,7 +27,7 @@
                         <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
                         <span id="description"></span>
                     </div>
-                    <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="upload">
+                    <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="upload" >
                 </div>
 
             </div>
@@ -75,6 +75,7 @@
                 $("#targetImg").attr('src', _file.target.result);
                 $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
                 $("#imgPreview").show();
+                $("#imageButton").hide();
 
             }
 
@@ -86,6 +87,7 @@
         $("#imageBrowes").val('');
         $("#description").text('');
         $("#imgPreview").hide();
+        $("#imageButton").show();
 
     }
 

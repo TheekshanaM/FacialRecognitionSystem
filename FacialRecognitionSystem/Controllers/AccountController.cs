@@ -169,7 +169,12 @@ namespace FacialRecognitionSystem.Controllers
         [Authorize]
         public ActionResult LogOut()
         {
+            
+            
+
             FormsAuthentication.SignOut();
+            
+
             return RedirectToAction("Login", "Account");
         }
 

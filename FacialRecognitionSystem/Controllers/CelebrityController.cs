@@ -36,39 +36,88 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         
-        public async Task<ActionResult> NewCelebrity(Celebrity celebrity)
+        public async Task<ActionResult> NewCelebrity(CreateCelebrityViewModel celebrity)
         {
-            int message;
-            if (ModelState.IsValid)
+            string message ;
+            int id;
+            HttpPostedFileBase file = celebrity.imageBrowes;
+            try
             {
-                celebrity.Gender = celebrity.Gender.ToString();
-                var serializer = new JavaScriptSerializer();
-                var json = serializer.Serialize(celebrity);
-                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+                string _path = "";
+                if (file.ContentLength > 0)
+                {
+                    string _FileName = Path.GetFileName(file.FileName);
+                    _path = Path.Combine(Server.MapPath("~/Photo/Celebrity"), _FileName);
+                    file.SaveAs(_path);
+                }
 
-                HttpResponseMessage response = await client.PostAsync("api/Celebrity/NewCelebrity", stringContent);
+                
+                celebrity.Link = "/Photo/Celebrity/" + file.FileName;
+                Celebrity celebrityModel = new Celebrity();
+                celebrityModel.FirstName = celebrity.FirstName;
+                celebrityModel.LastName = celebrity.LastName;
+                celebrityModel.Gender = celebrity.Gender;
+                celebrityModel.Feild = celebrity.Feild;
+                celebrityModel.Description = celebrity.Description;
+                celebrityModel.ActiveStatus = true;
+
+                CelebrityPhoto photoModel = new CelebrityPhoto();
+                photoModel.Link = celebrity.Link;
+
+                var serializer = new JavaScriptSerializer();
+                var json1 = serializer.Serialize(celebrityModel);
+                
+                var stringContent1 = new StringContent(json1, Encoding.UTF8, "application/json");
+                
+
+                HttpResponseMessage response = await client.PostAsync("api/Celebrity/NewCelebrity", stringContent1);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    message = response.Content.ReadAsAsync<int>().Result;
+                    id = response.Content.ReadAsAsync<int>().Result;
                     
-                     
-                    if (message != 0)
+
+                    if (id != 0)
                     {
-                        
-                        return RedirectToAction("UploadPhoto", new { id = message });
+                        photoModel.CelibrityID = id;
+                        var json2 = serializer.Serialize(photoModel);
+                        var stringContent2 = new StringContent(json2, Encoding.UTF8, "application/json");
+                        response = await client.PostAsync("api/Celebrity/CelebrityPhoto", stringContent2);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            message = response.Content.ReadAsAsync<string>().Result;
+                            if(message == "Success")
+                            {
+                                return RedirectToAction("CelebrityProfile");
+                            }
+                            else
+                            {
+                                return View(celebrity);
+                            }
+                        }
+                        else
+                        {
+                            return View(celebrity);
+                        }
+                            
                     }
                     else
                     {
                         return View(celebrity);
                     }
                 }
+
+
+                return View();
             }
-            else
+            catch
             {
-                return View(celebrity);
+                ViewBag.Message = "File upload failed!!";
+                return null;
             }
-            return View(celebrity);
+            
+            
         }
 
         

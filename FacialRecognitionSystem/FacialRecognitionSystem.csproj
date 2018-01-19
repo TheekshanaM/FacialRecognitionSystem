@@ -197,6 +197,7 @@
     <Compile Include="Models\CelebritySuggestion.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateCelebrityViewModel.cs" />
     <Compile Include="Models\DataBaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

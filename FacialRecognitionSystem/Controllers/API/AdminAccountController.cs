@@ -180,7 +180,7 @@ namespace FacialRecognitionSystem.Controllers.API
 
             var fromEmail = new MailAddress("thrinduchulle@gmail.com", "thrindu chulle");//your email address
             var toEmail = new MailAddress(email);
-            var fromEmailPassword = "inspiron15";//email password
+            var fromEmailPassword = "****";//email password
 
             string subject = "";
             string body = "";

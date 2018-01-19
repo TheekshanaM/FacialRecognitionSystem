@@ -174,7 +174,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AdminAccountController.cs" />
     <Compile Include="Controllers\API\CelebrityController.cs" />
-    <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Controllers\CelebrityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Crypto.cs" />
@@ -248,9 +247,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\login.css" />
-    <Content Include="Content\site.avatar.css" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -319,7 +316,6 @@
     <Content Include="Views\Celebrity\NewCelebrity.cshtml" />
     <Content Include="Views\Avatar\Upload.cshtml" />
     <Content Include="Views\Avatar\_Upload.cshtml" />
-    <Content Include="Views\Celebrity\UploadPhoto.cshtml" />
     <Content Include="Views\Celebrity\CelebrityProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>

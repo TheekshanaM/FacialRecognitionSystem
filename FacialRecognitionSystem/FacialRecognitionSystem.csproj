@@ -314,8 +314,6 @@
     <Content Include="Views\Account\FogetPassword.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Celebrity\NewCelebrity.cshtml" />
-    <Content Include="Views\Avatar\Upload.cshtml" />
-    <Content Include="Views\Avatar\_Upload.cshtml" />
     <Content Include="Views\Celebrity\CelebrityProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>

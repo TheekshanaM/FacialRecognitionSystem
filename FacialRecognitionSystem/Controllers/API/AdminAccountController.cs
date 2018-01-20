@@ -1,6 +1,7 @@
 ﻿using FacialRecognitionSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -175,7 +176,7 @@ namespace FacialRecognitionSystem.Controllers.API
         public void SendVerificationLinkEmail(string email, string activatonCode, string emailFor = "VerifyAccount")
         {
             var verifyUrl = "/Account/" + emailFor + "/" + activatonCode;
-            var link = "http://localhost:13138" + verifyUrl;
+            var link = ConfigurationManager.AppSettings["Host"].ToString() + verifyUrl;
                 //Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
             var fromEmail = new MailAddress("thrinduchulle@gmail.com", "thrindu chulle");//your email address

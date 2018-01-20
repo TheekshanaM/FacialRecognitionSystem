@@ -1,6 +1,7 @@
 ﻿using FacialRecognitionSystem.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,7 +22,7 @@ namespace FacialRecognitionSystem.Controllers
 
         public AccountController()
         {
-            client.BaseAddress = new Uri("http://localhost:13138/");
+            client.BaseAddress = new Uri(ConfigurationManager.AppSettings["Host"].ToString());
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));

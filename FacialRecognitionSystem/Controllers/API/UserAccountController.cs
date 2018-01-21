@@ -1,4 +1,6 @@
 ﻿using FacialRecognitionSystem.Models;
+using DataAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;

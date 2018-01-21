@@ -1,4 +1,6 @@
 ﻿using FacialRecognitionSystem.Models;
+using DataAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -64,6 +66,7 @@ namespace FacialRecognitionSystem.Controllers
 
                 CelebrityPhoto photoModel = new CelebrityPhoto();
                 photoModel.Link = celebrity.Link;
+                photoModel.ProfilePic = true;
 
                 var serializer = new JavaScriptSerializer();
                 var json1 = serializer.Serialize(celebrityModel);
@@ -90,7 +93,8 @@ namespace FacialRecognitionSystem.Controllers
                             message = response.Content.ReadAsAsync<string>().Result;
                             if(message == "Success")
                             {
-                                return RedirectToAction("CelebrityProfile");
+                                
+                                return RedirectToAction("CelebrityProfile", new {id=id });
                             }
                             else
                             {
@@ -121,49 +125,23 @@ namespace FacialRecognitionSystem.Controllers
             
         }
 
-        
-        public ActionResult UploadPhoto(int id)
-        {
-            PhotoUploadModel model = new PhotoUploadModel();
-            model.id = id;
-            return View(model);
-        }
 
-        [HttpPost]
-        public ActionResult UploadPhoto(PhotoUploadModel model)
-        {
-            HttpPostedFileBase file = model.imageBrowes;
-            try
-            {
-                string _path = "";
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    _path = Path.Combine(Server.MapPath("~/Photo/Celebrity"), _FileName);
-                    file.SaveAs(_path);
-                }
-                
-                CelebrityPhoto cmodel = new CelebrityPhoto();
-                cmodel.CelibrityID = model.id;
-                cmodel.Link = "/Photo/Celebrity/" + file.FileName;
-                using(MyDbEntities db = new MyDbEntities())
-                {
-                    db.CelebrityPhotoes.Add(cmodel);
-                    db.SaveChanges();
-                }
-                return RedirectToAction("CelebrityProfile");
-            }
-            catch
-            {
-                ViewBag.Message = "File upload failed!!";
-                return null;
-            }
-        }
 
-        public ActionResult CelebrityProfile()
+
+
+
+        public async Task<ActionResult> CelebrityProfile(int id)
         {
+            HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                var a = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
+                ViewBag.Message = a.FirstName;
+            }
+
+            
             return View();
         }
-        
+
     }
 }

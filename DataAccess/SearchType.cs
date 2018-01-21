@@ -7,29 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Admin
+    public partial class SearchType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Admin()
+        public SearchType()
         {
-            this.AdminPhotoes = new HashSet<AdminPhoto>();
+            this.Searches = new HashSet<Search>();
         }
     
-        public int AdminId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public bool IsEmailVerified { get; set; }
-        public System.Guid ActivationCode { get; set; }
-        public string ResetPasswordCode { get; set; }
+        public int ID { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdminPhoto> AdminPhotoes { get; set; }
+        public virtual ICollection<Search> Searches { get; set; }
     }
 }

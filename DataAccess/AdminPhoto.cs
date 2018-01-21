@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class CelebrityPhoto
+    public partial class AdminPhoto
     {
         public int PhotoID { get; set; }
         public string Link { get; set; }
-        public bool DeletedStatus { get; set; }
-        public int CelibrityID { get; set; }
+        public bool DeleteStatus { get; set; }
+        public int AdminID { get; set; }
     
-        public virtual Celebrity Celebrity { get; set; }
+        public virtual Admin Admin { get; set; }
     }
 }

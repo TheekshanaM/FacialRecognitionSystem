@@ -7,17 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Login
+    public partial class CelebrityPhoto
     {
-        public int ProfileID { get; set; }
-        public bool OnlineStatus { get; set; }
-        public System.DateTime Date { get; set; }
+        public int PhotoID { get; set; }
+        public string Link { get; set; }
+        public bool DeletedStatus { get; set; }
+        public int CelibrityID { get; set; }
+        public bool ProfilePic { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual Celebrity Celebrity { get; set; }
     }
 }

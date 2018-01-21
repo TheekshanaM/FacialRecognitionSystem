@@ -6,16 +6,10 @@ using System.Web;
 
 namespace FacialRecognitionSystem.Models
 {
-    [MetadataType(typeof(AdminMetadata))]
-    public partial class Admin
+    public class AdminRegisterViewModel
     {
-        public string ConfirmPassword { get; set; }
-    }
-
-    public class AdminMetadata
-    {
-        [Display(Name ="First Name ")]
-        [Required(AllowEmptyStrings =false , ErrorMessage = "First Name is Required.")]
+        [Display(Name = "First Name ")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "First Name is Required.")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name ")]
@@ -30,12 +24,14 @@ namespace FacialRecognitionSystem.Models
         [Display(Name = "Password ")]
         [DataType(DataType.Password)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is Required.")]
-        [MinLength(6 , ErrorMessage = "Minimum 6 characters Required.")]
+        [MinLength(6, ErrorMessage = "Minimum 6 characters Required.")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password ")]
         [DataType(DataType.Password)]
-        [Compare("Password" , ErrorMessage = "Password not match.")]
+        [Compare("Password", ErrorMessage = "Password not match.")]
         public string ConfirmPassword { get; set; }
+
+
     }
 }

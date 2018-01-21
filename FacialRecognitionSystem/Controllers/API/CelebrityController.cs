@@ -1,5 +1,6 @@
 ﻿
 using FacialRecognitionSystem.Models;
+using DataAccess;
 
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,47 @@ namespace FacialRecognitionSystem.Controllers.API
             {
                 return "";
             }
+        }
+
+        [HttpGet]
+        
+        public CelebrityViewModel ViewCelebrity(int id)
+        {
+            try
+            {
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    CelebrityViewModel model = new CelebrityViewModel();
+                    var celebrity = db.Celebrities.Where(a => a.CelebrityId == id).FirstOrDefault();
+                    if (celebrity != null)
+                    {
+                        var photo = db.CelebrityPhotoes.Where(u => u.CelibrityID == id).Select(u => u.Link).ToList();
+                        var ProfilePic = db.CelebrityPhotoes.Where(c => c.CelibrityID == id && c.ProfilePic == true).FirstOrDefault();
+
+                        model.CelebrityId = celebrity.CelebrityId;
+                        model.FirstName = celebrity.FirstName;
+                        model.LastName = celebrity.LastName;
+                        model.Gender = celebrity.Gender;
+                        model.Feild = celebrity.Feild;
+                        model.Description = celebrity.Description;
+                        model.Rating = celebrity.Rating;
+                        model.ProfilePic = ProfilePic.Link;
+                        model.photo = photo;
+                        
+                        return model;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
+                }
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
+            
         }
     }
 }

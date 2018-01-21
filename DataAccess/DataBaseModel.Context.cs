@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Data.Entity;
@@ -25,9 +25,9 @@ namespace FacialRecognitionSystem.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AdminPhoto> AdminPhotoes { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Celebrity> Celebrities { get; set; }
-        public virtual DbSet<AdminPhoto> AdminPhotoes { get; set; }
         public virtual DbSet<CelebrityPhoto> CelebrityPhotoes { get; set; }
         public virtual DbSet<CelebritySuggestion> CelebritySuggestions { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
@@ -35,7 +35,6 @@ namespace FacialRecognitionSystem.Models
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<SearchType> SearchTypes { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPhoto> UserPhotoes { get; set; }
         public virtual DbSet<Login> Logins { get; set; }

@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class RateSuggestion
+    public partial class UserPhoto
     {
-        public int SuggestionID { get; set; }
-        public int SuggestorID { get; set; }
-        public System.DateTime Date { get; set; }
-        public int Rating { get; set; }
+        public int PhotoID { get; set; }
+        public string Link { get; set; }
+        public bool DeleteStatus { get; set; }
+        public int UploaderID { get; set; }
     
-        public virtual CelebritySuggestion CelebritySuggestion { get; set; }
+        public virtual User User { get; set; }
     }
 }

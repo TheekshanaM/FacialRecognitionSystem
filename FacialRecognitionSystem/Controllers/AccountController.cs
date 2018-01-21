@@ -1,4 +1,6 @@
 ﻿using FacialRecognitionSystem.Models;
+using DataAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,7 +38,7 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register([Bind(Exclude = "isEmailVerified , activationCode")] Admin admin)
+        public async Task<ActionResult> Register([Bind(Exclude = "isEmailVerified , activationCode")] AdminRegisterViewModel admin)
         {
             Boolean status = false;
             string message = "";
@@ -47,8 +49,8 @@ namespace FacialRecognitionSystem.Controllers
                 var json = serializer.Serialize(admin);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await client.PostAsync("API/AdminAccount/Register", stringContent);
-
+                HttpResponseMessage response = await client.PostAsync("api/AdminAccount/Register", stringContent);
+                ViewBag.Message = response.ToString();
                 if (response.IsSuccessStatusCode)
                 {
                     message = response.Content.ReadAsAsync<string>().Result;
@@ -66,7 +68,7 @@ namespace FacialRecognitionSystem.Controllers
             {
                 message = "Invalid Request !";
             }
-            ViewBag.Message = message;
+            
             ViewBag.Status = status;
 
             return View(admin);

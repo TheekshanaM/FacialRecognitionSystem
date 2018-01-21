@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace FacialRecognitionSystem.Controllers
 {
-    [Authorize]
+    
     public class HomeController : Controller
     {
         

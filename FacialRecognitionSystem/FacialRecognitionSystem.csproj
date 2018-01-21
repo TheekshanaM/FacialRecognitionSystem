@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FacialRecognitionSystem</RootNamespace>
     <AssemblyName>FacialRecognitionSystem</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -25,6 +25,8 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,12 +47,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -87,6 +87,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -98,8 +99,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
@@ -108,9 +108,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -152,6 +150,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -181,69 +180,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Admin.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\AdminLogin.cs" />
-    <Compile Include="Models\AdminPhoto.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Celebrity.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CelebrityPhoto.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CelebritySuggestion.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\AdminRegisterViewModel.cs" />
+    <Compile Include="Models\CelebrityViewModel.cs" />
     <Compile Include="Models\CreateCelebrityViewModel.cs" />
-    <Compile Include="Models\DataBaseModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataBaseModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataBaseModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataBaseModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Extended\Admin.cs" />
-    <Compile Include="Models\Location.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Login.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\PhotoUploadModel.cs" />
-    <Compile Include="Models\RateSuggestion.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Report.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ResetPassword.cs" />
-    <Compile Include="Models\Search.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SearchType.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\UserLogin.cs" />
-    <Compile Include="Models\UserPhoto.cs">
-      <DependentUpon>DataBaseModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -256,16 +199,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\Profile picture.jpg" />
-    <Content Include="Models\DataBaseModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataBaseModel.edmx</DependentUpon>
-      <LastGenOutput>DataBaseModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DataBaseModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataBaseModel.edmx</DependentUpon>
-      <LastGenOutput>DataBaseModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -273,13 +206,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\DataBaseModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataBaseModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DataBaseModel.edmx.diagram">
-      <DependentUpon>DataBaseModel.edmx</DependentUpon>
-    </Content>
+    <None Include="Properties\PublishProfiles\faceitbeta - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -331,6 +258,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{a75ba826-b1cd-49a9-9284-79f9d355f844}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

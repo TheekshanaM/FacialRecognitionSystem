@@ -7,18 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class UserPhoto
+    public partial class Report
     {
-        public int PhotoID { get; set; }
-        public string Link { get; set; }
-        public bool DeleteStatus { get; set; }
-        public int UploaderID { get; set; }
+        public int ReportID { get; set; }
+        public int ReporterID { get; set; }
+        public int ReportedID { get; set; }
+        public string Comment { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

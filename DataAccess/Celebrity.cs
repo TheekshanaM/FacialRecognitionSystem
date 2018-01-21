@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FacialRecognitionSystem.Models
+namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Celebrity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,11 +22,8 @@ namespace FacialRecognitionSystem.Models
             this.CelebritySuggestions1 = new HashSet<CelebritySuggestion>();
         }
     
-        [Key]
         public int CelebrityId { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "First Name Required !")]
         public string FirstName { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Last Name Required !")]
         public string LastName { get; set; }
         public string Gender { get; set; }
         public string Feild { get; set; }

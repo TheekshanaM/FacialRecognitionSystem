@@ -1,4 +1,6 @@
 ﻿using FacialRecognitionSystem.Models;
+using DataAccess;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -48,26 +50,29 @@ namespace FacialRecognitionSystem.Controllers.API
 
         [HttpPost]
         [Route("api/AdminAccount/Register")]
-        public string Register([FromBody]Admin admin)
+        public string Register([FromBody]AdminRegisterViewModel adminModel)
         {
             string message = "";
             if (ModelState.IsValid)
             {
                 //Email is already exist
-                var isExist = IsEmailExist(admin.Email);
+                var isExist = IsEmailExist(adminModel.Email);
                 if (isExist)
                 {
                     return "EmailExist";
                 }
-
+                //password encoding
+                adminModel.Password = Crypto.Hash(adminModel.Password);
+                adminModel.ConfirmPassword = Crypto.Hash(adminModel.ConfirmPassword);
+                Admin admin = new Admin();
+                admin.FirstName = adminModel.FirstName;
+                admin.LastName = adminModel.LastName;
+                admin.Email = adminModel.Email;
+                admin.Password = adminModel.Password;
+                admin.IsEmailVerified = false;
                 //Generate Activation code
                 admin.ActivationCode = Guid.NewGuid();
-
-                //password encoding
-                admin.Password = Crypto.Hash(admin.Password);
-                admin.ConfirmPassword = Crypto.Hash(admin.ConfirmPassword);
-
-                admin.IsEmailVerified = false;
+                
 
                 //save to database
                 using (MyDbEntities db = new MyDbEntities())
@@ -76,7 +81,7 @@ namespace FacialRecognitionSystem.Controllers.API
                     db.SaveChanges();
 
                     //send Email
-                    SendVerificationLinkEmail(admin.Email, admin.ActivationCode.ToString());
+                    SendVerificationLinkEmail(adminModel.Email, admin.ActivationCode.ToString());
                     message = "For activation check your email.";
 
                     return message;
@@ -167,7 +172,8 @@ namespace FacialRecognitionSystem.Controllers.API
         {
             using (MyDbEntities db = new MyDbEntities())
             {
-                var existState = db.Admins.Where(a => a.Email == email).FirstOrDefault();
+                var existState = db.Admins.FirstOrDefault(a => a.Email == email);
+                    //db.Admins.Where(a => a.Email == email).FirstOrDefault();
                 return existState != null;
             }
         }

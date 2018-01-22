@@ -24,6 +24,6 @@ namespace DataAccess
         public virtual Celebrity Celebrity { get; set; }
         public virtual Celebrity Celebrity1 { get; set; }
         public virtual RateSuggestion RateSuggestion { get; set; }
-        public virtual User User { get; set; }
+        public virtual UserData UserData { get; set; }
     }
 }

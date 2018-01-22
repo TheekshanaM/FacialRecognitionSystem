@@ -12,15 +12,14 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Report
+    public partial class reportedPerson
     {
-        public int ReportID { get; set; }
-        public int ReporterID { get; set; }
-        public int ReportedID { get; set; }
+        public int ReportId { get; set; }
+        public int ReporterId { get; set; }
+        public int ReportedId { get; set; }
         public string Comment { get; set; }
         public System.DateTime Date { get; set; }
-    
-        public virtual UserData UserData { get; set; }
-        public virtual UserData UserData1 { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

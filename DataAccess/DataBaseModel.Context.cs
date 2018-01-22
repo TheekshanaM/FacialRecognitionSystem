@@ -35,8 +35,9 @@ namespace DataAccess
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
         public virtual DbSet<SearchType> SearchTypes { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPhoto> UserPhotoes { get; set; }
         public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<UserData> UserDatas { get; set; }
+        public virtual DbSet<reportedPerson> reportedPersons { get; set; }
     }
 }

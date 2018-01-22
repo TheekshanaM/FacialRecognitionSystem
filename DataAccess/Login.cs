@@ -18,6 +18,6 @@ namespace DataAccess
         public bool OnlineStatus { get; set; }
         public System.DateTime Date { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual UserData UserData { get; set; }
     }
 }

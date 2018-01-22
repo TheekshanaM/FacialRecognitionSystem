@@ -21,7 +21,7 @@ namespace DataAccess
         public int TypeId { get; set; }
     
         public virtual SearchType SearchType { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
+        public virtual UserData UserData { get; set; }
+        public virtual UserData UserData1 { get; set; }
     }
 }

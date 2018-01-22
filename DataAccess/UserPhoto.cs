@@ -19,6 +19,6 @@ namespace DataAccess
         public bool DeleteStatus { get; set; }
         public int UploaderID { get; set; }
     
-        public virtual User User { get; set; }
+        public virtual UserData UserData { get; set; }
     }
 }

@@ -18,13 +18,13 @@ namespace FacialRecognitionSystem.Controllers.API
         [Route("api/UserAccount/Login")]
 
         //creat a new userLogin.cs file  -done  
-        public User Login([FromBody]UserLogin userLogin)
+        public UserData Login([FromBody]UserLogin userLogin)
         {
 
             string message = "";
             using (MyDbEntities db = new MyDbEntities())
             {
-                var user = db.Users.Where(a => a.Email == userLogin.Email).FirstOrDefault();
+                var user = db.UserDatas.Where(a => a.Email == userLogin.Email).FirstOrDefault();
                 if (user != null)
                 {
                     if (string.Compare(Crypto.Hash(userLogin.Password), user.Password) == 0)
@@ -50,7 +50,7 @@ namespace FacialRecognitionSystem.Controllers.API
 
         [HttpPost]
         [Route("api/UserAccount/Register")]
-        public User Register([FromBody]User user)
+        public UserData Register([FromBody]UserData user)
         {
             string message = "";
             if (ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace FacialRecognitionSystem.Controllers.API
                 //save to database
                 using (MyDbEntities db = new MyDbEntities())
                 {
-                    db.Users.Add(user);
+                    db.UserDatas.Add(user);
                     db.SaveChanges();
                     // map user detail with profile 4to
                     return user;
@@ -91,7 +91,7 @@ namespace FacialRecognitionSystem.Controllers.API
         {
             using (MyDbEntities db = new MyDbEntities())
             {
-                var existState = db.Admins.Where(a => a.Email == email).FirstOrDefault();
+                var existState = db.UserDatas.Where(a => a.Email == email).FirstOrDefault();
                 return existState != null;
             }
         }

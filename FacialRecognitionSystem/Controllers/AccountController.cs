@@ -283,6 +283,7 @@ namespace FacialRecognitionSystem.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<ActionResult> ChangeSetting()
         {
             Admin admin = new Admin();
@@ -306,9 +307,10 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangeSetting(Admin admin)
+        public ActionResult ChangeSetting(Admin admin)
         {
-            using(MyDbEntities db = new MyDbEntities())
+            admin.Email = System.Web.HttpContext.Current.User.Identity.Name;
+            using (MyDbEntities db = new MyDbEntities())
             {
                 Admin account = db.Admins.Where(a => a.Email == admin.Email).FirstOrDefault();
                 if(account != null)
@@ -320,7 +322,7 @@ namespace FacialRecognitionSystem.Controllers
                 }
                 else
                 {
-                    return View("admin");
+                    return View(admin);
                 }
             }
         }

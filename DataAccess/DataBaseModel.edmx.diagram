@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="MyDbModel.Report" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.Search" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.SearchType" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModel.User" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.UserPhoto" Width="1.5" PointX="3" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.Login" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
         <AssociationConnector Association="MyDbModel.FK_AdminPhoto_Admins" ManuallyRouted="false" />
@@ -23,15 +22,17 @@
         <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_Celebrity" ManuallyRouted="false" />
         <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_Celebrity1" ManuallyRouted="false" />
         <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_RateSuggestion" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_Location_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_Report_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_Report_User1" ManuallyRouted="false" />
         <AssociationConnector Association="MyDbModel.FK_Search_SearchType" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_Search_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_Search_User1" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_Login_User" ManuallyRouted="false" />
-        <AssociationConnector Association="MyDbModel.FK_UserPhoto_User" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MyDbModel.UserData" Width="1.5" PointX="1.125" PointY="14.75" />
+        <EntityTypeShape EntityType="MyDbModel.reportedPerson" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_User1" />
+        <AssociationConnector Association="MyDbModel.FK_Location_User1" />
+        <AssociationConnector Association="MyDbModel.FK_Report_User2" />
+        <AssociationConnector Association="MyDbModel.FK_Report_User11" />
+        <AssociationConnector Association="MyDbModel.FK_Search_User2" />
+        <AssociationConnector Association="MyDbModel.FK_Search_User11" />
+        <AssociationConnector Association="MyDbModel.FK_Login_User1" />
+        <AssociationConnector Association="MyDbModel.FK_UserPhoto_User1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

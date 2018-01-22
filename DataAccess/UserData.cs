@@ -12,10 +12,10 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class UserData
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
+        public UserData()
         {
             this.CelebritySuggestions = new HashSet<CelebritySuggestion>();
             this.Reports = new HashSet<Report>();
@@ -32,7 +32,6 @@ namespace DataAccess
         public string Email { get; set; }
         public string Password { get; set; }
         public string Description { get; set; }
-        public System.DateTime DOB { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
         public bool LocationPermission { get; set; }

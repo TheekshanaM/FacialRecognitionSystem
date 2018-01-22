@@ -62,7 +62,6 @@ namespace FacialRecognitionSystem.Controllers.API
         }
 
         [HttpGet]
-        
         public CelebrityViewModel ViewCelebrity(int id)
         {
             try
@@ -101,5 +100,9 @@ namespace FacialRecognitionSystem.Controllers.API
             }
             
         }
+
+        
+
+        
     }
 }

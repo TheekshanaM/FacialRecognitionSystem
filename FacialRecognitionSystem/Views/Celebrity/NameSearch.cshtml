@@ -1,0 +1,30 @@
+﻿@model DataAccess.Celebrity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "NameSearch";
+}
+
+<h2>NewCelebrity</h2>
+
+@using (Html.BeginForm("NewCelebrity", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Celebrity</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @Value = Model.FirstName } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+}

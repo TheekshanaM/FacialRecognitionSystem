@@ -264,6 +264,9 @@
     <Content Include="Views\Celebrity\NewCelebrity.cshtml" />
     <Content Include="Views\Celebrity\CelebrityProfile.cshtml" />
     <Content Include="Views\Account\ChangeSetting.cshtml" />
+    <Content Include="Views\Celebrity\Search.cshtml" />
+    <Content Include="Views\Celebrity\NameSearch.cshtml" />
+    <Content Include="Views\Celebrity\changesetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

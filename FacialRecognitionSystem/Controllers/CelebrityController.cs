@@ -147,11 +147,6 @@ namespace FacialRecognitionSystem.Controllers
             
         }
 
-
-
-
-
-
         public async Task<ActionResult> CelebrityProfile(int id)
         {
             HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + id);
@@ -164,6 +159,33 @@ namespace FacialRecognitionSystem.Controllers
             
             return RedirectToAction("NewCelebrity");
         }
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NameSearch(Celebrity model)
+        {
+            using (MyDbEntities db = new MyDbEntities()) {
+                var celebrity = db.Celebrities.Where(a => a.FirstName == model.FirstName).ToList();
+                if(celebrity != null)
+                {
+                    return View(celebrity);
+                }
+                return RedirectToAction("Index", "Home");
+            }
+        }
 
+        public async Task<ActionResult> changesetting(int id)
+        {
+            HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + id);
+            if (response.IsSuccessStatusCode)
+            {
+                CelebrityViewModel model = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
+                return View(model);
+            }
+            return RedirectToAction("NewCelebrity");
+        }
     }
 }

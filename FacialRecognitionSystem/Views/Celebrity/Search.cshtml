@@ -1,0 +1,147 @@
+﻿@model DataAccess.Celebrity
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+@using (Html.BeginForm("NameSearch", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+<div class="form-horizontal">
+
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <h3>Name Search</h3>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Name ...", required = "required" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="Search"  >
+        </div>
+    </div>
+
+</div>
+}
+
+<br />
+<hr />
+
+@using (Html.BeginForm("ImageSearch", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h3>Image Search</h3>
+        <div class="col-md-4">
+            <label class="btn btn-primary" id="imageButton">
+                Select Image
+                <input id="imageBrowes" name="imageBrowes" type="file" style="display:none;" onchange="return ValidateFileUpload()" required>
+            </label>
+            <input class="btn btn-info" type="submit" name="submit" value="upload" id="btnupload" onclick="return imageValid()">
+
+            <div id="imgPreview" class="thumbnail" style="display:none">
+                <img class="img-responsive" id="targetImg" />
+                <div class="caption">
+                    <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                    <span id="description"></span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+}
+
+
+
+
+<script>
+    function ValidateFileUpload() {
+        var fuData = document.getElementById('imageBrowes');
+        var FileUploadPath = fuData.value;
+
+        //To check if user upload any file
+        if (FileUploadPath == '') {
+            alert("Please upload an image");
+
+        } else {
+            var Extension = FileUploadPath.substring(
+                FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+            //The file uploaded is an image
+
+            if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                || Extension == "jpeg" || Extension == "jpg") {
+
+                // To Display
+                if (fuData.files && fuData.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#targetImg').attr('src', e.target.result);
+
+                        $("#imgPreview").show();
+
+                    }
+
+                    reader.readAsDataURL(fuData.files[0]);
+                }
+
+            }
+
+            //The file upload is NOT an image
+            else {
+                alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+
+            }
+        }
+    }
+
+
+    var ClearPreview = function () {
+        $("#imageBrowes").val('');
+        $("#description").text('');
+        $("#imgPreview").hide();
+        $("#imageButton").show();
+
+    }
+
+
+
+    function imageValid() {
+        var fuData = document.getElementById('imageBrowes');
+        var FileUploadPath = fuData.value;
+        var Extension = FileUploadPath.substring(
+            FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+        //To check if user upload any file
+        if (FileUploadPath == '') {
+            alert("Please upload an image");
+
+        } else if (Extension == "png" || Extension == "bmp"
+            || Extension == "jpeg" || Extension == "jpg") {
+
+            return true;
+        } else {
+            alert("Photo only allows file types of PNG, JPG, JPEG and BMP. ");
+            return false;
+        }
+    }
+
+</script>

@@ -12,48 +12,71 @@
 
 <div class="jumbotron">
     <div class="container">
-        @using (Html.BeginForm("NewCelebrity", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
                 <h4>Celebrity</h4>
                 <hr />
+
+                <div class="form-group">
+                    <div class="col-md-4 col-md-offset-2">
+                        <div id="imgPreview" class="thumbnail">
+                            <img class="img-responsive" src="@Model.ProfilePic" />
+                        </div>
+                    </div>
+                </div>
                 
+
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @ViewBag.Message
-                        <input type="text" value=@ViewBag.FirstName/>
+                    
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @Value = Model.FirstName , disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        
+
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @Value = Model.LastName, disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        
+
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @Value = Model.Gender, disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Feild, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        
+
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", @Value = Model.Feild, disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Feild, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        
+
+                    <div class="col-md-5">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @Value = Model.Description, disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
                     </div>
                 </div>
 

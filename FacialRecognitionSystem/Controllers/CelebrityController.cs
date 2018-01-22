@@ -157,12 +157,12 @@ namespace FacialRecognitionSystem.Controllers
             HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + id);
             if (response.IsSuccessStatusCode)
             {
-                var a = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
-                
+                CelebrityViewModel model = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
+                return View(model);
             }
 
             
-            return View();
+            return RedirectToAction("NewCelebrity");
         }
 
     }

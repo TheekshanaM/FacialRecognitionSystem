@@ -193,9 +193,9 @@ namespace FacialRecognitionSystem.Controllers.API
             var link = ConfigurationManager.AppSettings["Host"].ToString() + verifyUrl;
                 //Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("thrinduchulle@gmail.com", "thrindu chulle");//your email address
+            var fromEmail = new MailAddress("uomzircontech@gmail.com", "thrindu chulle");//your email address
             var toEmail = new MailAddress(email);
-            var fromEmailPassword = "****";//email password
+            var fromEmailPassword = "FaceItZirconTech";//email password
 
             string subject = "";
             string body = "";

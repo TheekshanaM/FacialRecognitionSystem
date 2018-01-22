@@ -49,7 +49,7 @@ namespace FacialRecognitionSystem.Controllers
             HttpPostedFileBase file = celebrity.imageBrowes;
             try
             {
-                string _path = "";
+                
                 
 
                 
@@ -76,21 +76,22 @@ namespace FacialRecognitionSystem.Controllers
                 {
                     id = response.Content.ReadAsAsync<int>().Result;
 
+                    DateTime dTime = DateTime.Now;
+                    string time = dTime.ToString();
+                    time = time.Replace(" ", "_")+ ".jpg";
+
                     if (file.ContentLength > 0)
                     {
+                        
                         CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=faceitphotos;AccountKey=67nq3VNJlZ0KJArJZU62vjri4pNzqd1MERWFQytw7w7B6cfTv7Gw75iJq4LJgUN7E05Y0+3ixmkOWDyKk4yhtw==");
-
-                        // Create the blob client.
                         CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                        CloudBlobContainer container = blobClient.GetContainerReference("celebrityimages");
+                        container.CreateIfNotExists();
 
-                        // Retrieve reference to a previously created container.
-                        CloudBlobContainer container = blobClient.GetContainerReference("faceitphotos2");
-
-                        // Retrieve reference to a blob named "myblob".
-                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(id.ToString());
+                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(id.ToString()+"_"+time);
                         Image i = Image.FromStream(file.InputStream, true, true);
                         MemoryStream ms = new MemoryStream();
-                        i.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+                        i.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                         byte[] imgData = ms.ToArray();
 
                         using (var fileStream = new MemoryStream(imgData))
@@ -102,7 +103,7 @@ namespace FacialRecognitionSystem.Controllers
                     if (id != 0)
                     {
                         CelebrityPhoto photoModel = new CelebrityPhoto();
-                        photoModel.Link = celebrity.Link;
+                        photoModel.Link = "https://faceitphotos.blob.core.windows.net/celebrityimages/"+id+"_"+time;
                         photoModel.ProfilePic = true;
                         photoModel.CelibrityID = id;
                         var json2 = serializer.Serialize(photoModel);
@@ -157,7 +158,7 @@ namespace FacialRecognitionSystem.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var a = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
-                ViewBag.Message = a.FirstName;
+                
             }
 
             

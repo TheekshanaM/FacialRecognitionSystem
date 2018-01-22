@@ -14,6 +14,9 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+using System.Drawing;
 
 namespace FacialRecognitionSystem.Controllers
 {
@@ -47,12 +50,7 @@ namespace FacialRecognitionSystem.Controllers
             try
             {
                 string _path = "";
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    _path = Path.Combine(Server.MapPath("~/Photo/Celebrity"), _FileName);
-                    file.SaveAs(_path);
-                }
+                
 
                 
                 celebrity.Link = "/Photo/Celebrity/" + file.FileName;
@@ -64,9 +62,7 @@ namespace FacialRecognitionSystem.Controllers
                 celebrityModel.Description = celebrity.Description;
                 celebrityModel.ActiveStatus = true;
 
-                CelebrityPhoto photoModel = new CelebrityPhoto();
-                photoModel.Link = celebrity.Link;
-                photoModel.ProfilePic = true;
+                
 
                 var serializer = new JavaScriptSerializer();
                 var json1 = serializer.Serialize(celebrityModel);
@@ -79,10 +75,35 @@ namespace FacialRecognitionSystem.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     id = response.Content.ReadAsAsync<int>().Result;
-                    
 
+                    if (file.ContentLength > 0)
+                    {
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=faceitphotos;AccountKey=67nq3VNJlZ0KJArJZU62vjri4pNzqd1MERWFQytw7w7B6cfTv7Gw75iJq4LJgUN7E05Y0+3ixmkOWDyKk4yhtw==");
+
+                        // Create the blob client.
+                        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+                        // Retrieve reference to a previously created container.
+                        CloudBlobContainer container = blobClient.GetContainerReference("faceitphotos2");
+
+                        // Retrieve reference to a blob named "myblob".
+                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(id.ToString());
+                        Image i = Image.FromStream(file.InputStream, true, true);
+                        MemoryStream ms = new MemoryStream();
+                        i.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
+                        byte[] imgData = ms.ToArray();
+
+                        using (var fileStream = new MemoryStream(imgData))
+                        {
+                            await blockBlob.UploadFromStreamAsync(fileStream);
+                        }
+
+                    }
                     if (id != 0)
                     {
+                        CelebrityPhoto photoModel = new CelebrityPhoto();
+                        photoModel.Link = celebrity.Link;
+                        photoModel.ProfilePic = true;
                         photoModel.CelibrityID = id;
                         var json2 = serializer.Serialize(photoModel);
                         var stringContent2 = new StringContent(json2, Encoding.UTF8, "application/json");

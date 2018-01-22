@@ -16,6 +16,7 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 
+
 namespace FacialRecognitionSystem.Controllers
 {
     public class AccountController : Controller
@@ -280,6 +281,48 @@ namespace FacialRecognitionSystem.Controllers
             ViewBag.Status = status;
             ViewBag.Message = message;
             return View(model);
+        }
+
+        public async Task<ActionResult> ChangeSetting()
+        {
+            Admin admin = new Admin();
+            admin.Email = System.Web.HttpContext.Current.User.Identity.Name;
+
+            var serializer = new JavaScriptSerializer();
+            var json = serializer.Serialize(admin);
+            var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await client.PostAsync("api/AdminAccount/ViewDetails", stringContent);
+            if (response.IsSuccessStatusCode)
+            {
+                admin = response.Content.ReadAsAsync<Admin>().Result;
+                return View(admin);
+            }
+            else
+            {
+                return RedirectToAction("Index","Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ChangeSetting(Admin admin)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                Admin account = db.Admins.Where(a => a.Email == admin.Email).FirstOrDefault();
+                if(account != null)
+                {
+                    account.FirstName = admin.FirstName;
+                    account.LastName = admin.LastName;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return View("admin");
+                }
+            }
         }
     }
 }

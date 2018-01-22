@@ -32,7 +32,15 @@ namespace FacialRecognitionSystem.Controllers.API
                 {
                     if (string.Compare(Crypto.Hash(adminLogin.Password), user.Password) == 0)
                     {
-                        message = "Success";
+                        if(user.IsEmailVerified == true)
+                        {
+                            message = "Success";
+                        }
+                        else
+                        {
+                            message = "Invalid credential Provided";
+                        }
+                        
                     }
                     else
                     {
@@ -230,6 +238,21 @@ namespace FacialRecognitionSystem.Controllers.API
                 {
 
                 }
+        }
+
+        [HttpPost]
+        [Route("api/AdminAccount/ViewDetails")]
+        public Admin ViewDetails([FromBody]Admin admin)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                var adminAccount = db.Admins.Where(a => a.Email == admin.Email).FirstOrDefault();
+                Admin account = new Admin();
+                account.FirstName = adminAccount.FirstName;
+                account.LastName = adminAccount.LastName;
+                
+                return account;
+            }
         }
 
     }

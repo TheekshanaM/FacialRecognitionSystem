@@ -1,0 +1,81 @@
+﻿
+@model List<DataAccess.reportedPerson>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+} 
+@{
+    
+    var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+    grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
+
+}
+
+
+    
+        <h2>Employees List</h2>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">Search</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    @using (Html.BeginForm("blockPage", "Report", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                    {
+                        <div class="form-group">
+                            <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="search" />
+                        </div>
+                        <button type="submit" value="Search" class="btn btn-success">Search</button>
+                    }
+                </div>
+            </div>
+        </nav>
+        <div>
+            for
+            @grid.Table(
+         tableStyle: "table table-responsive table-bordered",
+         columns: grid.Columns(
+             grid.Column(columnName: "ReportId", header: "ReportId"),
+             grid.Column(columnName: "ReportedId", header: "ReportedId"),
+             grid.Column(columnName: "FirstName", header: "FirstName"),
+             grid.Column(columnName: "LastName", header: "LastName"),
+             grid.Column(columnName: "Comment", header: "Comment"),
+             grid.Column(columnName: "Date", header: "Date"),
+             grid.Column(columnName: "ReporterId", header: "ReporterId"),
+             grid.Column(columnName: "Action", format: (item) => Html.ActionLink("Block", "blockPage", new { id = item.ReportedId} ))
+                )
+            )
+           
+
+            <div class="row">
+                <div class="col-sm-6">
+                    @grid.Pager(mode: WebGridPagerModes.All)
+                </div>
+            </div>
+
+            @Html.Hidden("dir", grid.SortDirection)
+            @Html.Hidden("col", grid.SortColumn)
+
+        </div>
+   
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            try {
+                var dir = $('#dir').val();
+                var col = $('#col').val();
+                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+                    header.text(header.text() + "  ▲")
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+                }
+
+            } catch (e) {
+
+            }
+        })
+    </script>
+
+

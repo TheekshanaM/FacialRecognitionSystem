@@ -20,6 +20,7 @@ using System.Drawing;
 
 namespace FacialRecognitionSystem.Controllers
 {
+    [Authorize]
     public class CelebrityController : Controller
     {
         HttpClient client = new HttpClient();
@@ -165,13 +166,19 @@ namespace FacialRecognitionSystem.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult NameSearch(Celebrity model)
+        public async Task<ActionResult> NameSearch(Celebrity model)
         {
             using (MyDbEntities db = new MyDbEntities()) {
-                var celebrity = db.Celebrities.Where(a => a.FirstName == model.FirstName).ToList();
+                var celebrity = db.Celebrities.Where(a => a.FirstName == model.FirstName).FirstOrDefault();
                 if(celebrity != null)
                 {
-                    return View(celebrity);
+                    HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + celebrity.CelebrityId);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        CelebrityViewModel cmodel = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
+                        return View(cmodel);
+                    }
+                    
                 }
                 return RedirectToAction("Index", "Home");
             }

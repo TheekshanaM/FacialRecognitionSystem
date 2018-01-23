@@ -1,0 +1,49 @@
+﻿@using FacialRecognitionSystem.Models;
+@model ReportedUserModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+
+    ViewBag.Title = "blockPage";
+}
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <style>
+            div.content {
+    position: relative;
+    left: 30px;
+    bottom:30px;
+    border: 3px solid #73AD21;
+}
+        </style>
+        <meta name="viewport" content="width=device-width" />
+        <title>blockPage</title>
+    </head>
+    <body>
+        <div id="content">
+           <ul> 
+               <li>  Name: @Model.FirstName @Model.LastName</li>  
+               <li>
+                   Total Number of Reportings: @Model.TotalReports
+               </li>
+
+                  Comments: @foreach (var a in @Model.Comments)
+            
+            {
+                string items = string.Join(Environment.NewLine, a);
+
+                      <li> @items</li>
+
+
+                   }
+</ul>
+            <input type="button" value="Block" onclick="location.href='@Url.Action("blockPage", "Report")'" />  
+          
+            
+        </div>
+    </body>
+</html>

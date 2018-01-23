@@ -18,7 +18,7 @@ namespace FacialRecognitionSystem.Controllers.API
         [Route("api/UserAccount/Login")]
 
         //creat a new userLogin.cs file  -done  
-        public UserData Login([FromBody]UserLogin userLogin)
+        public HttpResponseMessage Login([FromBody]UserLogin userLogin)
         {
 
             string message = "";
@@ -30,19 +30,19 @@ namespace FacialRecognitionSystem.Controllers.API
                     if (string.Compare(Crypto.Hash(userLogin.Password), user.Password) == 0)
                     {
                         message = "Success";
-                        return user;
+                        return Request.CreateResponse(HttpStatusCode.OK,user);
                     }
                     else
                     {
                         message = "Invalid credential Provided";
-                        return null;
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest,message);
                     }
 
                 }
                 else
                 {
                     message = "Invalid credential Provided";
-                    return null;
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
                 }
             }
             
@@ -50,7 +50,7 @@ namespace FacialRecognitionSystem.Controllers.API
 
         [HttpPost]
         [Route("api/UserAccount/Register")]
-        public UserData Register([FromBody]UserData user)
+        public HttpResponseMessage Register([FromBody]UserData user)
         {
             string message = "";
             if (ModelState.IsValid)
@@ -74,7 +74,7 @@ namespace FacialRecognitionSystem.Controllers.API
                     db.UserDatas.Add(user);
                     db.SaveChanges();
                     // map user detail with profile 4to
-                    return user;
+                    return Request.CreateResponse(HttpStatusCode.OK, user);
                     // create the user profile and load it in the home page of mobile app
                 }
             }

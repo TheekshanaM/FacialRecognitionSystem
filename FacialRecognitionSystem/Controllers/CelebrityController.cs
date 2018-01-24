@@ -166,18 +166,13 @@ namespace FacialRecognitionSystem.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<ActionResult> NameSearch(Celebrity model)
+        public ActionResult NameSearch(Celebrity model)
         {
             using (MyDbEntities db = new MyDbEntities()) {
-                var celebrity = db.Celebrities.Where(a => a.FirstName == model.FirstName).FirstOrDefault();
-                if(celebrity != null)
+                var celebritySet = db.Celebrities.Where(a => a.FirstName == model.FirstName).ToList();
+                if(celebritySet != null)
                 {
-                    HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + celebrity.CelebrityId);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        CelebrityViewModel cmodel = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
-                        return View(cmodel);
-                    }
+                    return View(celebritySet);
                     
                 }
                 return RedirectToAction("Index", "Home");

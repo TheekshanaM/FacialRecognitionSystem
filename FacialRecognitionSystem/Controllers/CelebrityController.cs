@@ -179,7 +179,7 @@ namespace FacialRecognitionSystem.Controllers
             }
         }
 
-        public async Task<ActionResult> changesetting(int id)
+        public async Task<ActionResult> Changesetting(int id)
         {
             HttpResponseMessage response = await client.GetAsync("API/Celebrity?id=" + id);
             if (response.IsSuccessStatusCode)
@@ -189,5 +189,22 @@ namespace FacialRecognitionSystem.Controllers
             }
             return RedirectToAction("NewCelebrity");
         }
+
+        [HttpPost]
+        public ActionResult Changesetting(CelebrityViewModel model)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                var celebrity = db.Celebrities.Where(a => a.CelebrityId == model.CelebrityId).FirstOrDefault();
+                celebrity.FirstName = model.FirstName;
+                celebrity.LastName = model.LastName;
+                celebrity.Gender = model.Gender;
+                celebrity.Feild = model.Feild;
+                celebrity.Description = model.Description;
+                celebrity.ActiveStatus = (model.ActiveStatus);
+                db.SaveChanges();
+                return RedirectToAction("Changesetting", "Celebrity",new { celebrity.CelebrityId});
+            }
+        } 
     }
 }

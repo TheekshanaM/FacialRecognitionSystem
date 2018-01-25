@@ -1,13 +1,10 @@
 ﻿@model FacialRecognitionSystem.Models.CelebrityViewModel
-
 @{
+    ViewBag.Title = "Changesetting";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{
-    ViewBag.Title = "changesetting";
-}
 
-<h2>changesetting</h2>
+<h2>Changesetting</h2>
 
 <div class="jumbotron">
     <div class="container">
@@ -29,6 +26,27 @@
 
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" id="celeb">
+                @Html.LabelFor(model => model.ActiveStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                @if (Model.ActiveStatus)
+        {
+            <label class="switch">
+                <input type="checkbox" class="switch-input" checked>
+                <span class="switch-label" data-on="Active" data-off="Deactive"></span>
+                <span class="switch-handle"></span>
+            </label>
+}
+else
+{
+        <label class="switch">
+            <input type="checkbox" class="switch-input">
+            <span class="switch-label" data-on="Active" data-off="Deactive"></span>
+            <span class="switch-handle"></span>
+        </label>
+}
+
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -78,6 +96,9 @@
 
                 </div>
             </div>
+            <div class="form-group">
+                @Html.HiddenFor(a => a.CelebrityId)
+            </div>
 
             <div class="col-md-5 col-md-offset-2">
                 <input type="submit" class="btn btn-info" value="Save Changes" />
@@ -90,3 +111,23 @@
 
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#celeb .js-delete").on("click", function () {
+            if (confirm("Are you sure you want to block this celebrity ?")) {
+                
+                $.ajax({
+                    url: "http://localhost:13138/api/Celebrity" + $(this).attr("data-celebrity-id"),
+                    type: 'PUT',
+
+                    dataType: 'json',
+                    success: function () {
+                        Console.log("success");
+                    }
+                });
+            }
+        });
+    });
+    
+</script>

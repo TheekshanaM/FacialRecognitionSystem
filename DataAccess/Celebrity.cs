@@ -30,7 +30,7 @@ namespace DataAccess
         public string Description { get; set; }
         public bool ActiveStatus { get; set; }
         public int Rating { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CelebrityPhoto> CelebrityPhotoes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

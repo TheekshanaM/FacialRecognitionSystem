@@ -13,7 +13,7 @@ namespace FacialRecognitionSystem.Models
         public string Gender { get; set; }
         public string Feild { get; set; }
         public string Description { get; set; }
-        
+        public bool ActiveStatus { get; set; }
         public int Rating { get; set; }
 
         public string ProfilePic { get; set; }

@@ -16,7 +16,7 @@
         @foreach (var celebrity in Model)
         {
         <tr>
-            <td >@Html.ActionLink((celebrity.FirstName+"  "+celebrity.LastName), "CelebrityProfile", "Celebrity", new { id = celebrity.CelebrityId }, new { @class="col col-sm-offset-1"}) </td>
+            <td >@Html.ActionLink((celebrity.FirstName+"  "+celebrity.LastName), "Changesetting", "Celebrity", new { id = celebrity.CelebrityId }, new { @class="col col-sm-offset-1"}) </td>
             
         </tr>
         

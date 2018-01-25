@@ -61,6 +61,7 @@ namespace FacialRecognitionSystem.Controllers.API
             }
         }
 
+        //[Route("api/Celebrity/ViewCelebrity/{id}")]
         [HttpGet]
         public CelebrityViewModel ViewCelebrity(int id)
         {
@@ -81,6 +82,7 @@ namespace FacialRecognitionSystem.Controllers.API
                         model.Gender = celebrity.Gender;
                         model.Feild = celebrity.Feild;
                         model.Description = celebrity.Description;
+                        model.ActiveStatus = celebrity.ActiveStatus;
                         model.Rating = celebrity.Rating;
                         model.ProfilePic = ProfilePic.Link;
                         model.photo = photo;

@@ -29,21 +29,21 @@
             <div class="form-group" id="celeb">
                 @Html.LabelFor(model => model.ActiveStatus, htmlAttributes: new { @class = "control-label col-md-2" })
                 @if (Model.ActiveStatus)
-        {
-            <label class="switch">
-                <input type="checkbox" class="switch-input" checked>
-                <span class="switch-label" data-on="Active" data-off="Deactive"></span>
-                <span class="switch-handle"></span>
-            </label>
-}
-else
-{
-        <label class="switch">
-            <input type="checkbox" class="switch-input">
-            <span class="switch-label" data-on="Active" data-off="Deactive"></span>
-            <span class="switch-handle"></span>
-        </label>
-}
+                {
+                    <label class="switch">
+                        <input type="checkbox" class="switch-input" name="ActiveStatus" checked />
+                        <span class="switch-label" data-on="Active" data-off="Deactive"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                }
+                else
+                {
+                        <label class="switch">
+                            <input type="checkbox" class="switch-input" name="ActiveStatus" />
+                            <span class="switch-label" data-on="Active" data-off="Deactive"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                }
 
             </div>
 
@@ -111,23 +111,3 @@ else
 
     </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#celeb .js-delete").on("click", function () {
-            if (confirm("Are you sure you want to block this celebrity ?")) {
-                
-                $.ajax({
-                    url: "http://localhost:13138/api/Celebrity" + $(this).attr("data-celebrity-id"),
-                    type: 'PUT',
-
-                    dataType: 'json',
-                    success: function () {
-                        Console.log("success");
-                    }
-                });
-            }
-        });
-    });
-    
-</script>

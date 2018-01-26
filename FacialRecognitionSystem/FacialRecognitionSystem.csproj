@@ -292,6 +292,7 @@
     <Content Include="Views\Report\ReportedList.cshtml" />
     <Content Include="Views\Report\blockPage.cshtml" />
     <Content Include="Views\Celebrity\Changesetting.cshtml" />
+    <Content Include="Views\Celebrity\ViewImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

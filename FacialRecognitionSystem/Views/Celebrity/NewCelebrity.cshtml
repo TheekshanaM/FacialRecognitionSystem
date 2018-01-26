@@ -8,84 +8,89 @@
     ViewBag.Title = "NewCelebrity";
 }
 
-<h2>NewCelebrity</h2>
+<h2>New Celebrity</h2>
 
 @using (Html.BeginForm("NewCelebrity", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Celebrity</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name ...", required = "required" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+    {
+        <div class="alert alert-info">
+            <strong>@ViewBag.Message</strong>
         </div>
+    }
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name ...", required = "required" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.RadioButtonFor(m => m.Gender, "Male", true) Male
-                @Html.RadioButtonFor(m => m.Gender, "Female", false) Female
-                
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Feild, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", placeholder = "Field ..." } })
-                @Html.ValidationMessageFor(model => model.Feild, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-5">
-                @Html.TextAreaFor(model => model.Description,5,80, new { htmlAttributes = new { @class = "form-control", placeholder = "Description ..."  } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <label class="btn btn-primary" id="imageButton">
-                <img src="~/Image/Profile picture.jpg" style="height:50px;">
-
-                <input id="imageBrowes" name="imageBrowes" type="file" style="display:none;" onchange="return ValidateFileUpload()" required>
-            </label>
-            
-
-            <div id="imgPreview" class="thumbnail" style="display:none">
-                <img class="img-responsive" id="targetImg" />
-                <div class="caption">
-                    <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
-                    <span id="description"></span>
-                </div>
-                
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="upload" id="btnupload" onclick="return imageValid()">
-            </div>
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name ...", required = "required" } })
+            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name ...", required = "required" } })
+            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.RadioButtonFor(m => m.Gender, "Male", true) Male
+            @Html.RadioButtonFor(m => m.Gender, "Female", false) Female
+
+            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Feild, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", placeholder = "Field ..." } })
+            @Html.ValidationMessageFor(model => model.Feild, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-5">
+            @Html.TextAreaFor(model => model.Description, 5, 80, new { htmlAttributes = new { @class = "form-control", placeholder = "Description ..." } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label class="btn btn-primary" id="imageButton">
+            <img src="~/Image/Profile picture.jpg" style="height:50px;">
+
+            <input id="imageBrowes" name="imageBrowes" type="file" style="display:none;" onchange="return ValidateFileUpload()" required>
+        </label>
+
+
+        <div id="imgPreview" class="thumbnail" style="display:none">
+            <img class="img-responsive" id="targetImg" />
+            <div class="caption">
+                <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                <span id="description"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="upload" id="btnupload" onclick="return imageValid()">
+        </div>
+    </div>
+</div>
 }
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

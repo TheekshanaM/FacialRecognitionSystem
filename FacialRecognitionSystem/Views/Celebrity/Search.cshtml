@@ -8,12 +8,14 @@
 }
 
 <h2>Search</h2>
+<hr />
 @using (Html.BeginForm("NameSearch", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @Html.AntiForgeryToken()
-    <hr />
-<div class="form-horizontal">
 
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <h3>Name Search</h3>

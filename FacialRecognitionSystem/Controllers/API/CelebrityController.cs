@@ -17,11 +17,8 @@ namespace FacialRecognitionSystem.Controllers.API
         [Route("api/Celebrity/NewCelebrity")]
         public int NewCelebrity([FromBody]Celebrity celebrity)
         {
-            
             if (ModelState.IsValid)
             {
-
-                //save to database
                 using (MyDbEntities db = new MyDbEntities())
                 {
                     db.Celebrities.Add(celebrity);

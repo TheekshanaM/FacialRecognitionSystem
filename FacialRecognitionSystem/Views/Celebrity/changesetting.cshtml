@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Changesetting</h2>
-
+<h2>Change setting</h2>
+<hr />
 <div class="jumbotron">
     <div class="container">
         @using (Html.BeginForm())
@@ -13,8 +13,8 @@
             @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Celebrity</h4>
-            <hr />
+            
+            
 
             <div class="form-group">
                 <div class="col-md-4 col-md-offset-2">
@@ -23,7 +23,11 @@
                     </div>
                 </div>
             </div>
-
+            <div class="form-group" style="margin-top:-15px;">
+                <div class="col-md-5">
+                    @Html.ActionLink("Photos", "ViewImage", "Celebrity", new { id = Model.CelebrityId }, new { @class = "btn btn-info col col-md-offset-5" })
+                </div>
+            </div>
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">

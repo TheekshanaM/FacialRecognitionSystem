@@ -50,12 +50,8 @@ namespace FacialRecognitionSystem.Controllers
             HttpPostedFileBase file = celebrity.imageBrowes;
             try
             {
-                
-                
-
-                
-                celebrity.Link = "/Photo/Celebrity/" + file.FileName;
                 Celebrity celebrityModel = new Celebrity();
+
                 celebrityModel.FirstName = celebrity.FirstName;
                 celebrityModel.LastName = celebrity.LastName;
                 celebrityModel.Gender = celebrity.Gender;
@@ -63,13 +59,9 @@ namespace FacialRecognitionSystem.Controllers
                 celebrityModel.Description = celebrity.Description;
                 celebrityModel.ActiveStatus = true;
 
-                
-
                 var serializer = new JavaScriptSerializer();
                 var json1 = serializer.Serialize(celebrityModel);
-                
                 var stringContent1 = new StringContent(json1, Encoding.UTF8, "application/json");
-                
 
                 HttpResponseMessage response = await client.PostAsync("api/Celebrity/NewCelebrity", stringContent1);
 
@@ -104,6 +96,7 @@ namespace FacialRecognitionSystem.Controllers
                     if (id != 0)
                     {
                         CelebrityPhoto photoModel = new CelebrityPhoto();
+
                         photoModel.Link = "https://faceitphotos.blob.core.windows.net/celebrityimages/"+id+"_"+time;
                         photoModel.ProfilePic = true;
                         photoModel.CelibrityID = id;
@@ -121,17 +114,23 @@ namespace FacialRecognitionSystem.Controllers
                             }
                             else
                             {
+                                ViewBag.Status = true;
+                                ViewBag.Message = "Error occured while creating profile";
                                 return View(celebrity);
                             }
                         }
                         else
                         {
+                            ViewBag.Status = true;
+                            ViewBag.Message = "Error occured while creating profile";
                             return View(celebrity);
                         }
                             
                     }
                     else
                     {
+                        ViewBag.Status = true;
+                        ViewBag.Message = "Error occured while creating profile";
                         return View(celebrity);
                     }
                 }
@@ -141,7 +140,8 @@ namespace FacialRecognitionSystem.Controllers
             }
             catch
             {
-                ViewBag.Message = "File upload failed!!";
+                ViewBag.Status = true;
+                ViewBag.Message = "Error occured while creating profile";
                 return null;
             }
             
@@ -157,7 +157,6 @@ namespace FacialRecognitionSystem.Controllers
                 return View(model);
             }
 
-            
             return RedirectToAction("NewCelebrity");
         }
         [HttpGet]
@@ -170,12 +169,12 @@ namespace FacialRecognitionSystem.Controllers
         {
             using (MyDbEntities db = new MyDbEntities()) {
                 var celebritySet = db.Celebrities.Where(a => a.FirstName == model.FirstName).ToList();
-                if(celebritySet != null)
+                if(celebritySet.Count != 0)
                 {
                     return View(celebritySet);
                     
                 }
-                return RedirectToAction("Index", "Home");
+                return View();
             }
         }
 
@@ -187,7 +186,7 @@ namespace FacialRecognitionSystem.Controllers
                 CelebrityViewModel model = response.Content.ReadAsAsync<CelebrityViewModel>().Result;
                 return View(model);
             }
-            return RedirectToAction("NewCelebrity");
+            return RedirectToAction("Search", "Celebrity");
         }
 
         [HttpPost]

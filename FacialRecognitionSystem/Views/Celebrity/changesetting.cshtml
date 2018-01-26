@@ -26,7 +26,15 @@
 
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group" id="celeb">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ActiveStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="switch">
+                    @Html.CheckBoxFor(m => m.ActiveStatus, new {@class="switch-input" })
+                    <span class="switch-label" data-on="Active" data-off="Deactive"></span>
+                    <span class="switch-handle"></span>
+                </label>
+            </div>
+            @*<div class="form-group" id="celeb">
                 @Html.LabelFor(model => model.ActiveStatus, htmlAttributes: new { @class = "control-label col-md-2" })
                 @if (Model.ActiveStatus)
                 {
@@ -45,7 +53,7 @@
                         </label>
                 }
 
-            </div>
+            </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })

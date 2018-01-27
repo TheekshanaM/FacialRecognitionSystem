@@ -7,7 +7,10 @@
     ViewBag.Title = "Search";
 }
 
-<h2>Celebrity Search</h2>
+<h2 >Celebrity Search</h2>
+<div class="btn btn-info">
+    <a href="@Url.Action("GetCelebrity","Celebrity")" >All Celebrities</a>
+</div>
 <hr />
 @using (Html.BeginForm("NameSearch", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

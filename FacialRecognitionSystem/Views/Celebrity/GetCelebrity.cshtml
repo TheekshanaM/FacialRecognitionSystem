@@ -1,0 +1,46 @@
+﻿@model PagedList.IPagedList<DataAccess.Celebrity>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "GetCelebrity";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Celebrities</h2>
+
+@if (Model == null)
+{
+    <div class="form-group ">
+        <div class="col-md-5 col-md-offset-2">
+            <strong class="form-control">There is no Celebrities.</strong>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <div class="col-md-5 col-md-offset-2">
+            <div class="btn btn-danger">
+                <a href="@Url.Action("Search","Celebrity")">Back</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="panel panel-default col-md-5 col-md-offset-2">
+
+
+        <table class="table ">
+            @foreach (var celebrity in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink((celebrity.FirstName + "  " + celebrity.LastName), "Changesetting", "Celebrity", new { id = celebrity.CelebrityId }, new { @class = "col col-sm-offset-1" }) </td>
+
+                </tr>
+
+            }
+        </table>
+        <br />
+        @Html.PagedListPager(Model,Page => Url.Action("GetCelebrity",new { Page,pageSize = Model.PageSize}))
+        
+
+    </div>
+}

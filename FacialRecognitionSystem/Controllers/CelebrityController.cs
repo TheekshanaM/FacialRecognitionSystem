@@ -17,6 +17,7 @@ using System.Web.Script.Serialization;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Drawing;
+using PagedList;
 
 namespace FacialRecognitionSystem.Controllers
 {
@@ -34,7 +35,20 @@ namespace FacialRecognitionSystem.Controllers
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        // GET: Celebrity
+
+        public ActionResult GetCelebrity(int page = 1,int pageSize = 10)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                List<Celebrity> celebrity = db.Celebrities.ToList();
+                if (celebrity != null) {
+                    PagedList<Celebrity> model = new PagedList<Celebrity>(celebrity, page, pageSize);
+                    return View(model);
+                }
+                return View();
+            }
+        }
+        
         [HttpGet]
         public ActionResult NewCelebrity()
         {

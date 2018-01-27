@@ -8,6 +8,13 @@
 <hr />
 <div class="jumbotron">
     <div class="container">
+        @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+        {
+            <div class="alert alert-info">
+                <strong>@ViewBag.Message</strong>
+            </div>
+        }
+
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -83,7 +90,8 @@
                 @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", @Value = Model.Gender } })
+                    @Html.RadioButtonFor(m => m.Gender, "Male", true) Male
+                    @Html.RadioButtonFor(m => m.Gender, "Female", false) Female
                     @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
 
                 </div>
@@ -103,7 +111,8 @@
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @Value = Model.Description } })
+                    @Html.TextAreaFor(model => model.Description, 5, 58, new { htmlAttributes = new { @class = "form-control", @Value = Model.Description, disabled = "disabled" } })
+                    
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
 
                 </div>

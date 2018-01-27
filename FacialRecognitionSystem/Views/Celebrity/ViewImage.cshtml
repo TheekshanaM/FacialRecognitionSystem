@@ -14,8 +14,8 @@
                     <div class="thumbnail">
                         <img src="@photo.Link" alt="..." style="height: 200px;">
                         <div class="caption">
-
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a> </p>
+                            
+                            <p>@Html.ActionLink("Set As Profile Picture", "SetProfilePic", "Celebrity", new { id = photo.CelibrityID, pId = photo.PhotoID }, new { @class = "btn btn-primary" }) </p>
                         </div>
                     </div>
                 </div>

@@ -192,18 +192,31 @@ namespace FacialRecognitionSystem.Controllers
         [HttpPost]
         public ActionResult Changesetting(CelebrityViewModel model)
         {
-            using(MyDbEntities db = new MyDbEntities())
+            if (ModelState.IsValid)
             {
-                var celebrity = db.Celebrities.Where(a => a.CelebrityId == model.CelebrityId).FirstOrDefault();
-                celebrity.FirstName = model.FirstName;
-                celebrity.LastName = model.LastName;
-                celebrity.Gender = model.Gender;
-                celebrity.Feild = model.Feild;
-                celebrity.Description = model.Description;
-                celebrity.ActiveStatus = (model.ActiveStatus);
-                db.SaveChanges();
-                return RedirectToAction("Changesetting", "Celebrity",new { celebrity.CelebrityId});
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    var celebrity = db.Celebrities.Where(a => a.CelebrityId == model.CelebrityId).FirstOrDefault();
+                    if (celebrity != null)
+                    {
+                        celebrity.FirstName = model.FirstName;
+                        celebrity.LastName = model.LastName;
+                        celebrity.Gender = model.Gender;
+                        celebrity.Feild = model.Feild;
+                        celebrity.Description = model.Description;
+                        celebrity.ActiveStatus = (model.ActiveStatus);
+                        db.SaveChanges();
+                        return RedirectToAction("CelebrityProfile", "Celebrity", new {id= celebrity.CelebrityId });
+                    }
+                    ViewBag.Status = true;
+                    ViewBag.Message = "Not Updated.";
+                    return View(model);
+                }
+                
             }
+            ViewBag.Status = true;
+            ViewBag.Message = "Not Updated.";
+            return View(model);
         }
 
         public ActionResult ViewImage(int id)
@@ -273,7 +286,7 @@ namespace FacialRecognitionSystem.Controllers
                     if (message == "Success")
                     {
                         ViewBag.Message = "Upload Success";
-                        return RedirectToAction("Changesetting", new { id = model.CelebrityId });
+                        return RedirectToAction("CelebrityProfile", new { id = model.CelebrityId });
                     }
                     else
                     {
@@ -292,6 +305,27 @@ namespace FacialRecognitionSystem.Controllers
             return RedirectToAction("ViewImage", new { id = model.CelebrityId });
         }
         
+        public ActionResult SetProfilePic(int id ,int pId)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                var photos = db.CelebrityPhotoes.Where(a => a.CelibrityID == id).ToList();
+                foreach(var img in photos)
+                {
+                    if(img.PhotoID != pId)
+                    {
+                        img.ProfilePic = false;
+                    }
+                    else
+                    {
+                        img.ProfilePic = true;
+                    }
+                    
+                }
+                db.SaveChanges();
+                return RedirectToAction("CelebrityProfile", new { id = id });
+            }
+        }
 
     }
 }

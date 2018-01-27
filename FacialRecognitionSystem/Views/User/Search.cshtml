@@ -1,52 +1,50 @@
-﻿@model DataAccess.Celebrity
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model DataAccess.UserData
 @{
     ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Celebrity Search</h2>
+<h2>Users Search</h2>
 <hr />
-@using (Html.BeginForm("NameSearch", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("NameSearch", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <h3>Name Search</h3>
-    <div class="form-group">
-        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-5">
+    <div class="form-horizontal">
 
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Name ...", required = "required" } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <h3>Name Search</h3>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Name ...", required = "required" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="Search"  >
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="Search">
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 }
 
 <br />
 <hr />
 
-@using (Html.BeginForm("ImageSearch", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("ImageSearch", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
 
-        
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <h3>Image Search</h3>
         <div class="col-md-4">

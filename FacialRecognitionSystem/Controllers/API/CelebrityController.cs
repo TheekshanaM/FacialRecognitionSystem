@@ -70,7 +70,7 @@ namespace FacialRecognitionSystem.Controllers.API
                     var celebrity = db.Celebrities.Where(a => a.CelebrityId == id).FirstOrDefault();
                     if (celebrity != null)
                     {
-                        var photo = db.CelebrityPhotoes.Where(u => u.CelibrityID == id).Select(u => u.Link).ToList();
+                        
                         var ProfilePic = db.CelebrityPhotoes.Where(c => c.CelibrityID == id && c.ProfilePic == true).FirstOrDefault();
 
                         model.CelebrityId = celebrity.CelebrityId;
@@ -82,7 +82,7 @@ namespace FacialRecognitionSystem.Controllers.API
                         model.ActiveStatus = celebrity.ActiveStatus;
                         model.Rating = celebrity.Rating;
                         model.ProfilePic = ProfilePic.Link;
-                        model.photo = photo;
+                        
                         
                         return model;
                     }

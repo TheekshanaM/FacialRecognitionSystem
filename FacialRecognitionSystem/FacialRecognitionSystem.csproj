@@ -214,6 +214,7 @@
     <Compile Include="Controllers\CelebrityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -293,6 +294,8 @@
     <Content Include="Views\Report\blockPage.cshtml" />
     <Content Include="Views\Celebrity\Changesetting.cshtml" />
     <Content Include="Views\Celebrity\ViewImage.cshtml" />
+    <Content Include="Views\User\Search.cshtml" />
+    <Content Include="Views\User\NameSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

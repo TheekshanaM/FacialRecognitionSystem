@@ -1,0 +1,45 @@
+﻿@model IEnumerable<DataAccess.UserData>
+@{
+    ViewBag.Title = "NameSearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>NameSearch</h2>
+<hr />
+<br />
+@if (Model == null)
+{
+    <div class="form-group ">
+        <div class="col-md-5 col-md-offset-2">
+            <strong class="form-control">There is no Search item.</strong>
+        </div>
+    </div>
+    <br /><br />
+    <div class="form-group">
+        <div class="col-md-5 col-md-offset-2">
+            <div class="btn btn-danger">
+                <a href="@Url.Action("Search","User")">Back</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="panel panel-default col-md-5 col-md-offset-2">
+
+
+        <table class="table ">
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink((user.FirstName + "  " + user.LastName), "Changesetting", "User", new { id = user.UserId}, new { @class = "col col-sm-offset-1" }) </td>
+
+                </tr>
+
+            }
+        </table>
+
+
+    </div>
+}
+

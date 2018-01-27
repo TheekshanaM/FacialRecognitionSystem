@@ -168,8 +168,9 @@ namespace FacialRecognitionSystem.Controllers
         public ActionResult NameSearch(Celebrity model)
         {
             using (MyDbEntities db = new MyDbEntities()) {
-                var celebritySet = db.Celebrities.Where(a => a.FirstName == model.FirstName).ToList();
-                if(celebritySet.Count != 0)
+                var celebritySet = db.Celebrities.Where(a => a.FirstName == model.FirstName || a.LastName ==model.FirstName).ToList();
+                
+                if (celebritySet.Count != 0)
                 {
                     return View(celebritySet);
                     

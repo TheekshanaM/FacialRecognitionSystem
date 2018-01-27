@@ -17,7 +17,7 @@ namespace FacialRecognitionSystem.Models
         public int Rating { get; set; }
 
         public string ProfilePic { get; set; }
-        public IEnumerable<string> photo { get; set; }
+        
 
         
     }

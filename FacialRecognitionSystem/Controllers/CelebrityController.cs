@@ -18,6 +18,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System.Drawing;
 using PagedList;
+using FaceAPIFunctions;
 
 namespace FacialRecognitionSystem.Controllers
 {
@@ -61,7 +62,26 @@ namespace FacialRecognitionSystem.Controllers
         {
             string message ;
             int id;
+            Face0 faceAPI = new Face0();
             HttpPostedFileBase file = celebrity.imageBrowes;
+            //
+            Image i = Image.FromStream(file.InputStream, true, true);
+            MemoryStream ms = new MemoryStream();
+            i.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            byte[] imgData = ms.ToArray();
+
+            using (var fileStream = new MemoryStream(imgData))
+            {
+                
+                int s = await  faceAPI.searchFirst(fileStream);
+                if (s != 3)
+                {
+                    ViewBag.Status = true;
+                    ViewBag.Message = "error";
+                    return View();
+                }
+            }
+            //
             try
             {
                 Celebrity celebrityModel = new Celebrity();
@@ -82,7 +102,18 @@ namespace FacialRecognitionSystem.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     id = response.Content.ReadAsAsync<int>().Result;
-
+                    //
+                    using (var fileStream = new MemoryStream(imgData))
+                    {
+                        string s = await faceAPI.register(fileStream, id);
+                        if(s != "Success")
+                        {
+                            ViewBag.Status = true;
+                            ViewBag.Message = "error";
+                            return View();
+                        }
+                    }
+                    //
                     DateTime dTime = DateTime.Now;
                     string time = dTime.ToString();
                     time = time.Replace(" ", "_")+ ".jpg";
@@ -96,10 +127,10 @@ namespace FacialRecognitionSystem.Controllers
                         container.CreateIfNotExists();
 
                         CloudBlockBlob blockBlob = container.GetBlockBlobReference(id.ToString()+"_"+time);
-                        Image i = Image.FromStream(file.InputStream, true, true);
-                        MemoryStream ms = new MemoryStream();
-                        i.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                        byte[] imgData = ms.ToArray();
+                        //Image i = Image.FromStream(file.InputStream, true, true);
+                        //MemoryStream ms = new MemoryStream();
+                        //i.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        //byte[] imgData = ms.ToArray();
 
                         using (var fileStream = new MemoryStream(imgData))
                         {
@@ -178,6 +209,45 @@ namespace FacialRecognitionSystem.Controllers
         {
             return View();
         }
+
+        /*[HttpPost]
+        public async Task<ActionResult> Search(HttpPostedFileBase imageBrowes)
+        {
+            Image i = Image.FromStream(imageBrowes.InputStream, true, true);
+            MemoryStream ms = new MemoryStream();
+            i.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            byte[] imgData = ms.ToArray();
+
+            Face0 faceAPI = new Face0();
+            using (var fileStream = new MemoryStream(imgData))
+            {
+                int[] message = await faceAPI.search(fileStream);
+                for(int j = 0; j < 10; j++)
+                {
+                    if(message[j] == -1)
+                    {
+                        ViewBag.Message = "Not Faces in Image";
+                        return View();
+                    }
+                }
+                /*if(message != "no face detected" && message != "No one identified")
+                {
+                    foreach(char str in message)
+                    {
+
+                    }
+                }
+                else
+                {
+                    ViewBag.Status = true;
+                    ViewBag.Message = message;
+                    return View();
+                }
+            }
+
+
+        }*/
+
         [HttpPost]
         public ActionResult NameSearch(Celebrity model)
         {

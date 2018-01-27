@@ -29,8 +29,9 @@ namespace FaceAPIFunctions
         
      
 
-        public async Task<String> register(String path,String UserId)
+        public async Task<String> register(Stream path,int Id)
         {
+            string UserId = Id.ToString();
             var faces= await detectFace(path,UserId);
             var faceIds = faces.Select(face => face.FaceId).ToArray();
             if (faces.Length == 0)
@@ -49,13 +50,13 @@ namespace FaceAPIFunctions
             
 
         }
-        private async Task<Face[]> detectFace(String path, String personId)
+        private async Task<Face[]> detectFace(Stream path, String personId)
         {
 
-            using (Stream s = File.OpenRead(path))
+            using (path)
             {
 
-                var faces = await faceServiceClient.DetectAsync(s);
+                var faces = await faceServiceClient.DetectAsync(path);
                 return faces;
             }                  
 
@@ -82,16 +83,16 @@ namespace FaceAPIFunctions
             }
 
         }
-        private async Task<String> addperson(String path, String personId)
+        private async Task<String> addperson(Stream path, String personId)
         {
             try
             {
                 CreatePersonResult persons = await faceServiceClient.CreatePersonAsync(groupId, personId);
 
                 var personIds = persons.PersonId;
-                using (Stream s = File.OpenRead(path))
+                using(path)
                 {
-                    var persistedperson = await faceServiceClient.AddPersonFaceAsync(groupId, personIds, s);
+                    var persistedperson = await faceServiceClient.AddPersonFaceAsync(groupId, personIds, path);
                     await faceServiceClient.TrainPersonGroupAsync(groupId);
                     return "Success";
                 }
@@ -104,13 +105,17 @@ namespace FaceAPIFunctions
 
         }
        
-        public async Task<String> search(String path)
+        public async Task<int[]> search(Stream path)
         {
             StringBuilder sb = new StringBuilder();
-            using (Stream s = File.OpenRead(path))
+            using (path)
             {
-                var faces = await faceServiceClient.DetectAsync(s);
-                if (faces.Length == 0) { return "no face detected"; }
+                int[] id = new int[10];
+                int i = 0;
+                var faces = await faceServiceClient.DetectAsync(path);
+                if (faces.Length == 0) {
+                    id[i]=-1;
+                }
                 else
                 {
                     var faceIds = faces.Select(face => face.FaceId).ToArray();
@@ -121,17 +126,51 @@ namespace FaceAPIFunctions
                         
                         if (identifyResult.Candidates.Length == 0)
                         {
-                            sb.Append(" No one identified ");
+                            id[i] = 0;
+                            i++;
                         }
                         else
                         {
                             // Get top 1 among all candidates returned
                             var candidateId = identifyResult.Candidates[0].PersonId;
                             var person = await faceServiceClient.GetPersonAsync(groupId, candidateId);
-                            sb.Append("Identified as  " + person.Name + "          ");
+                            id[i] = Int32.Parse(person.Name);
+                            i++;
                         }
                     }
-                    return sb.ToString(); 
+                     
+                }
+                return id;
+            }
+        }
+
+
+        public async Task<int> searchFirst(Stream path)
+        {
+            
+            using (path)
+            {
+                var faces = await faceServiceClient.DetectAsync(path);
+                if (faces.Length == 0) { return 0; }//no one detected
+                if (faces.Length > 1) { return 1; }//more than one person detected
+                else
+                {
+                    var faceIds = faces.Select(face => face.FaceId).ToArray();
+
+                    var results = await faceServiceClient.IdentifyAsync(groupId, faceIds);
+                    foreach (var identifyResult in results)
+                    {
+
+                        if (identifyResult.Candidates.Length == 0)
+                        {
+                            return 3;// success
+                        }
+                        else
+                        {
+                            return 2;//there is an existing person
+                        }
+                    }return 0;
+                    
                 }
             }
         }

@@ -116,7 +116,7 @@ namespace FaceAPIFunctions
             StringBuilder sb = new StringBuilder();
             using (path)
             {
-                int[] id = new int[10];
+                int[] id = new int[5];
                 int i = 0;
                 var faces = await faceServiceClient.DetectAsync(path);
                 if (faces.Length == 0) {
@@ -133,6 +133,7 @@ namespace FaceAPIFunctions
                         if (identifyResult.Candidates.Length == 0)
                         {
                             id[i] = 0;
+                            if (i == 4) { break; }
                             i++;
                         }
                         else
@@ -140,8 +141,18 @@ namespace FaceAPIFunctions
                             // Get top 1 among all candidates returned
                             var candidateId = identifyResult.Candidates[0].PersonId;
                             var person = await faceServiceClient.GetPersonAsync(groupId, candidateId);
-                            id[i] = Convert.ToInt32(person.Name);
-                            i++;
+                            try
+                            {
+                                id[i] = Convert.ToInt32(person.Name);
+                                if (i == 4) { break; }
+                                i++;
+                            }
+                            catch
+                            {
+                                if (i == 4) { break; }
+                                i++;
+                            }
+                            
                         }
                     }
                      

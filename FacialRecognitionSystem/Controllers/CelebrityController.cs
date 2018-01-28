@@ -184,7 +184,7 @@ namespace FacialRecognitionSystem.Controllers
 
                 return View();
             }
-            catch(Exception e)
+            catch
             {
                 ViewBag.Status = true;
                 ViewBag.Message = "Error occured while creating profile";
@@ -211,7 +211,7 @@ namespace FacialRecognitionSystem.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public async Task<ActionResult> Search(HttpPostedFileBase imageBrowes)
         {
             Image i = Image.FromStream(imageBrowes.InputStream, true, true);
@@ -222,9 +222,18 @@ namespace FacialRecognitionSystem.Controllers
             Face0 faceAPI = new Face0();
             using (var fileStream = new MemoryStream(imgData))
             {
-                int count = 0;
+                int s1,s2,s3,s4,s5,count = 0;
                 int[] message = await faceAPI.search(fileStream);
-                for(int j = 0; j < 10; j++)
+
+                /*for(int k = 0; k < 5; k++)
+                {
+                    if (message[k] < 5000)
+                    {
+                        message[k] = 0;
+                    }
+                }
+                s1 = message[0];s2 = message[1];s3 = message[2];s4 = message[3];s5 = message[4];
+                for(int j = 0; j < 5; j++)
                 {
                     if(message[j] == -1)
                     {
@@ -244,27 +253,20 @@ namespace FacialRecognitionSystem.Controllers
                 {
                     using(MyDbEntities db = new MyDbEntities())
                     {
-                        var x = db.Celebrities.Where(a => a.CelebrityId == message[0] || a.CelebrityId == message[1] || a.CelebrityId == message[2] || a.CelebrityId == message[3] || a.CelebrityId == message[4]).ToList();
+                        IEnumerable<Celebrity> celebritySet = db.Celebrities.Where(a => a.CelebrityId == s1 || a.CelebrityId == s2 || a.CelebrityId == s3 || a.CelebrityId == s4 || a.CelebrityId == s5).ToList();
                     }
-                    return View();
+                    return RedirectToAction("ImageSearch", "Celebrity", celebritySet);
                 }
-                /*if(message != "no face detected" && message != "No one identified")
-                {
-                    foreach(char str in message)
-                    {
-
-                    }
-                }
-                else
-                {
-                    ViewBag.Status = true;
-                    ViewBag.Message = message;
-                    return View();
-                }*/
+                
             }
 
 
         }
+
+        public ActionResult ImageSearch(IEnumerable<Celebrity> ce)
+        {
+
+        }*/
 
         [HttpPost]
         public ActionResult NameSearch(Celebrity model)

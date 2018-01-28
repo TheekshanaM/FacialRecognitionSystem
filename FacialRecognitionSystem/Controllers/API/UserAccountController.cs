@@ -66,7 +66,7 @@ namespace FacialRecognitionSystem.Controllers.API
                 if (isExist)
                 {
                     message = "Email is already existed";
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, message);
                 }
                 //password encoding
                 user.Password = Crypto.Hash(user.Password);
@@ -212,6 +212,106 @@ namespace FacialRecognitionSystem.Controllers.API
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid credential Provided");
                 }
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/EditProfile")]
+        public HttpResponseMessage EditProfile([FromBody]UserData user)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    UserViewModel model = new UserViewModel();
+                    var editProfile = db.UserDatas.Where(a => a.UserId == user.UserId).FirstOrDefault();
+
+                    model.UploaderID = user.UserId;
+
+                    editProfile.FirstName = user.FirstName;
+                    editProfile.LastName = user.LastName;
+                    editProfile.FirstName = user.FirstName;
+                    editProfile.Address = user.Address;
+                    editProfile.Gender = user.Gender;
+                    editProfile.MobileNumber = user.MobileNumber;
+                    editProfile.Description = user.Description;
+
+                    //model.Link = ProfilePic.Link;
+
+
+                    //db.UserDatas.Add(user);
+                    db.SaveChanges();
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, model);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/SearchName")]
+        public HttpResponseMessage SearchName([FromBody]SearchKeyword search)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    var nameSearch = db.UserDatas.Where(a => a.FirstName == search.Keyword || a.LastName == search.Keyword).ToList();
+                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+
+                    //model.Link = ProfilePic.Link;
+
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, nameSearch);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/CelebrityProfile")]
+        public HttpResponseMessage CelebrityProfile([FromBody]CelebrityPhoto celebrity)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    UserViewModel model = new UserViewModel();
+
+                    var celebrProfile = db.Celebrities.Where(a => a.CelebrityId == celebrity.CelibrityID).FirstOrDefault();
+                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+
+                    //model.Link = ProfilePic.Link;
+
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, celebrProfile);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
             }
 
         }

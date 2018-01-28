@@ -233,6 +233,7 @@
     <Compile Include="Models\PhotoUploadModel.cs" />
     <Compile Include="Models\ReportedUserModel.cs" />
     <Compile Include="Models\ResetPassword.cs" />
+    <Compile Include="Models\SearchKeyword.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

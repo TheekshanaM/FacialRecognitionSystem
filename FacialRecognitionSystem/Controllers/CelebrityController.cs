@@ -256,7 +256,7 @@ namespace FacialRecognitionSystem.Controllers
                 {
                     using(MyDbEntities db = new MyDbEntities())
                     {
-                        IEnumerable<Celebrity> celebritySet = db.Celebrities.Where(a => a.CelebrityId == s1 || a.CelebrityId == s2 || a.CelebrityId == s3 || a.CelebrityId == s4 || a.CelebrityId == s5).ToList();
+                        IEnumerable<CelebrityDataExtended> celebritySet = db.CelebrityDataExtendeds.Where(a => a.CelebrityId == s1 || a.CelebrityId == s2 || a.CelebrityId == s3 || a.CelebrityId == s4 || a.CelebrityId == s5 && a.ProfilePic ==true).ToList();
                         if (celebritySet.Count() != 0)
                         {
                             return View("NameSearch", celebritySet);
@@ -283,7 +283,7 @@ namespace FacialRecognitionSystem.Controllers
         public ActionResult NameSearch(Celebrity model)
         {
             using (MyDbEntities db = new MyDbEntities()) {
-                var celebritySet = db.Celebrities.Where(a => a.FirstName == model.FirstName || a.LastName ==model.FirstName).ToList();
+                var celebritySet = db.CelebrityDataExtendeds.Where(a => (a.FirstName == model.FirstName || a.LastName ==model.FirstName) && a.ProfilePic==true).ToList();
                 
                 if (celebritySet.Count != 0)
                 {

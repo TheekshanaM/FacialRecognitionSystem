@@ -62,11 +62,21 @@ namespace FacialRecognitionSystem.Controllers.API
         [Route("api/Location/SearchLocation")]
         public IEnumerable<LocationData> SearchLocation([FromBody]LocationViewModel model)
         {
-            using(MyDbEntities db = new MyDbEntities())
+            if (ModelState.IsValid)
             {
-                var x = db.LocationDatas.Where(a => a.Latitude > model.MinLatitude && a.Latitude < model.MaxLatitude && a.Longitude > model.MinLongitude && a.Longitude < model.MaxLongitude).ToList();
-
-                return x;
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    var x = db.LocationDatas.Where(a => a.Latitude > model.MinLatitude && a.Latitude < model.MaxLatitude && a.Longitude > model.MinLongitude && a.Longitude < model.MaxLongitude).ToList();
+                    if (x.Count() != 0)
+                    {
+                        return x;
+                    }
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
         }
 

@@ -125,6 +125,9 @@
     <Compile Include="Celebrity.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CelebrityDataExtended.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CelebrityPhoto.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
@@ -168,10 +171,13 @@
     <Compile Include="Search.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="SearchType.cs">
+    <Compile Include="SearchHistory.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserData.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserDataExtended.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPhoto.cs">

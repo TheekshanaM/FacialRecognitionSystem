@@ -102,20 +102,12 @@ warning 6002: The table/view 'MyDb.dbo.Login' does not have a primary key define
         </EntityType>
         <EntityType Name="Search">
           <Key>
-            <PropertyRef Name="SearchID" />
+            <PropertyRef Name="SearchId" />
           </Key>
-          <Property Name="SearchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SearchedPersonId" Type="int" Nullable="false" />
+          <Property Name="SearchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SearchedId" Type="int" Nullable="false" />
           <Property Name="SearcherId" Type="int" Nullable="false" />
-          <Property Name="date" Type="date" Nullable="false" />
-          <Property Name="TypeId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SearchType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="UserData">
           <Key>
@@ -182,6 +174,37 @@ warning 6002: The table/view 'MyDb.dbo.a' does not have a primary key defined. T
           <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'MyDb.dbo.CelebrityDataExtended' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CelebrityDataExtended">
+          <Key>
+            <PropertyRef Name="CelebrityId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="Feild" />
+            <PropertyRef Name="ActiveStatus" />
+            <PropertyRef Name="Rating" />
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="Link" />
+            <PropertyRef Name="DeletedStatus" />
+            <PropertyRef Name="CelibrityID" />
+            <PropertyRef Name="ProfilePic" />
+          </Key>
+          <Property Name="CelebrityId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Feild" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="ActiveStatus" Type="bit" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="PhotoID" Type="int" Nullable="false" />
+          <Property Name="Link" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="DeletedStatus" Type="bit" Nullable="false" />
+          <Property Name="CelibrityID" Type="int" Nullable="false" />
+          <Property Name="ProfilePic" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'MyDb.dbo.LocationData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LocationData">
           <Key>
@@ -217,6 +240,56 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyDb.dbo.SearchHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchedId" />
+            <PropertyRef Name="SearcherId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="SearchedId" Type="int" Nullable="false" />
+          <Property Name="SearcherId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserDataExtended">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="LocationPermission" />
+            <PropertyRef Name="BlockStatus" />
+            <PropertyRef Name="ActiveStatus" />
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="Link" />
+            <PropertyRef Name="DeleteStatus" />
+            <PropertyRef Name="UploaderID" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LocationPermission" Type="bit" Nullable="false" />
+          <Property Name="BlockStatus" Type="bit" Nullable="false" />
+          <Property Name="ActiveStatus" Type="bit" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+          <Property Name="PhotoID" Type="int" Nullable="false" />
+          <Property Name="Link" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DeleteStatus" Type="bit" Nullable="false" />
+          <Property Name="UploaderID" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Location__UserID__7D439ABD">
           <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
@@ -240,42 +313,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             </Principal>
             <Dependent Role="AdminPhoto">
               <PropertyRef Name="AdminID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebrityPhoto_Celebrity">
-          <End Role="Celebrity" Type="Self.Celebrity" Multiplicity="1" />
-          <End Role="CelebrityPhoto" Type="Self.CelebrityPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Celebrity">
-              <PropertyRef Name="CelebrityId" />
-            </Principal>
-            <Dependent Role="CelebrityPhoto">
-              <PropertyRef Name="CelibrityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebritySuggestion_Celebrity">
-          <End Role="Celebrity" Type="Self.Celebrity" Multiplicity="1" />
-          <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Celebrity">
-              <PropertyRef Name="CelebrityId" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="CelebrityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebritySuggestion_Celebrity1">
-          <End Role="Celebrity" Type="Self.Celebrity" Multiplicity="1" />
-          <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Celebrity">
-              <PropertyRef Name="CelebrityId" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="CelebrityID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -327,42 +364,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Search_SearchType">
-          <End Role="SearchType" Type="Self.SearchType" Multiplicity="1" />
-          <End Role="Search" Type="Self.Search" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SearchType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Search">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Search_User">
-          <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
-          <End Role="Search" Type="Self.Search" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Search">
-              <PropertyRef Name="SearchedPersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Search_User1">
-          <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
-          <End Role="Search" Type="Self.Search" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Search">
-              <PropertyRef Name="SearcherId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserPhoto_User">
           <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
           <End Role="UserPhoto" Type="Self.UserPhoto" Multiplicity="*" />
@@ -385,7 +386,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <EntitySet Name="RateSuggestion" EntityType="Self.RateSuggestion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Search" EntityType="Self.Search" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SearchType" EntityType="Self.SearchType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserData" EntityType="Self.UserData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPhoto" EntityType="Self.UserPhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" store:Type="Tables" store:Schema="dbo">
@@ -416,6 +416,23 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
     [a].[MobileNumber] AS [MobileNumber]
     FROM [dbo].[a] AS [a]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="CelebrityDataExtended" EntityType="Self.CelebrityDataExtended" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CelebrityDataExtended].[CelebrityId] AS [CelebrityId], 
+    [CelebrityDataExtended].[FirstName] AS [FirstName], 
+    [CelebrityDataExtended].[LastName] AS [LastName], 
+    [CelebrityDataExtended].[Gender] AS [Gender], 
+    [CelebrityDataExtended].[Feild] AS [Feild], 
+    [CelebrityDataExtended].[Description] AS [Description], 
+    [CelebrityDataExtended].[ActiveStatus] AS [ActiveStatus], 
+    [CelebrityDataExtended].[Rating] AS [Rating], 
+    [CelebrityDataExtended].[PhotoID] AS [PhotoID], 
+    [CelebrityDataExtended].[Link] AS [Link], 
+    [CelebrityDataExtended].[DeletedStatus] AS [DeletedStatus], 
+    [CelebrityDataExtended].[CelibrityID] AS [CelibrityID], 
+    [CelebrityDataExtended].[ProfilePic] AS [ProfilePic]
+    FROM [dbo].[CelebrityDataExtended] AS [CelebrityDataExtended]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="LocationData" EntityType="Self.LocationData" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [LocationData].[UserId] AS [UserId], 
@@ -436,6 +453,34 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
     [reportedPerson].[LastName] AS [LastName]
     FROM [dbo].[reportedPerson] AS [reportedPerson]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="SearchHistory" EntityType="Self.SearchHistory" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SearchHistory].[SearchedId] AS [SearchedId], 
+    [SearchHistory].[SearcherId] AS [SearcherId], 
+    [SearchHistory].[FirstName] AS [FirstName], 
+    [SearchHistory].[LastName] AS [LastName]
+    FROM [dbo].[SearchHistory] AS [SearchHistory]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserDataExtended" EntityType="Self.UserDataExtended" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserDataExtended].[UserId] AS [UserId], 
+    [UserDataExtended].[FirstName] AS [FirstName], 
+    [UserDataExtended].[LastName] AS [LastName], 
+    [UserDataExtended].[Email] AS [Email], 
+    [UserDataExtended].[Password] AS [Password], 
+    [UserDataExtended].[Description] AS [Description], 
+    [UserDataExtended].[Address] AS [Address], 
+    [UserDataExtended].[Gender] AS [Gender], 
+    [UserDataExtended].[LocationPermission] AS [LocationPermission], 
+    [UserDataExtended].[BlockStatus] AS [BlockStatus], 
+    [UserDataExtended].[ActiveStatus] AS [ActiveStatus], 
+    [UserDataExtended].[MobileNumber] AS [MobileNumber], 
+    [UserDataExtended].[PhotoID] AS [PhotoID], 
+    [UserDataExtended].[Link] AS [Link], 
+    [UserDataExtended].[DeleteStatus] AS [DeleteStatus], 
+    [UserDataExtended].[UploaderID] AS [UploaderID]
+    FROM [dbo].[UserDataExtended] AS [UserDataExtended]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Location__UserID__7D439ABD" Association="Self.FK__Location__UserID__7D439ABD">
             <End Role="UserData" EntitySet="UserData" />
             <End Role="Location" EntitySet="Location" />
@@ -443,18 +488,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <AssociationSet Name="FK_AdminPhoto_Admins1" Association="Self.FK_AdminPhoto_Admins1">
             <End Role="Admins" EntitySet="Admins" />
             <End Role="AdminPhoto" EntitySet="AdminPhoto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebrityPhoto_Celebrity" Association="Self.FK_CelebrityPhoto_Celebrity">
-            <End Role="Celebrity" EntitySet="Celebrity" />
-            <End Role="CelebrityPhoto" EntitySet="CelebrityPhoto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebritySuggestion_Celebrity" Association="Self.FK_CelebritySuggestion_Celebrity">
-            <End Role="Celebrity" EntitySet="Celebrity" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebritySuggestion_Celebrity1" Association="Self.FK_CelebritySuggestion_Celebrity1">
-            <End Role="Celebrity" EntitySet="Celebrity" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestion" />
           </AssociationSet>
           <AssociationSet Name="FK_CelebritySuggestion_User" Association="Self.FK_CelebritySuggestion_User">
             <End Role="UserData" EntitySet="UserData" />
@@ -472,18 +505,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             <End Role="UserData" EntitySet="UserData" />
             <End Role="Report" EntitySet="Report" />
           </AssociationSet>
-          <AssociationSet Name="FK_Search_SearchType" Association="Self.FK_Search_SearchType">
-            <End Role="SearchType" EntitySet="SearchType" />
-            <End Role="Search" EntitySet="Search" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Search_User" Association="Self.FK_Search_User">
-            <End Role="UserData" EntitySet="UserData" />
-            <End Role="Search" EntitySet="Search" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Search_User1" Association="Self.FK_Search_User1">
-            <End Role="UserData" EntitySet="UserData" />
-            <End Role="Search" EntitySet="Search" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserPhoto_User" Association="Self.FK_UserPhoto_User">
             <End Role="UserData" EntitySet="UserData" />
             <End Role="UserPhoto" EntitySet="UserPhoto" />
@@ -493,56 +514,100 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MyDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdminPhotoes" EntityType="MyDbModel.AdminPhoto" />
+          <EntitySet Name="Admins" EntityType="MyDbModel.Admin" />
+          <EntitySet Name="Celebrities" EntityType="MyDbModel.Celebrity" />
+          <EntitySet Name="CelebrityPhotoes" EntityType="MyDbModel.CelebrityPhoto" />
+          <EntitySet Name="CelebritySuggestions" EntityType="MyDbModel.CelebritySuggestion" />
+          <EntitySet Name="Locations" EntityType="MyDbModel.Location" />
+          <EntitySet Name="RateSuggestions" EntityType="MyDbModel.RateSuggestion" />
+          <EntitySet Name="Reports" EntityType="MyDbModel.Report" />
+          <EntitySet Name="Searches" EntityType="MyDbModel.Search" />
+          <EntitySet Name="UserDatas" EntityType="MyDbModel.UserData" />
+          <EntitySet Name="UserPhotoes" EntityType="MyDbModel.UserPhoto" />
+          <EntitySet Name="Logins" EntityType="MyDbModel.Login" />
+          <EntitySet Name="a" EntityType="MyDbModel.a" />
+          <EntitySet Name="CelebrityDataExtendeds" EntityType="MyDbModel.CelebrityDataExtended" />
+          <EntitySet Name="LocationDatas" EntityType="MyDbModel.LocationData" />
+          <EntitySet Name="reportedPersons" EntityType="MyDbModel.reportedPerson" />
+          <EntitySet Name="SearchHistories" EntityType="MyDbModel.SearchHistory" />
+          <EntitySet Name="UserDataExtendeds" EntityType="MyDbModel.UserDataExtended" />
+          <AssociationSet Name="FK_AdminPhoto_Admins1" Association="MyDbModel.FK_AdminPhoto_Admins1">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="AdminPhoto" EntitySet="AdminPhotoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CelebritySuggestion_User" Association="MyDbModel.FK_CelebritySuggestion_User">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Location__UserID__7D439ABD" Association="MyDbModel.FK__Location__UserID__7D439ABD">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_User" Association="MyDbModel.FK_Report_User">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_User1" Association="MyDbModel.FK_Report_User1">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Login_User" Association="MyDbModel.FK_Login_User">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Login" EntitySet="Logins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPhoto_User" Association="MyDbModel.FK_UserPhoto_User">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="UserPhoto" EntitySet="UserPhotoes" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AdminPhoto">
           <Key>
             <PropertyRef Name="PhotoID" />
           </Key>
           <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Link" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="DeleteStatus" Type="Boolean" Nullable="false" />
           <Property Name="AdminID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Admin" Relationship="Self.FK_AdminPhoto_Admins" FromRole="AdminPhoto" ToRole="Admins" />
+          <NavigationProperty Name="Admin" Relationship="MyDbModel.FK_AdminPhoto_Admins1" FromRole="AdminPhoto" ToRole="Admin" />
         </EntityType>
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminId" />
           </Key>
           <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" />
           <Property Name="ActivationCode" Type="Guid" Nullable="false" />
           <Property Name="ResetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AdminPhotoes" Relationship="Self.FK_AdminPhoto_Admins" FromRole="Admins" ToRole="AdminPhoto" />
+          <NavigationProperty Name="AdminPhotoes" Relationship="MyDbModel.FK_AdminPhoto_Admins1" FromRole="Admin" ToRole="AdminPhoto" />
         </EntityType>
         <EntityType Name="Celebrity">
           <Key>
             <PropertyRef Name="CelebrityId" />
           </Key>
           <Property Name="CelebrityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Feild" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Feild" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
           <Property Name="Rating" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CelebrityPhotoes" Relationship="Self.FK_CelebrityPhoto_Celebrity" FromRole="Celebrity" ToRole="CelebrityPhoto" />
-          <NavigationProperty Name="CelebritySuggestions" Relationship="Self.FK_CelebritySuggestion_Celebrity" FromRole="Celebrity" ToRole="CelebritySuggestion" />
-          <NavigationProperty Name="CelebritySuggestions1" Relationship="Self.FK_CelebritySuggestion_Celebrity1" FromRole="Celebrity" ToRole="CelebritySuggestion" />
         </EntityType>
         <EntityType Name="CelebrityPhoto">
           <Key>
             <PropertyRef Name="PhotoID" />
           </Key>
           <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Link" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="DeletedStatus" Type="Boolean" Nullable="false" />
           <Property Name="CelibrityID" Type="Int32" Nullable="false" />
           <Property Name="ProfilePic" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Celebrity" Relationship="Self.FK_CelebrityPhoto_Celebrity" FromRole="CelebrityPhoto" ToRole="Celebrity" />
         </EntityType>
         <EntityType Name="CelebritySuggestion">
           <Key>
@@ -551,13 +616,19 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="SuggestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Rate" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="SuggestorId" Type="Int32" Nullable="false" />
           <Property Name="CelebrityID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Celebrity" Relationship="Self.FK_CelebritySuggestion_Celebrity" FromRole="CelebritySuggestion" ToRole="Celebrity" />
-          <NavigationProperty Name="Celebrity1" Relationship="Self.FK_CelebritySuggestion_Celebrity1" FromRole="CelebritySuggestion" ToRole="Celebrity" />
-          <NavigationProperty Name="RateSuggestion" Relationship="Self.FK_CelebritySuggestion_RateSuggestion" FromRole="CelebritySuggestion" ToRole="RateSuggestion" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_CelebritySuggestion_User1" FromRole="CelebritySuggestion" ToRole="UserData" />
+          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_CelebritySuggestion_User" FromRole="CelebritySuggestion" ToRole="UserData" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="Location" ToRole="UserData" />
         </EntityType>
         <EntityType Name="RateSuggestion">
           <Key>
@@ -567,7 +638,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="SuggestorID" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Rating" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CelebritySuggestion" Relationship="Self.FK_CelebritySuggestion_RateSuggestion" FromRole="RateSuggestion" ToRole="CelebritySuggestion" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
@@ -576,199 +646,20 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ReporterID" Type="Int32" Nullable="false" />
           <Property Name="ReportedID" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Report_User2" FromRole="Report" ToRole="UserData" />
-          <NavigationProperty Name="UserData1" Relationship="MyDbModel.FK_Report_User11" FromRole="Report" ToRole="UserData" />
+          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Report_User" FromRole="Report" ToRole="UserData" />
+          <NavigationProperty Name="UserData1" Relationship="MyDbModel.FK_Report_User1" FromRole="Report" ToRole="UserData" />
         </EntityType>
         <EntityType Name="Search">
           <Key>
-            <PropertyRef Name="SearchID" />
+            <PropertyRef Name="SearchId" />
           </Key>
-          <Property Name="SearchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SearchedPersonId" Type="Int32" Nullable="false" />
+          <Property Name="SearchId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SearchedId" Type="Int32" Nullable="false" />
           <Property Name="SearcherId" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="TypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SearchType" Relationship="Self.FK_Search_SearchType" FromRole="Search" ToRole="SearchType" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Search_User2" FromRole="Search" ToRole="UserData" />
-          <NavigationProperty Name="UserData1" Relationship="MyDbModel.FK_Search_User11" FromRole="Search" ToRole="UserData" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
-        <EntityType Name="SearchType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Searches" Relationship="Self.FK_Search_SearchType" FromRole="SearchType" ToRole="Search" />
-        </EntityType>
-        <EntityType Name="UserPhoto">
-          <Key>
-            <PropertyRef Name="PhotoID" />
-          </Key>
-          <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Link" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DeleteStatus" Type="Boolean" Nullable="false" />
-          <Property Name="UploaderID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_UserPhoto_User1" FromRole="UserPhoto" ToRole="UserData" />
-        </EntityType>
-        <EntityType Name="Login">
-          <Key>
-            <PropertyRef Name="ProfileID" />
-            <PropertyRef Name="OnlineStatus" />
-            <PropertyRef Name="Date" />
-          </Key>
-          <Property Name="ProfileID" Type="Int32" Nullable="false" />
-          <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Login_User1" FromRole="Login" ToRole="UserData" />
-        </EntityType>
-        <Association Name="FK_AdminPhoto_Admins">
-          <End Role="Admins" Type="Self.Admin" Multiplicity="1" />
-          <End Role="AdminPhoto" Type="Self.AdminPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Admins">
-              <PropertyRef Name="AdminId" />
-            </Principal>
-            <Dependent Role="AdminPhoto">
-              <PropertyRef Name="AdminID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebrityPhoto_Celebrity">
-          <End Role="Celebrity" Type="Self.Celebrity" Multiplicity="1" />
-          <End Role="CelebrityPhoto" Type="Self.CelebrityPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Celebrity">
-              <PropertyRef Name="CelebrityId" />
-            </Principal>
-            <Dependent Role="CelebrityPhoto">
-              <PropertyRef Name="CelibrityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebritySuggestion_Celebrity">
-          <End Role="Celebrity" Type="Self.Celebrity" Multiplicity="1" />
-          <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Celebrity">
-              <PropertyRef Name="CelebrityId" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="CelebrityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebritySuggestion_Celebrity1">
-          <End Role="Celebrity" Type="Self.Celebrity" Multiplicity="1" />
-          <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Celebrity">
-              <PropertyRef Name="CelebrityId" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="CelebrityID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CelebritySuggestion_RateSuggestion">
-          <End Role="RateSuggestion" Type="Self.RateSuggestion" Multiplicity="1" />
-          <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="RateSuggestion">
-              <PropertyRef Name="SuggestionID" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="SuggestionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Search_SearchType">
-          <End Role="SearchType" Type="Self.SearchType" Multiplicity="1" />
-          <End Role="Search" Type="Self.Search" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SearchType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Search">
-              <PropertyRef Name="TypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MyDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AdminPhotoes" EntityType="Self.AdminPhoto" />
-          <EntitySet Name="Admins" EntityType="Self.Admin" />
-          <EntitySet Name="Celebrities" EntityType="Self.Celebrity" />
-          <EntitySet Name="CelebrityPhotoes" EntityType="Self.CelebrityPhoto" />
-          <EntitySet Name="CelebritySuggestions" EntityType="Self.CelebritySuggestion" />
-          <EntitySet Name="RateSuggestions" EntityType="Self.RateSuggestion" />
-          <EntitySet Name="Reports" EntityType="Self.Report" />
-          <EntitySet Name="Searches" EntityType="Self.Search" />
-          <EntitySet Name="SearchTypes" EntityType="Self.SearchType" />
-          <EntitySet Name="UserPhotoes" EntityType="Self.UserPhoto" />
-          <EntitySet Name="Logins" EntityType="Self.Login" />
-          <AssociationSet Name="FK_AdminPhoto_Admins" Association="Self.FK_AdminPhoto_Admins">
-            <End Role="Admins" EntitySet="Admins" />
-            <End Role="AdminPhoto" EntitySet="AdminPhotoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebrityPhoto_Celebrity" Association="Self.FK_CelebrityPhoto_Celebrity">
-            <End Role="Celebrity" EntitySet="Celebrities" />
-            <End Role="CelebrityPhoto" EntitySet="CelebrityPhotoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebritySuggestion_Celebrity" Association="Self.FK_CelebritySuggestion_Celebrity">
-            <End Role="Celebrity" EntitySet="Celebrities" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebritySuggestion_Celebrity1" Association="Self.FK_CelebritySuggestion_Celebrity1">
-            <End Role="Celebrity" EntitySet="Celebrities" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CelebritySuggestion_RateSuggestion" Association="Self.FK_CelebritySuggestion_RateSuggestion">
-            <End Role="RateSuggestion" EntitySet="RateSuggestions" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Search_SearchType" Association="Self.FK_Search_SearchType">
-            <End Role="SearchType" EntitySet="SearchTypes" />
-            <End Role="Search" EntitySet="Searches" />
-          </AssociationSet>
-          <EntitySet Name="UserDatas" EntityType="MyDbModel.UserData" />
-          <EntitySet Name="reportedPersons" EntityType="MyDbModel.reportedPerson" />
-          <AssociationSet Name="FK_CelebritySuggestion_User1" Association="MyDbModel.FK_CelebritySuggestion_User1">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Report_User2" Association="MyDbModel.FK_Report_User2">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Report" EntitySet="Reports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Report_User11" Association="MyDbModel.FK_Report_User11">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Report" EntitySet="Reports" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Search_User2" Association="MyDbModel.FK_Search_User2">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Search" EntitySet="Searches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Search_User11" Association="MyDbModel.FK_Search_User11">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Search" EntitySet="Searches" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Login_User1" Association="MyDbModel.FK_Login_User1">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Login" EntitySet="Logins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserPhoto_User1" Association="MyDbModel.FK_UserPhoto_User1">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="UserPhoto" EntitySet="UserPhotoes" />
-          </AssociationSet>
-          <EntitySet Name="Locations" EntityType="MyDbModel.Location" />
-          <AssociationSet Name="FK__Location__UserID__7D439ABD" Association="MyDbModel.FK__Location__UserID__7D439ABD">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Location" EntitySet="Locations" />
-          </AssociationSet>
-          <EntitySet Name="a" EntityType="MyDbModel.a" />
-          <EntitySet Name="LocationDatas" EntityType="MyDbModel.LocationData" />
-        </EntityContainer>
         <EntityType Name="UserData">
           <Key>
             <PropertyRef Name="UserId" />
@@ -785,138 +676,34 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="BlockStatus" Type="Boolean" Nullable="false" />
           <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
           <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CelebritySuggestions" Relationship="MyDbModel.FK_CelebritySuggestion_User1" FromRole="UserData" ToRole="CelebritySuggestion" />
-          <NavigationProperty Name="Reports" Relationship="MyDbModel.FK_Report_User2" FromRole="UserData" ToRole="Report" />
-          <NavigationProperty Name="Reports1" Relationship="MyDbModel.FK_Report_User11" FromRole="UserData" ToRole="Report" />
-          <NavigationProperty Name="Searches" Relationship="MyDbModel.FK_Search_User2" FromRole="UserData" ToRole="Search" />
-          <NavigationProperty Name="Searches1" Relationship="MyDbModel.FK_Search_User11" FromRole="UserData" ToRole="Search" />
-          <NavigationProperty Name="Logins" Relationship="MyDbModel.FK_Login_User1" FromRole="UserData" ToRole="Login" />
-          <NavigationProperty Name="UserPhotoes" Relationship="MyDbModel.FK_UserPhoto_User1" FromRole="UserData" ToRole="UserPhoto" />
+          <NavigationProperty Name="CelebritySuggestions" Relationship="MyDbModel.FK_CelebritySuggestion_User" FromRole="UserData" ToRole="CelebritySuggestion" />
           <NavigationProperty Name="Location" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="UserData" ToRole="Location" />
+          <NavigationProperty Name="Reports" Relationship="MyDbModel.FK_Report_User" FromRole="UserData" ToRole="Report" />
+          <NavigationProperty Name="Reports1" Relationship="MyDbModel.FK_Report_User1" FromRole="UserData" ToRole="Report" />
+          <NavigationProperty Name="Logins" Relationship="MyDbModel.FK_Login_User" FromRole="UserData" ToRole="Login" />
+          <NavigationProperty Name="UserPhotoes" Relationship="MyDbModel.FK_UserPhoto_User" FromRole="UserData" ToRole="UserPhoto" />
         </EntityType>
-        <EntityType Name="reportedPerson">
+        <EntityType Name="UserPhoto">
           <Key>
-            <PropertyRef Name="ReportId" />
-            <PropertyRef Name="ReporterId" />
-            <PropertyRef Name="ReportedId" />
-            <PropertyRef Name="Comment" />
+            <PropertyRef Name="PhotoID" />
+          </Key>
+          <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteStatus" Type="Boolean" Nullable="false" />
+          <Property Name="UploaderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_UserPhoto_User" FromRole="UserPhoto" ToRole="UserData" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="ProfileID" />
+            <PropertyRef Name="OnlineStatus" />
             <PropertyRef Name="Date" />
-            <PropertyRef Name="FirstName" />
-            <PropertyRef Name="LastName" />
           </Key>
-          <Property Name="ReportId" Type="Int32" Nullable="false" />
-          <Property Name="ReporterId" Type="Int32" Nullable="false" />
-          <Property Name="ReportedId" Type="Int32" Nullable="false" />
-          <Property Name="Comment" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ProfileID" Type="Int32" Nullable="false" />
+          <Property Name="OnlineStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Login_User" FromRole="Login" ToRole="UserData" />
         </EntityType>
-        <Association Name="FK_CelebritySuggestion_User1">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.CelebritySuggestion" Role="CelebritySuggestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="SuggestorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Report_User2">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Report" Role="Report" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Report">
-              <PropertyRef Name="ReporterID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Report_User11">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Report" Role="Report" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Report">
-              <PropertyRef Name="ReportedID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Search_User2">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Search" Role="Search" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Search">
-              <PropertyRef Name="SearchedPersonId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Search_User11">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Search" Role="Search" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Search">
-              <PropertyRef Name="SearcherId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Login_User1">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Login" Role="Login" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Login">
-              <PropertyRef Name="ProfileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPhoto_User1">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.UserPhoto" Role="UserPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserPhoto">
-              <PropertyRef Name="UploaderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Location">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Latitude" Type="Double" Nullable="false" />
-          <Property Name="Longitude" Type="Double" Nullable="false" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="Location" ToRole="UserData" />
-        </EntityType>
-        <Association Name="FK__Location__UserID__7D439ABD">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Location" Role="Location" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="a">
           <Key>
             <PropertyRef Name="ReportID" />
@@ -953,6 +740,35 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
           <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="CelebrityDataExtended">
+          <Key>
+            <PropertyRef Name="CelebrityId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="Feild" />
+            <PropertyRef Name="ActiveStatus" />
+            <PropertyRef Name="Rating" />
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="Link" />
+            <PropertyRef Name="DeletedStatus" />
+            <PropertyRef Name="CelibrityID" />
+            <PropertyRef Name="ProfilePic" />
+          </Key>
+          <Property Name="CelebrityId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Feild" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="PhotoID" Type="Int32" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DeletedStatus" Type="Boolean" Nullable="false" />
+          <Property Name="CelibrityID" Type="Int32" Nullable="false" />
+          <Property Name="ProfilePic" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="LocationData">
           <Key>
             <PropertyRef Name="UserId" />
@@ -967,7 +783,157 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="Latitude" Type="Double" Nullable="false" />
           <Property Name="Longitude" Type="Double" Nullable="false" />
         </EntityType>
-      </Schema>
+        <EntityType Name="reportedPerson">
+          <Key>
+            <PropertyRef Name="ReportId" />
+            <PropertyRef Name="ReporterId" />
+            <PropertyRef Name="ReportedId" />
+            <PropertyRef Name="Comment" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="ReportId" Type="Int32" Nullable="false" />
+          <Property Name="ReporterId" Type="Int32" Nullable="false" />
+          <Property Name="ReportedId" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SearchHistory">
+          <Key>
+            <PropertyRef Name="SearchedId" />
+            <PropertyRef Name="SearcherId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+          </Key>
+          <Property Name="SearchedId" Type="Int32" Nullable="false" />
+          <Property Name="SearcherId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UserDataExtended">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="LocationPermission" />
+            <PropertyRef Name="BlockStatus" />
+            <PropertyRef Name="ActiveStatus" />
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="Link" />
+            <PropertyRef Name="DeleteStatus" />
+            <PropertyRef Name="UploaderID" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LocationPermission" Type="Boolean" Nullable="false" />
+          <Property Name="BlockStatus" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhotoID" Type="Int32" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteStatus" Type="Boolean" Nullable="false" />
+          <Property Name="UploaderID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AdminPhoto_Admins1">
+          <End Type="MyDbModel.Admin" Role="Admin" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MyDbModel.AdminPhoto" Role="AdminPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="AdminPhoto">
+              <PropertyRef Name="AdminID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CelebritySuggestion_User">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.CelebritySuggestion" Role="CelebritySuggestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="CelebritySuggestion">
+              <PropertyRef Name="SuggestorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Location__UserID__7D439ABD">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.Location" Role="Location" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_User">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="ReporterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_User1">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="ReportedID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Login_User">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.Login" Role="Login" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Login">
+              <PropertyRef Name="ProfileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPhoto_User">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.UserPhoto" Role="UserPhoto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserPhoto">
+              <PropertyRef Name="UploaderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -976,120 +942,101 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <EntitySetMapping Name="AdminPhotoes">
             <EntityTypeMapping TypeName="MyDbModel.AdminPhoto">
               <MappingFragment StoreEntitySet="AdminPhoto">
-                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
                 <ScalarProperty Name="AdminID" ColumnName="AdminID" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Admins">
             <EntityTypeMapping TypeName="MyDbModel.Admin">
               <MappingFragment StoreEntitySet="Admins">
-                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
-                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
                 <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Celebrities">
             <EntityTypeMapping TypeName="MyDbModel.Celebrity">
               <MappingFragment StoreEntitySet="Celebrity">
-                <ScalarProperty Name="CelebrityId" ColumnName="CelebrityId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Feild" ColumnName="Feild" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Feild" ColumnName="Feild" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CelebrityId" ColumnName="CelebrityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CelebrityPhotoes">
             <EntityTypeMapping TypeName="MyDbModel.CelebrityPhoto">
               <MappingFragment StoreEntitySet="CelebrityPhoto">
-                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="DeletedStatus" ColumnName="DeletedStatus" />
-                <ScalarProperty Name="CelibrityID" ColumnName="CelibrityID" />
                 <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="CelibrityID" ColumnName="CelibrityID" />
+                <ScalarProperty Name="DeletedStatus" ColumnName="DeletedStatus" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CelebritySuggestions">
             <EntityTypeMapping TypeName="MyDbModel.CelebritySuggestion">
               <MappingFragment StoreEntitySet="CelebritySuggestion">
-                <ScalarProperty Name="SuggestionID" ColumnName="SuggestionID" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="SuggestorId" ColumnName="SuggestorId" />
                 <ScalarProperty Name="CelebrityID" ColumnName="CelebrityID" />
+                <ScalarProperty Name="SuggestorId" ColumnName="SuggestorId" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="SuggestionID" ColumnName="SuggestionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="MyDbModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RateSuggestions">
             <EntityTypeMapping TypeName="MyDbModel.RateSuggestion">
               <MappingFragment StoreEntitySet="RateSuggestion">
-                <ScalarProperty Name="SuggestionID" ColumnName="SuggestionID" />
-                <ScalarProperty Name="SuggestorID" ColumnName="SuggestorID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SuggestorID" ColumnName="SuggestorID" />
+                <ScalarProperty Name="SuggestionID" ColumnName="SuggestionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reports">
             <EntityTypeMapping TypeName="MyDbModel.Report">
               <MappingFragment StoreEntitySet="Report">
-                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
-                <ScalarProperty Name="ReporterID" ColumnName="ReporterID" />
-                <ScalarProperty Name="ReportedID" ColumnName="ReportedID" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ReportedID" ColumnName="ReportedID" />
+                <ScalarProperty Name="ReporterID" ColumnName="ReporterID" />
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Searches">
             <EntityTypeMapping TypeName="MyDbModel.Search">
               <MappingFragment StoreEntitySet="Search">
-                <ScalarProperty Name="SearchID" ColumnName="SearchID" />
-                <ScalarProperty Name="SearchedPersonId" ColumnName="SearchedPersonId" />
-                <ScalarProperty Name="SearcherId" ColumnName="SearcherId" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SearchTypes">
-            <EntityTypeMapping TypeName="MyDbModel.SearchType">
-              <MappingFragment StoreEntitySet="SearchType">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserPhotoes">
-            <EntityTypeMapping TypeName="MyDbModel.UserPhoto">
-              <MappingFragment StoreEntitySet="UserPhoto">
-                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
-                <ScalarProperty Name="Link" ColumnName="Link" />
-                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
-                <ScalarProperty Name="UploaderID" ColumnName="UploaderID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Logins">
-            <EntityTypeMapping TypeName="MyDbModel.Login">
-              <MappingFragment StoreEntitySet="Login">
-                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
-                <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SearcherId" ColumnName="SearcherId" />
+                <ScalarProperty Name="SearchedId" ColumnName="SearchedId" />
+                <ScalarProperty Name="SearchId" ColumnName="SearchId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1111,25 +1058,22 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="reportedPersons">
-            <EntityTypeMapping TypeName="MyDbModel.reportedPerson">
-              <MappingFragment StoreEntitySet="reportedPerson">
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="ReportedId" ColumnName="ReportedId" />
-                <ScalarProperty Name="ReporterId" ColumnName="ReporterId" />
-                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+          <EntitySetMapping Name="UserPhotoes">
+            <EntityTypeMapping TypeName="MyDbModel.UserPhoto">
+              <MappingFragment StoreEntitySet="UserPhoto">
+                <ScalarProperty Name="UploaderID" ColumnName="UploaderID" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="MyDbModel.Location">
-              <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="MyDbModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="OnlineStatus" ColumnName="OnlineStatus" />
+                <ScalarProperty Name="ProfileID" ColumnName="ProfileID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1156,11 +1100,75 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CelebrityDataExtendeds">
+            <EntityTypeMapping TypeName="MyDbModel.CelebrityDataExtended">
+              <MappingFragment StoreEntitySet="CelebrityDataExtended">
+                <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="CelibrityID" ColumnName="CelibrityID" />
+                <ScalarProperty Name="DeletedStatus" ColumnName="DeletedStatus" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Feild" ColumnName="Feild" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CelebrityId" ColumnName="CelebrityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LocationDatas">
             <EntityTypeMapping TypeName="MyDbModel.LocationData">
               <MappingFragment StoreEntitySet="LocationData">
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reportedPersons">
+            <EntityTypeMapping TypeName="MyDbModel.reportedPerson">
+              <MappingFragment StoreEntitySet="reportedPerson">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ReportedId" ColumnName="ReportedId" />
+                <ScalarProperty Name="ReporterId" ColumnName="ReporterId" />
+                <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SearchHistories">
+            <EntityTypeMapping TypeName="MyDbModel.SearchHistory">
+              <MappingFragment StoreEntitySet="SearchHistory">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SearcherId" ColumnName="SearcherId" />
+                <ScalarProperty Name="SearchedId" ColumnName="SearchedId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDataExtendeds">
+            <EntityTypeMapping TypeName="MyDbModel.UserDataExtended">
+              <MappingFragment StoreEntitySet="UserDataExtended">
+                <ScalarProperty Name="UploaderID" ColumnName="UploaderID" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="BlockStatus" ColumnName="BlockStatus" />
+                <ScalarProperty Name="LocationPermission" ColumnName="LocationPermission" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

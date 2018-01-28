@@ -19,7 +19,5 @@ namespace DataAccess
         public bool DeletedStatus { get; set; }
         public int CelibrityID { get; set; }
         public bool ProfilePic { get; set; }
-    
-        public virtual Celebrity Celebrity { get; set; }
     }
 }

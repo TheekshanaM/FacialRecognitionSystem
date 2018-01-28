@@ -18,7 +18,5 @@ namespace DataAccess
         public int SuggestorID { get; set; }
         public System.DateTime Date { get; set; }
         public int Rating { get; set; }
-    
-        public virtual CelebritySuggestion CelebritySuggestion { get; set; }
     }
 }

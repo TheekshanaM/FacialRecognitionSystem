@@ -12,15 +12,11 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class CelebritySuggestion
+    public partial class SearchHistory
     {
-        public int SuggestionID { get; set; }
-        public int Rate { get; set; }
-        public System.DateTime Date { get; set; }
-        public string Comment { get; set; }
-        public int SuggestorId { get; set; }
-        public int CelebrityID { get; set; }
-    
-        public virtual UserData UserData { get; set; }
+        public int SearchedId { get; set; }
+        public int SearcherId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

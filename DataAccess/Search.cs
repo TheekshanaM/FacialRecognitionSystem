@@ -14,14 +14,9 @@ namespace DataAccess
     
     public partial class Search
     {
-        public int SearchID { get; set; }
-        public int SearchedPersonId { get; set; }
+        public int SearchId { get; set; }
+        public int SearchedId { get; set; }
         public int SearcherId { get; set; }
-        public System.DateTime date { get; set; }
-        public int TypeId { get; set; }
-    
-        public virtual SearchType SearchType { get; set; }
-        public virtual UserData UserData { get; set; }
-        public virtual UserData UserData1 { get; set; }
+        public System.DateTime Date { get; set; }
     }
 }

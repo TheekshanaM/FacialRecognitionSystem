@@ -12,7 +12,7 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Celebrity
+    public partial class CelebrityDataExtended
     {
         public int CelebrityId { get; set; }
         public string FirstName { get; set; }
@@ -22,5 +22,10 @@ namespace DataAccess
         public string Description { get; set; }
         public bool ActiveStatus { get; set; }
         public int Rating { get; set; }
+        public int PhotoID { get; set; }
+        public string Link { get; set; }
+        public bool DeletedStatus { get; set; }
+        public int CelibrityID { get; set; }
+        public bool ProfilePic { get; set; }
     }
 }

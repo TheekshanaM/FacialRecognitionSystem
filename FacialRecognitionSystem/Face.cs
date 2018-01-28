@@ -29,25 +29,31 @@ namespace FaceAPIFunctions
         
      
 
-        public async Task<String> register(Stream path,int Id)
+        public async Task<String> register(byte[] imgData, int Id)
         {
-            string UserId = Id.ToString();
-            var faces= await detectFace(path,UserId);
-            var faceIds = faces.Select(face => face.FaceId).ToArray();
-            if (faces.Length == 0)
-            {
-                return ("No faces Detected");
-            }
-            if (faces.Length > 1)
-            {
-                return ("More than one face detected");
-            }
-            else
-            {
-                var result = await addperson(path, UserId);
-                return result;
-            }
             
+            using (var path = new MemoryStream(imgData))
+            {
+                string UserId = Id.ToString();
+                var faces = await detectFace(path, UserId);
+                var faceIds = faces.Select(face => face.FaceId).ToArray();
+                if (faces.Length == 0)
+                {
+                    return ("No faces Detected");
+                }
+                if (faces.Length > 1)
+                {
+                    return ("More than one face detected");
+                }
+                else
+                {
+                    using (var path2 = new MemoryStream(imgData))
+                    {
+                        var result = await addperson(path2, UserId);
+                        return result;
+                    }
+                }
+            }
 
         }
         private async Task<Face[]> detectFace(Stream path, String personId)
@@ -134,7 +140,7 @@ namespace FaceAPIFunctions
                             // Get top 1 among all candidates returned
                             var candidateId = identifyResult.Candidates[0].PersonId;
                             var person = await faceServiceClient.GetPersonAsync(groupId, candidateId);
-                            id[i] = Int32.Parse(person.Name);
+                            id[i] = Convert.ToInt32(person.Name);
                             i++;
                         }
                     }

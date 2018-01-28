@@ -103,9 +103,10 @@ namespace FacialRecognitionSystem.Controllers
                 {
                     id = response.Content.ReadAsAsync<int>().Result;
                     //
+                    
                     using (var fileStream = new MemoryStream(imgData))
                     {
-                        string s = await faceAPI.register(fileStream, id);
+                        string s = await faceAPI.register(imgData, id);
                         if(s != "Success")
                         {
                             ViewBag.Status = true;
@@ -183,7 +184,7 @@ namespace FacialRecognitionSystem.Controllers
 
                 return View();
             }
-            catch
+            catch(Exception e)
             {
                 ViewBag.Status = true;
                 ViewBag.Message = "Error occured while creating profile";
@@ -210,7 +211,7 @@ namespace FacialRecognitionSystem.Controllers
             return View();
         }
 
-        /*[HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Search(HttpPostedFileBase imageBrowes)
         {
             Image i = Image.FromStream(imageBrowes.InputStream, true, true);
@@ -221,6 +222,7 @@ namespace FacialRecognitionSystem.Controllers
             Face0 faceAPI = new Face0();
             using (var fileStream = new MemoryStream(imgData))
             {
+                int count = 0;
                 int[] message = await faceAPI.search(fileStream);
                 for(int j = 0; j < 10; j++)
                 {
@@ -228,7 +230,23 @@ namespace FacialRecognitionSystem.Controllers
                     {
                         ViewBag.Message = "Not Faces in Image";
                         return View();
+                    }else if(message[j] != 0)
+                    {
+                        count++;
                     }
+                }
+                if(count == 0)
+                {
+                    //no one identify
+                    return View();
+                }
+                else
+                {
+                    using(MyDbEntities db = new MyDbEntities())
+                    {
+                        var x = db.Celebrities.Where(a => a.CelebrityId == message[0] || a.CelebrityId == message[1] || a.CelebrityId == message[2] || a.CelebrityId == message[3] || a.CelebrityId == message[4]).ToList();
+                    }
+                    return View();
                 }
                 /*if(message != "no face detected" && message != "No one identified")
                 {
@@ -242,11 +260,11 @@ namespace FacialRecognitionSystem.Controllers
                     ViewBag.Status = true;
                     ViewBag.Message = message;
                     return View();
-                }
+                }*/
             }
 
 
-        }*/
+        }
 
         [HttpPost]
         public ActionResult NameSearch(Celebrity model)

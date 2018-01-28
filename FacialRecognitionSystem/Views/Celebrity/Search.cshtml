@@ -45,7 +45,7 @@
 
 @using (Html.BeginForm("Search", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+    if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
     {
         <div class="alert alert-info">
             <div class="col-md-5">

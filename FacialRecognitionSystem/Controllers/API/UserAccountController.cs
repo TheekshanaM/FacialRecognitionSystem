@@ -24,28 +24,34 @@ namespace FacialRecognitionSystem.Controllers.API
             string message = "";
             using (MyDbEntities db = new MyDbEntities())
             {
+                UserViewModel model = new UserViewModel();
+
                 var user = db.UserDatas.Where(a => a.Email == userLogin.Email).FirstOrDefault();
                 if (user != null)
                 {
+
                     if (string.Compare(Crypto.Hash(userLogin.Password), user.Password) == 0)
                     {
-                        message = "Success";
-                        return Request.CreateResponse(HttpStatusCode.OK,user);
+                        var ProfilePic = db.UserPhotoes.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+                        model.UploaderID = user.UserId;
+                        model.Link = ProfilePic.Link;
+
+                        return Request.CreateResponse(HttpStatusCode.OK, model);
                     }
                     else
                     {
-                        message = "Invalid credential Provided";
-                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest,message);
+                        message = "Invalid Password! Try Again";
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
                     }
 
                 }
                 else
                 {
-                    message = "Invalid credential Provided";
-                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
+
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Password! Try Again");
                 }
             }
-            
+
         }
 
         [HttpPost]
@@ -59,7 +65,8 @@ namespace FacialRecognitionSystem.Controllers.API
                 var isExist = IsEmailExist(user.Email);
                 if (isExist)
                 {
-                    return null;
+                    message = "Email is already existed";
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, message);
                 }
                 //password encoding
                 user.Password = Crypto.Hash(user.Password);
@@ -69,22 +76,90 @@ namespace FacialRecognitionSystem.Controllers.API
                 //------------- implement the code ----------
                 // verify a new user by the face
                 //save to database
+
                 using (MyDbEntities db = new MyDbEntities())
                 {
+                    UserViewModel model = new UserViewModel();
+
+                    //var ProfilePic = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+                    
+                    //model.Link = ProfilePic.Link;
+
                     db.UserDatas.Add(user);
                     db.SaveChanges();
+                    model.UploaderID = user.UserId;
+                    model.Link = "";
                     // map user detail with profile 4to
-                    return Request.CreateResponse(HttpStatusCode.OK, user);
+                    return Request.CreateResponse(HttpStatusCode.OK, model);
                     // create the user profile and load it in the home page of mobile app
                 }
             }
             else
             {
-                return null;
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
             }
 
         }
 
+        [HttpPost]
+        [Route("api/UserAccount/UserPhoto")]
+        public HttpResponseMessage UserPhoto([FromBody]UserPhoto model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //save to database
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    UserViewModel user = new UserViewModel();
+
+                    user.UploaderID = model.UploaderID;
+                    user.Link = model.Link;
+
+                    db.UserPhotoes.Add(model);
+                    db.SaveChanges();
+
+                    return Request.CreateResponse(HttpStatusCode.OK, model);
+
+                }
+            }
+            else
+            {
+                string message = "Photo Upload Failed! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/UserProfile")]
+        public HttpResponseMessage UserProfile([FromBody]UserPhoto user)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    UserViewModel model = new UserViewModel();
+
+                    var userProfile = db.UserDatas.Where(a => a.UserId == user.UploaderID).FirstOrDefault();
+                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+
+                    //model.Link = ProfilePic.Link;
+
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, userProfile);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
 
         [NonAction]
         public Boolean IsEmailExist(string email)

@@ -10,7 +10,6 @@
         <EntityTypeShape EntityType="MyDbModel.Celebrity" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.CelebrityPhoto" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.CelebritySuggestion" Width="1.5" PointX="6" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyDbModel.Location" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.RateSuggestion" Width="1.5" PointX="3.75" PointY="23.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.Report" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MyDbModel.Search" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
@@ -26,13 +25,16 @@
         <EntityTypeShape EntityType="MyDbModel.UserData" Width="1.5" PointX="1.125" PointY="14.75" />
         <EntityTypeShape EntityType="MyDbModel.reportedPerson" Width="1.5" PointX="0.75" PointY="0.75" />
         <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_User1" />
-        <AssociationConnector Association="MyDbModel.FK_Location_User1" />
         <AssociationConnector Association="MyDbModel.FK_Report_User2" />
         <AssociationConnector Association="MyDbModel.FK_Report_User11" />
         <AssociationConnector Association="MyDbModel.FK_Search_User2" />
         <AssociationConnector Association="MyDbModel.FK_Search_User11" />
         <AssociationConnector Association="MyDbModel.FK_Login_User1" />
         <AssociationConnector Association="MyDbModel.FK_UserPhoto_User1" />
+        <EntityTypeShape EntityType="MyDbModel.Location" Width="1.5" PointX="5.375" PointY="15.25" />
+        <AssociationConnector Association="MyDbModel.FK__Location__UserID__7D439ABD" />
+        <EntityTypeShape EntityType="MyDbModel.a" Width="1.5" PointX="8.375" PointY="7.75" />
+        <EntityTypeShape EntityType="MyDbModel.LocationData" Width="1.5" PointX="8.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

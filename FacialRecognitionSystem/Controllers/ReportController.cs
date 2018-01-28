@@ -75,7 +75,7 @@ namespace FacialRecognitionSystem.Controllers
 
 
                 repU.Comments = comments;
-               // foreach(var d in comments)
+                // foreach(var d in comments)
                 repU.TotalReports = count;
                 return View(repU);
 
@@ -83,18 +83,20 @@ namespace FacialRecognitionSystem.Controllers
 
             }
         }
-        public void blockUser(int id)
+        public String blockUser(ReportedUserModel e)
         {
-            using (MyDbEntities db=new MyDbEntities())
+            //var repId = id.ReportedUserId;
+            using (MyDbEntities db = new MyDbEntities())
             {
-                UserData user = db.UserDatas.Find(id);
-                bool a = false;
+
+                UserData user = db.UserDatas.Single(b => b.UserId == e.ReportedUserId);
+                bool a = true;
                 user.BlockStatus = a;
                 db.SaveChanges();
-                    
-                
+
+
             }
-                
+            return "blocked";
         }
     }
 }

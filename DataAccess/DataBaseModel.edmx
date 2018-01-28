@@ -63,11 +63,11 @@
         </EntityType>
         <EntityType Name="Location">
           <Key>
-            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="LocationName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MyDb.dbo.Login' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -144,6 +144,60 @@ warning 6002: The table/view 'MyDb.dbo.Login' does not have a primary key define
           <Property Name="UploaderID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'MyDb.dbo.a' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="a">
+          <Key>
+            <PropertyRef Name="ReportID" />
+            <PropertyRef Name="ReporterID" />
+            <PropertyRef Name="ReportedID" />
+            <PropertyRef Name="Comment" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="LocationPermission" />
+            <PropertyRef Name="BlockStatus" />
+            <PropertyRef Name="ActiveStatus" />
+          </Key>
+          <Property Name="ReportID" Type="int" Nullable="false" />
+          <Property Name="ReporterID" Type="int" Nullable="false" />
+          <Property Name="ReportedID" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LocationPermission" Type="bit" Nullable="false" />
+          <Property Name="BlockStatus" Type="bit" Nullable="false" />
+          <Property Name="ActiveStatus" Type="bit" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyDb.dbo.LocationData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LocationData">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="reportedPerson">
           <Key>
@@ -163,6 +217,18 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Location__UserID__7D439ABD">
+          <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_AdminPhoto_Admins1">
           <End Role="Admins" Type="Self.Admins" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -213,18 +279,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CelebritySuggestion_RateSuggestion">
-          <End Role="RateSuggestion" Type="Self.RateSuggestion" Multiplicity="1" />
-          <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="RateSuggestion">
-              <PropertyRef Name="SuggestionID" />
-            </Principal>
-            <Dependent Role="CelebritySuggestion">
-              <PropertyRef Name="SuggestionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CelebritySuggestion_User">
           <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
           <End Role="CelebritySuggestion" Type="Self.CelebritySuggestion" Multiplicity="*" />
@@ -234,18 +288,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             </Principal>
             <Dependent Role="CelebritySuggestion">
               <PropertyRef Name="SuggestorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Location_User">
-          <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
-          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -353,6 +395,36 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
     [Login].[Date] AS [Date]
     FROM [dbo].[Login] AS [Login]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="a" EntityType="Self.a" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [a].[ReportID] AS [ReportID], 
+    [a].[ReporterID] AS [ReporterID], 
+    [a].[ReportedID] AS [ReportedID], 
+    [a].[Comment] AS [Comment], 
+    [a].[Date] AS [Date], 
+    [a].[UserId] AS [UserId], 
+    [a].[FirstName] AS [FirstName], 
+    [a].[LastName] AS [LastName], 
+    [a].[Email] AS [Email], 
+    [a].[Password] AS [Password], 
+    [a].[Description] AS [Description], 
+    [a].[Address] AS [Address], 
+    [a].[Gender] AS [Gender], 
+    [a].[LocationPermission] AS [LocationPermission], 
+    [a].[BlockStatus] AS [BlockStatus], 
+    [a].[ActiveStatus] AS [ActiveStatus], 
+    [a].[MobileNumber] AS [MobileNumber]
+    FROM [dbo].[a] AS [a]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LocationData" EntityType="Self.LocationData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LocationData].[UserId] AS [UserId], 
+    [LocationData].[FirstName] AS [FirstName], 
+    [LocationData].[LastName] AS [LastName], 
+    [LocationData].[Latitude] AS [Latitude], 
+    [LocationData].[Longitude] AS [Longitude]
+    FROM [dbo].[LocationData] AS [LocationData]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="reportedPerson" EntityType="Self.reportedPerson" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [reportedPerson].[ReportId] AS [ReportId], 
@@ -364,6 +436,10 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
     [reportedPerson].[LastName] AS [LastName]
     FROM [dbo].[reportedPerson] AS [reportedPerson]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__Location__UserID__7D439ABD" Association="Self.FK__Location__UserID__7D439ABD">
+            <End Role="UserData" EntitySet="UserData" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
           <AssociationSet Name="FK_AdminPhoto_Admins1" Association="Self.FK_AdminPhoto_Admins1">
             <End Role="Admins" EntitySet="Admins" />
             <End Role="AdminPhoto" EntitySet="AdminPhoto" />
@@ -380,17 +456,9 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             <End Role="Celebrity" EntitySet="Celebrity" />
             <End Role="CelebritySuggestion" EntitySet="CelebritySuggestion" />
           </AssociationSet>
-          <AssociationSet Name="FK_CelebritySuggestion_RateSuggestion" Association="Self.FK_CelebritySuggestion_RateSuggestion">
-            <End Role="RateSuggestion" EntitySet="RateSuggestion" />
-            <End Role="CelebritySuggestion" EntitySet="CelebritySuggestion" />
-          </AssociationSet>
           <AssociationSet Name="FK_CelebritySuggestion_User" Association="Self.FK_CelebritySuggestion_User">
             <End Role="UserData" EntitySet="UserData" />
             <End Role="CelebritySuggestion" EntitySet="CelebritySuggestion" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Location_User" Association="Self.FK_Location_User">
-            <End Role="UserData" EntitySet="UserData" />
-            <End Role="Location" EntitySet="Location" />
           </AssociationSet>
           <AssociationSet Name="FK_Login_User" Association="Self.FK_Login_User">
             <End Role="UserData" EntitySet="UserData" />
@@ -490,15 +558,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <NavigationProperty Name="Celebrity1" Relationship="Self.FK_CelebritySuggestion_Celebrity1" FromRole="CelebritySuggestion" ToRole="Celebrity" />
           <NavigationProperty Name="RateSuggestion" Relationship="Self.FK_CelebritySuggestion_RateSuggestion" FromRole="CelebritySuggestion" ToRole="RateSuggestion" />
           <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_CelebritySuggestion_User1" FromRole="CelebritySuggestion" ToRole="UserData" />
-        </EntityType>
-        <EntityType Name="Location">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="LocationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Location_User1" FromRole="Location" ToRole="UserData" />
         </EntityType>
         <EntityType Name="RateSuggestion">
           <Key>
@@ -642,7 +701,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <EntitySet Name="Celebrities" EntityType="Self.Celebrity" />
           <EntitySet Name="CelebrityPhotoes" EntityType="Self.CelebrityPhoto" />
           <EntitySet Name="CelebritySuggestions" EntityType="Self.CelebritySuggestion" />
-          <EntitySet Name="Locations" EntityType="Self.Location" />
           <EntitySet Name="RateSuggestions" EntityType="Self.RateSuggestion" />
           <EntitySet Name="Reports" EntityType="Self.Report" />
           <EntitySet Name="Searches" EntityType="Self.Search" />
@@ -679,10 +737,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             <End Role="UserData" EntitySet="UserDatas" />
             <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Location_User1" Association="MyDbModel.FK_Location_User1">
-            <End Role="UserData" EntitySet="UserDatas" />
-            <End Role="Location" EntitySet="Locations" />
-          </AssociationSet>
           <AssociationSet Name="FK_Report_User2" Association="MyDbModel.FK_Report_User2">
             <End Role="UserData" EntitySet="UserDatas" />
             <End Role="Report" EntitySet="Reports" />
@@ -707,6 +761,13 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             <End Role="UserData" EntitySet="UserDatas" />
             <End Role="UserPhoto" EntitySet="UserPhotoes" />
           </AssociationSet>
+          <EntitySet Name="Locations" EntityType="MyDbModel.Location" />
+          <AssociationSet Name="FK__Location__UserID__7D439ABD" Association="MyDbModel.FK__Location__UserID__7D439ABD">
+            <End Role="UserData" EntitySet="UserDatas" />
+            <End Role="Location" EntitySet="Locations" />
+          </AssociationSet>
+          <EntitySet Name="a" EntityType="MyDbModel.a" />
+          <EntitySet Name="LocationDatas" EntityType="MyDbModel.LocationData" />
         </EntityContainer>
         <EntityType Name="UserData">
           <Key>
@@ -725,13 +786,13 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
           <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
           <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CelebritySuggestions" Relationship="MyDbModel.FK_CelebritySuggestion_User1" FromRole="UserData" ToRole="CelebritySuggestion" />
-          <NavigationProperty Name="Location" Relationship="MyDbModel.FK_Location_User1" FromRole="UserData" ToRole="Location" />
           <NavigationProperty Name="Reports" Relationship="MyDbModel.FK_Report_User2" FromRole="UserData" ToRole="Report" />
           <NavigationProperty Name="Reports1" Relationship="MyDbModel.FK_Report_User11" FromRole="UserData" ToRole="Report" />
           <NavigationProperty Name="Searches" Relationship="MyDbModel.FK_Search_User2" FromRole="UserData" ToRole="Search" />
           <NavigationProperty Name="Searches1" Relationship="MyDbModel.FK_Search_User11" FromRole="UserData" ToRole="Search" />
           <NavigationProperty Name="Logins" Relationship="MyDbModel.FK_Login_User1" FromRole="UserData" ToRole="Login" />
           <NavigationProperty Name="UserPhotoes" Relationship="MyDbModel.FK_UserPhoto_User1" FromRole="UserData" ToRole="UserPhoto" />
+          <NavigationProperty Name="Location" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="UserData" ToRole="Location" />
         </EntityType>
         <EntityType Name="reportedPerson">
           <Key>
@@ -760,18 +821,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             </Principal>
             <Dependent Role="CelebritySuggestion">
               <PropertyRef Name="SuggestorId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Location_User1">
-          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
-          <End Type="MyDbModel.Location" Role="Location" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UserData">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -847,6 +896,77 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <NavigationProperty Name="UserData" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="Location" ToRole="UserData" />
+        </EntityType>
+        <Association Name="FK__Location__UserID__7D439ABD">
+          <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
+          <End Type="MyDbModel.Location" Role="Location" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserData">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="a">
+          <Key>
+            <PropertyRef Name="ReportID" />
+            <PropertyRef Name="ReporterID" />
+            <PropertyRef Name="ReportedID" />
+            <PropertyRef Name="Comment" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="LocationPermission" />
+            <PropertyRef Name="BlockStatus" />
+            <PropertyRef Name="ActiveStatus" />
+          </Key>
+          <Property Name="ReportID" Type="Int32" Nullable="false" />
+          <Property Name="ReporterID" Type="Int32" Nullable="false" />
+          <Property Name="ReportedID" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LocationPermission" Type="Boolean" Nullable="false" />
+          <Property Name="BlockStatus" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LocationData">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Latitude" />
+            <PropertyRef Name="Longitude" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -911,15 +1031,6 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="SuggestorId" ColumnName="SuggestorId" />
                 <ScalarProperty Name="CelebrityID" ColumnName="CelebrityID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Locations">
-            <EntityTypeMapping TypeName="MyDbModel.Location">
-              <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1010,6 +1121,49 @@ warning 6002: The table/view 'MyDb.dbo.reportedPerson' does not have a primary k
                 <ScalarProperty Name="ReportedId" ColumnName="ReportedId" />
                 <ScalarProperty Name="ReporterId" ColumnName="ReporterId" />
                 <ScalarProperty Name="ReportId" ColumnName="ReportId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="MyDbModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="a">
+            <EntityTypeMapping TypeName="MyDbModel.a">
+              <MappingFragment StoreEntitySet="a">
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="BlockStatus" ColumnName="BlockStatus" />
+                <ScalarProperty Name="LocationPermission" ColumnName="LocationPermission" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ReportedID" ColumnName="ReportedID" />
+                <ScalarProperty Name="ReporterID" ColumnName="ReporterID" />
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationDatas">
+            <EntityTypeMapping TypeName="MyDbModel.LocationData">
+              <MappingFragment StoreEntitySet="LocationData">
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

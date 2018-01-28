@@ -12,12 +12,12 @@ namespace DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Location
+    public partial class LocationData
     {
-        public int UserID { get; set; }
+        public int UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-    
-        public virtual UserData UserData { get; set; }
     }
 }

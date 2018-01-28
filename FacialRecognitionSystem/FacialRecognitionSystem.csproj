@@ -213,10 +213,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AdminAccountController.cs" />
     <Compile Include="Controllers\API\CelebrityController.cs" />
+    <Compile Include="Controllers\API\LocationController.cs" />
     <Compile Include="Controllers\API\UserAccountController.cs" />
     <Compile Include="Controllers\CelebrityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\SuggestionReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Crypto.cs" />
     <Compile Include="Face.cs" />
@@ -227,6 +229,7 @@
     <Compile Include="Models\AdminRegisterViewModel.cs" />
     <Compile Include="Models\CelebrityViewModel.cs" />
     <Compile Include="Models\CreateCelebrityViewModel.cs" />
+    <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\PhotoUploadModel.cs" />
     <Compile Include="Models\ReportedUserModel.cs" />
     <Compile Include="Models\ResetPassword.cs" />
@@ -297,12 +300,13 @@
     <Content Include="Views\Celebrity\Search.cshtml" />
     <Content Include="Views\Celebrity\NameSearch.cshtml" />
     <Content Include="Views\Report\ReportedList.cshtml" />
-    <Content Include="Views\Report\blockPage.cshtml" />
     <Content Include="Views\Celebrity\Changesetting.cshtml" />
     <Content Include="Views\Celebrity\ViewImage.cshtml" />
     <Content Include="Views\User\Search.cshtml" />
     <Content Include="Views\User\NameSearch.cshtml" />
     <Content Include="Views\Celebrity\GetCelebrity.cshtml" />
+    <Content Include="Views\Report\blockPage.cshtml" />
+    <Content Include="Views\SuggestionReport\celebritySuggestionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

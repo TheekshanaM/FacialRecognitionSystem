@@ -18,7 +18,6 @@ namespace DataAccess
         public MyDbEntities()
             : base("name=MyDbEntities")
         {
-            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -31,7 +30,6 @@ namespace DataAccess
         public virtual DbSet<Celebrity> Celebrities { get; set; }
         public virtual DbSet<CelebrityPhoto> CelebrityPhotoes { get; set; }
         public virtual DbSet<CelebritySuggestion> CelebritySuggestions { get; set; }
-        public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<RateSuggestion> RateSuggestions { get; set; }
         public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<Search> Searches { get; set; }
@@ -40,5 +38,8 @@ namespace DataAccess
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<UserData> UserDatas { get; set; }
         public virtual DbSet<reportedPerson> reportedPersons { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<a> a { get; set; }
+        public virtual DbSet<LocationData> LocationDatas { get; set; }
     }
 }

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<DataAccess.CelebritySuggestion>
+
+@{
+    ViewBag.Title = "celebritySuggestionList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>celebritySuggestionList</h2>
+<hr />
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SuggestionID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuggestorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CelebrityID)
+            </th>
+
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuggestionID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SuggestorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CelebrityID)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+

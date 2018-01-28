@@ -113,6 +113,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="a.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Admin.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +147,9 @@
       <DependentUpon>DataBaseModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocationData.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">

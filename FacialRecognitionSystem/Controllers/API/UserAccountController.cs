@@ -161,6 +161,61 @@ namespace FacialRecognitionSystem.Controllers.API
 
         }
 
+        [HttpPost]
+        [Route("api/UserAccount/Notification")]
+
+
+        public HttpResponseMessage Notification([FromBody]  UserViewModel userViewModel)
+        {
+
+
+
+            using (MyDbEntities db = new MyDbEntities())
+            {
+                var user = db.SearchHistories.Where(a => a.SearchedId == userViewModel.UploaderID).ToList();
+                if (user != null)
+                {
+
+                    return Request.CreateResponse(HttpStatusCode.OK, user);
+
+                }
+                else
+                {
+                     
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid credential Provided");
+                }
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/ForgotPassword")]
+        //creat a new userLogin.cs file  -done  
+        public HttpResponseMessage ForgotPassword([FromBody]UserLogin userLogin)
+        {
+            using (MyDbEntities db = new MyDbEntities())
+            {
+                var user = db.UserDatas.Where(a => a.Email == userLogin.Email).FirstOrDefault();
+                if (user != null)
+                {
+                    Random rnd = new Random();
+                    int code = rnd.Next(1000,9999 );
+                    SendVerificationLinkEmail(user.Email, code);
+                    user.ResetCode = code;
+
+                    db.Configuration.ValidateOnSaveEnabled = false;
+
+                    db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid credential Provided");
+                }
+            }
+
+        }
+
         [NonAction]
         public Boolean IsEmailExist(string email)
         {
@@ -173,29 +228,20 @@ namespace FacialRecognitionSystem.Controllers.API
 
 
         [NonAction]
-        public void SendVerificationLinkEmail(string email, string activatonCode, string emailFor = "VerifyAccount")
+        public void SendVerificationLinkEmail(string email, int ReSetCode)
         {
-            var verifyUrl = "/Account/" + emailFor + "/" + activatonCode;
-            var link = ConfigurationManager.AppSettings["Host"].ToString() + verifyUrl;
-            //Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
-
-            var fromEmail = new MailAddress("thrinduchulle@gmail.com", "thrindu chulle");//your email address
+            
+            var fromEmail = new MailAddress("uomzircontech@gmail.com", "thrindu chulle");//your email address
             var toEmail = new MailAddress(email);
-            var fromEmailPassword = "****";//email password
+            var fromEmailPassword = "FaceItZirconTech";//email password
 
             string subject = "";
             string body = "";
 
-            if (emailFor == "VerifyAccount")
-            {
-                subject = "Your account is successdully created !";
-                body = "<br/><br/>Click <a href='" + link + "'>here<a/>";
-            }
-            else
-            {
-                subject = "Reset password";
-                body = "Click <a href='" + link + "'>Here<a/> to Reset password.";
-            }
+            
+            subject = "Reset password";
+            body = "Reset Code : " + ReSetCode; 
+            
 
 
 

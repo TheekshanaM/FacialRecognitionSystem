@@ -211,7 +211,7 @@ namespace FacialRecognitionSystem.Controllers
             return View();
         }
 
-        /*[HttpPost]
+        [HttpPost]
         public async Task<ActionResult> Search(HttpPostedFileBase imageBrowes)
         {
             Image i = Image.FromStream(imageBrowes.InputStream, true, true);
@@ -231,12 +231,13 @@ namespace FacialRecognitionSystem.Controllers
                     {
                         message[k] = 0;
                     }
-                }
+                }*/
                 s1 = message[0];s2 = message[1];s3 = message[2];s4 = message[3];s5 = message[4];
                 for(int j = 0; j < 5; j++)
                 {
                     if(message[j] == -1)
                     {
+                        ViewBag.Status = true;
                         ViewBag.Message = "Not Faces in Image";
                         return View();
                     }else if(message[j] != 0)
@@ -247,6 +248,8 @@ namespace FacialRecognitionSystem.Controllers
                 if(count == 0)
                 {
                     //no one identify
+                    ViewBag.Status = true;
+                    ViewBag.Message = "No one Identified";
                     return View();
                 }
                 else
@@ -254,8 +257,19 @@ namespace FacialRecognitionSystem.Controllers
                     using(MyDbEntities db = new MyDbEntities())
                     {
                         IEnumerable<Celebrity> celebritySet = db.Celebrities.Where(a => a.CelebrityId == s1 || a.CelebrityId == s2 || a.CelebrityId == s3 || a.CelebrityId == s4 || a.CelebrityId == s5).ToList();
+                        if (celebritySet.Count() != 0)
+                        {
+                            return View("NameSearch", celebritySet);
+                        }
+                        else
+                        {
+                            ViewBag.Status = true;
+                            ViewBag.Message = "No one Identified";
+                            return View();
+                        }
+
                     }
-                    return RedirectToAction("ImageSearch", "Celebrity", celebritySet);
+                    
                 }
                 
             }
@@ -263,10 +277,7 @@ namespace FacialRecognitionSystem.Controllers
 
         }
 
-        public ActionResult ImageSearch(IEnumerable<Celebrity> ce)
-        {
-
-        }*/
+        
 
         [HttpPost]
         public ActionResult NameSearch(Celebrity model)

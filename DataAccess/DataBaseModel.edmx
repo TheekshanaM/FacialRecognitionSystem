@@ -125,6 +125,7 @@ warning 6002: The table/view 'MyDb.dbo.Login' does not have a primary key define
           <Property Name="BlockStatus" Type="bit" Nullable="false" />
           <Property Name="ActiveStatus" Type="bit" Nullable="false" />
           <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+          <Property Name="ResetCode" Type="int" />
         </EntityType>
         <EntityType Name="UserPhoto">
           <Key>
@@ -524,7 +525,6 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
           <EntitySet Name="RateSuggestions" EntityType="MyDbModel.RateSuggestion" />
           <EntitySet Name="Reports" EntityType="MyDbModel.Report" />
           <EntitySet Name="Searches" EntityType="MyDbModel.Search" />
-          <EntitySet Name="UserDatas" EntityType="MyDbModel.UserData" />
           <EntitySet Name="UserPhotoes" EntityType="MyDbModel.UserPhoto" />
           <EntitySet Name="Logins" EntityType="MyDbModel.Login" />
           <EntitySet Name="a" EntityType="MyDbModel.a" />
@@ -537,6 +537,7 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
             <End Role="Admin" EntitySet="Admins" />
             <End Role="AdminPhoto" EntitySet="AdminPhotoes" />
           </AssociationSet>
+          <EntitySet Name="UserDatas" EntityType="MyDbModel.UserData" />
           <AssociationSet Name="FK_CelebritySuggestion_User" Association="MyDbModel.FK_CelebritySuggestion_User">
             <End Role="UserData" EntitySet="UserDatas" />
             <End Role="CelebritySuggestion" EntitySet="CelebritySuggestions" />
@@ -561,7 +562,7 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
             <End Role="UserData" EntitySet="UserDatas" />
             <End Role="UserPhoto" EntitySet="UserPhotoes" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AdminPhoto">
           <Key>
             <PropertyRef Name="PhotoID" />
@@ -650,7 +651,7 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="UserData" Relationship="MyDbModel.FK_Report_User" FromRole="Report" ToRole="UserData" />
           <NavigationProperty Name="UserData1" Relationship="MyDbModel.FK_Report_User1" FromRole="Report" ToRole="UserData" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="Search">
           <Key>
             <PropertyRef Name="SearchId" />
@@ -659,29 +660,6 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
           <Property Name="SearchedId" Type="Int32" Nullable="false" />
           <Property Name="SearcherId" Type="Int32" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="UserData">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="LocationPermission" Type="Boolean" Nullable="false" />
-          <Property Name="BlockStatus" Type="Boolean" Nullable="false" />
-          <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
-          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CelebritySuggestions" Relationship="MyDbModel.FK_CelebritySuggestion_User" FromRole="UserData" ToRole="CelebritySuggestion" />
-          <NavigationProperty Name="Location" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="UserData" ToRole="Location" />
-          <NavigationProperty Name="Reports" Relationship="MyDbModel.FK_Report_User" FromRole="UserData" ToRole="Report" />
-          <NavigationProperty Name="Reports1" Relationship="MyDbModel.FK_Report_User1" FromRole="UserData" ToRole="Report" />
-          <NavigationProperty Name="Logins" Relationship="MyDbModel.FK_Login_User" FromRole="UserData" ToRole="Login" />
-          <NavigationProperty Name="UserPhotoes" Relationship="MyDbModel.FK_UserPhoto_User" FromRole="UserData" ToRole="UserPhoto" />
         </EntityType>
         <EntityType Name="UserPhoto">
           <Key>
@@ -861,6 +839,30 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserData">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LocationPermission" Type="Boolean" Nullable="false" />
+          <Property Name="BlockStatus" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="Int32" />
+          <NavigationProperty Name="CelebritySuggestions" Relationship="MyDbModel.FK_CelebritySuggestion_User" FromRole="UserData" ToRole="CelebritySuggestion" />
+          <NavigationProperty Name="Location" Relationship="MyDbModel.FK__Location__UserID__7D439ABD" FromRole="UserData" ToRole="Location" />
+          <NavigationProperty Name="Reports" Relationship="MyDbModel.FK_Report_User" FromRole="UserData" ToRole="Report" />
+          <NavigationProperty Name="Reports1" Relationship="MyDbModel.FK_Report_User1" FromRole="UserData" ToRole="Report" />
+          <NavigationProperty Name="Logins" Relationship="MyDbModel.FK_Login_User" FromRole="UserData" ToRole="Login" />
+          <NavigationProperty Name="UserPhotoes" Relationship="MyDbModel.FK_UserPhoto_User" FromRole="UserData" ToRole="UserPhoto" />
+        </EntityType>
         <Association Name="FK_CelebritySuggestion_User">
           <End Type="MyDbModel.UserData" Role="UserData" Multiplicity="1" />
           <End Type="MyDbModel.CelebritySuggestion" Role="CelebritySuggestion" Multiplicity="*" />
@@ -1040,24 +1042,6 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserDatas">
-            <EntityTypeMapping TypeName="MyDbModel.UserData">
-              <MappingFragment StoreEntitySet="UserData">
-                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
-                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
-                <ScalarProperty Name="BlockStatus" ColumnName="BlockStatus" />
-                <ScalarProperty Name="LocationPermission" ColumnName="LocationPermission" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserPhotoes">
             <EntityTypeMapping TypeName="MyDbModel.UserPhoto">
               <MappingFragment StoreEntitySet="UserPhoto">
@@ -1160,6 +1144,25 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
                 <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
                 <ScalarProperty Name="Link" ColumnName="Link" />
                 <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="BlockStatus" ColumnName="BlockStatus" />
+                <ScalarProperty Name="LocationPermission" ColumnName="LocationPermission" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDatas">
+            <EntityTypeMapping TypeName="MyDbModel.UserData">
+              <MappingFragment StoreEntitySet="UserData">
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
                 <ScalarProperty Name="BlockStatus" ColumnName="BlockStatus" />

@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="MyDbModel.RateSuggestion" Width="1.5" PointX="7.75" PointY="7.75" />
         <EntityTypeShape EntityType="MyDbModel.Report" Width="1.5" PointX="3" PointY="12.375" />
         <EntityTypeShape EntityType="MyDbModel.Search" Width="1.5" PointX="9.75" PointY="4.75" />
-        <EntityTypeShape EntityType="MyDbModel.UserData" Width="1.5" PointX="0.75" PointY="5.875" />
         <EntityTypeShape EntityType="MyDbModel.UserPhoto" Width="1.5" PointX="3" PointY="1.5" />
         <EntityTypeShape EntityType="MyDbModel.Login" Width="1.5" PointX="3" PointY="4.25" />
         <EntityTypeShape EntityType="MyDbModel.a" Width="1.5" PointX="9.75" PointY="7.75" />
@@ -24,6 +23,7 @@
         <EntityTypeShape EntityType="MyDbModel.SearchHistory" Width="1.5" PointX="11.75" PointY="7.75" />
         <EntityTypeShape EntityType="MyDbModel.UserDataExtended" Width="1.5" PointX="11.75" PointY="10.75" />
         <AssociationConnector Association="MyDbModel.FK_AdminPhoto_Admins1" />
+        <EntityTypeShape EntityType="MyDbModel.UserData" Width="1.5" PointX="0.75" PointY="5.75" />
         <AssociationConnector Association="MyDbModel.FK_CelebritySuggestion_User" />
         <AssociationConnector Association="MyDbModel.FK__Location__UserID__7D439ABD" />
         <AssociationConnector Association="MyDbModel.FK_Report_User" />

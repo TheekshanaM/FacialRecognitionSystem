@@ -36,6 +36,7 @@ namespace DataAccess
         public bool BlockStatus { get; set; }
         public bool ActiveStatus { get; set; }
         public string MobileNumber { get; set; }
+        public Nullable<int> ResetCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CelebritySuggestion> CelebritySuggestions { get; set; }

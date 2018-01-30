@@ -143,7 +143,7 @@ namespace FacialRecognitionSystem.Controllers.API
                 {
                     UserViewModel model = new UserViewModel();
 
-                    var userProfile = db.UserDatas.Where(a => a.UserId == user.UploaderID).FirstOrDefault();
+                    var userProfile = db.UserDataExtended2.Where(a => a.UserId == user.UploaderID).FirstOrDefault();
                     //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
 
                     //model.Link = ProfilePic.Link;
@@ -247,33 +247,31 @@ namespace FacialRecognitionSystem.Controllers.API
         public HttpResponseMessage EditProfile([FromBody]UserData user)
         {
             string message = "";
+            UserViewModel model = new UserViewModel();
             if (ModelState.IsValid)
             {
-
-
                 using (MyDbEntities db = new MyDbEntities())
                 {
-                    UserViewModel model = new UserViewModel();
+                    
                     var editProfile = db.UserDatas.Where(a => a.UserId == user.UserId).FirstOrDefault();
 
-                    model.UploaderID = user.UserId;
+                    if (editProfile != null)
+                    {
+                        editProfile.FirstName = user.FirstName;
+                        editProfile.LastName = user.LastName;
+                        editProfile.Address = user.Address;
+                        editProfile.Gender = user.Gender;
+                        editProfile.MobileNumber = user.MobileNumber;
+                        editProfile.Description = user.Description;
 
-                    editProfile.FirstName = user.FirstName;
-                    editProfile.LastName = user.LastName;
-                    editProfile.FirstName = user.FirstName;
-                    editProfile.Address = user.Address;
-                    editProfile.Gender = user.Gender;
-                    editProfile.MobileNumber = user.MobileNumber;
-                    editProfile.Description = user.Description;
-
-                    //model.Link = ProfilePic.Link;
-
-
-                    //db.UserDatas.Add(user);
-                    db.SaveChanges();
-                    // map user detail with profile 4to
-                    return Request.CreateResponse(HttpStatusCode.OK, model);
-                    // create the user profile and load it in the home page of mobile app
+                        
+                        db.SaveChanges();
+                        model.UploaderID = user.UserId;
+                        
+                        return Request.CreateResponse(HttpStatusCode.OK, model);
+                        
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Connection Error! Try Again");
                 }
             }
             else
@@ -322,16 +320,12 @@ namespace FacialRecognitionSystem.Controllers.API
 
                 using (MyDbEntities db = new MyDbEntities())
                 {
-                    
-
                     var faceSearch = db.UserDatas.Where(a => a.UserId == search.UploaderID).ToList();
-                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
-
-                    //model.Link = ProfilePic.Link;
-
-                    // map user detail with profile 4to
-                    return Request.CreateResponse(HttpStatusCode.OK, faceSearch);
-                    // create the user profile and load it in the home page of mobile app
+                    if (faceSearch != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, faceSearch);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Connection Error! Try Again");
                 }
             }
             else

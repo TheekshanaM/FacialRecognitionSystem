@@ -65,7 +65,7 @@ namespace FacialRecognitionSystem.Controllers
                 {
                     using (MyDbEntities db = new MyDbEntities())
                     {
-                        IEnumerable<UserData> userSet = db.UserDatas.Where(a => a.UserId == s1 || a.UserId == s2 || a.UserId == s3 || a.UserId == s4 || a.UserId == s5).ToList();
+                        IEnumerable<UserDataExtended2> userSet = db.UserDataExtended2.Where(a => a.UserId == s1 || a.UserId == s2 || a.UserId == s3 || a.UserId == s4 || a.UserId == s5).ToList();
                         if (userSet.Count() != 0)
                         {
                             return View("NameSearch", userSet);
@@ -100,6 +100,49 @@ namespace FacialRecognitionSystem.Controllers
 
                 }
                 return View();
+            }
+        }
+
+        public ActionResult UserProfile(int id)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                var user = db.UserDataExtended2.Where(a => a.UserId == id).FirstOrDefault();
+                if(user != null)
+                {
+                    return View(user);
+                }
+                return RedirectToAction("Search", "User");
+            }
+        }
+
+        public ActionResult Block(int id)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                var user = db.UserDatas.Where(a => a.UserId == id).FirstOrDefault();
+                if(user != null)
+                {
+                    user.BlockStatus = true;
+                    db.SaveChanges();
+                    return RedirectToAction("UserProfile", "User", new { id=id });
+                }
+                return RedirectToAction("Search","User");
+            }
+        }
+
+        public ActionResult UnBlock(int id)
+        {
+            using (MyDbEntities db = new MyDbEntities())
+            {
+                var user = db.UserDatas.Where(a => a.UserId == id).FirstOrDefault();
+                if (user != null)
+                {
+                    user.BlockStatus = false;
+                    db.SaveChanges();
+                    return RedirectToAction("UserProfile", "User", new { id = id });
+                }
+                return RedirectToAction("Search", "User");
             }
         }
     }

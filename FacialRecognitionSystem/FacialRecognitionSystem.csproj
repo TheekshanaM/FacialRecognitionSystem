@@ -313,6 +313,7 @@
     <Content Include="Views\SuggestionReport\celebritySuggestionList.cshtml" />
     <Content Include="Views\Report\blockUser.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

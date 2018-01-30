@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="btn btn-primary">
-        @Html.ActionLink("Change Password", "ChangePassword", "Account", new { id = Model.AdminId }, new { @class = "col col-sm-offset-1" })
+        @Html.ActionLink("Change Password", "ChangePassword", "Account", new { id = Model.AdminId }, null)
     </div>
     @using (Html.BeginForm())
     {

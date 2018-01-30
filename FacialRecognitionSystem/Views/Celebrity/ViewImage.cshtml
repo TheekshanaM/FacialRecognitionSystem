@@ -6,7 +6,10 @@
 
 <hr />
 <div class="jumbotron">
+    @if (Model != null)
+    {
     <div class="container">
+
         <div class="row">
             @foreach (var photo in Model)
             {
@@ -49,6 +52,16 @@
                 </div>
         }
     </div>
+    }
+    else
+    {
+        <div class="col-md-5">
+            <div class="alert alert-danger">
+                <strong>@ViewBag.Message</strong>
+            </div>
+        </div>
+    }
+
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

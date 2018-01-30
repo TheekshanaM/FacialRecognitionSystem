@@ -163,13 +163,8 @@ namespace FacialRecognitionSystem.Controllers.API
 
         [HttpPost]
         [Route("api/UserAccount/Notification")]
-
-
         public HttpResponseMessage Notification([FromBody]  UserViewModel userViewModel)
         {
-
-
-
             using (MyDbEntities db = new MyDbEntities())
             {
                 var user = db.SearchHistories.Where(a => a.SearchedId == userViewModel.UploaderID).ToList();
@@ -181,7 +176,6 @@ namespace FacialRecognitionSystem.Controllers.API
                 }
                 else
                 {
-                     
                     return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid credential Provided");
                 }
             }
@@ -364,6 +358,22 @@ namespace FacialRecognitionSystem.Controllers.API
                 return Request.CreateResponse(HttpStatusCode.BadRequest, message);
             }
 
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/UpdateNotification")]
+        public HttpResponseMessage UpdateNotification(Search search)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    db.Searches.Add(search);
+                    db.SaveChanges();
+                    return Request.CreateResponse(HttpStatusCode.OK,search);
+                }
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest,"Error");
         }
 
         [NonAction]

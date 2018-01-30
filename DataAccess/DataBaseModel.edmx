@@ -291,6 +291,43 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
           <Property Name="DeleteStatus" Type="bit" Nullable="false" />
           <Property Name="UploaderID" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyDb.dbo.UserDataExtended2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserDataExtended2">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="LocationPermission" />
+            <PropertyRef Name="BlockStatus" />
+            <PropertyRef Name="ActiveStatus" />
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="Link" />
+            <PropertyRef Name="DeleteStatus" />
+            <PropertyRef Name="UploaderID" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="LocationPermission" Type="bit" Nullable="false" />
+          <Property Name="BlockStatus" Type="bit" Nullable="false" />
+          <Property Name="ActiveStatus" Type="bit" Nullable="false" />
+          <Property Name="MobileNumber" Type="varchar" MaxLength="20" />
+          <Property Name="ResetCode" Type="int" />
+          <Property Name="PhotoID" Type="int" Nullable="false" />
+          <Property Name="Link" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="DeleteStatus" Type="bit" Nullable="false" />
+          <Property Name="UploaderID" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Location__UserID__7D439ABD">
           <End Role="UserData" Type="Self.UserData" Multiplicity="1" />
           <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
@@ -482,6 +519,27 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
     [UserDataExtended].[UploaderID] AS [UploaderID]
     FROM [dbo].[UserDataExtended] AS [UserDataExtended]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="UserDataExtended2" EntityType="Self.UserDataExtended2" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserDataExtended2].[UserId] AS [UserId], 
+    [UserDataExtended2].[FirstName] AS [FirstName], 
+    [UserDataExtended2].[LastName] AS [LastName], 
+    [UserDataExtended2].[Email] AS [Email], 
+    [UserDataExtended2].[Password] AS [Password], 
+    [UserDataExtended2].[Description] AS [Description], 
+    [UserDataExtended2].[Address] AS [Address], 
+    [UserDataExtended2].[Gender] AS [Gender], 
+    [UserDataExtended2].[LocationPermission] AS [LocationPermission], 
+    [UserDataExtended2].[BlockStatus] AS [BlockStatus], 
+    [UserDataExtended2].[ActiveStatus] AS [ActiveStatus], 
+    [UserDataExtended2].[MobileNumber] AS [MobileNumber], 
+    [UserDataExtended2].[ResetCode] AS [ResetCode], 
+    [UserDataExtended2].[PhotoID] AS [PhotoID], 
+    [UserDataExtended2].[Link] AS [Link], 
+    [UserDataExtended2].[DeleteStatus] AS [DeleteStatus], 
+    [UserDataExtended2].[UploaderID] AS [UploaderID]
+    FROM [dbo].[UserDataExtended2] AS [UserDataExtended2]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Location__UserID__7D439ABD" Association="Self.FK__Location__UserID__7D439ABD">
             <End Role="UserData" EntitySet="UserData" />
             <End Role="Location" EntitySet="Location" />
@@ -562,6 +620,7 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
             <End Role="UserData" EntitySet="UserDatas" />
             <End Role="UserPhoto" EntitySet="UserPhotoes" />
           </AssociationSet>
+          <EntitySet Name="UserDataExtended2" EntityType="MyDbModel.UserDataExtended2" />
           </EntityContainer>
         <EntityType Name="AdminPhoto">
           <Key>
@@ -935,6 +994,41 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="UserDataExtended2">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="LocationPermission" />
+            <PropertyRef Name="BlockStatus" />
+            <PropertyRef Name="ActiveStatus" />
+            <PropertyRef Name="PhotoID" />
+            <PropertyRef Name="Link" />
+            <PropertyRef Name="DeleteStatus" />
+            <PropertyRef Name="UploaderID" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="LocationPermission" Type="Boolean" Nullable="false" />
+          <Property Name="BlockStatus" Type="Boolean" Nullable="false" />
+          <Property Name="ActiveStatus" Type="Boolean" Nullable="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ResetCode" Type="Int32" />
+          <Property Name="PhotoID" Type="Int32" Nullable="false" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteStatus" Type="Boolean" Nullable="false" />
+          <Property Name="UploaderID" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1162,6 +1256,29 @@ warning 6002: The table/view 'MyDb.dbo.UserDataExtended' does not have a primary
           <EntitySetMapping Name="UserDatas">
             <EntityTypeMapping TypeName="MyDbModel.UserData">
               <MappingFragment StoreEntitySet="UserData">
+                <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />
+                <ScalarProperty Name="BlockStatus" ColumnName="BlockStatus" />
+                <ScalarProperty Name="LocationPermission" ColumnName="LocationPermission" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDataExtended2">
+            <EntityTypeMapping TypeName="MyDbModel.UserDataExtended2">
+              <MappingFragment StoreEntitySet="UserDataExtended2">
+                <ScalarProperty Name="UploaderID" ColumnName="UploaderID" />
+                <ScalarProperty Name="DeleteStatus" ColumnName="DeleteStatus" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
                 <ScalarProperty Name="ResetCode" ColumnName="ResetCode" />
                 <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
                 <ScalarProperty Name="ActiveStatus" ColumnName="ActiveStatus" />

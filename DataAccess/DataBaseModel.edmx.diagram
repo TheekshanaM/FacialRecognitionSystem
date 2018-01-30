@@ -30,6 +30,7 @@
         <AssociationConnector Association="MyDbModel.FK_Report_User1" />
         <AssociationConnector Association="MyDbModel.FK_Login_User" />
         <AssociationConnector Association="MyDbModel.FK_UserPhoto_User" />
+        <EntityTypeShape EntityType="MyDbModel.UserDataExtended2" Width="1.5" PointX="8.375" PointY="13.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

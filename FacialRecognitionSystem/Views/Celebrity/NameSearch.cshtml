@@ -35,7 +35,7 @@ else
             @foreach (var celebrity in Model)
             {
                 <tr>
-                    <td><img src="@celebrity.Link" style="height:68px;width:auto; border-radius: 50%;position: static;"/><strong> @Html.ActionLink((celebrity.FirstName + "  " + celebrity.LastName), "Changesetting", "Celebrity", new { id = celebrity.CelebrityId }, new { @class = "col col-sm-offset-1" })</strong> </td>
+                    <td><img src="@celebrity.Link" style="height:68px;width:70px; border-radius: 50%;position: static;"/><strong> @Html.ActionLink((celebrity.FirstName + "  " + celebrity.LastName), "Changesetting", "Celebrity", new { id = celebrity.CelebrityId }, new { @class = "col col-sm-offset-1" })</strong> </td>
 
                 </tr>
 

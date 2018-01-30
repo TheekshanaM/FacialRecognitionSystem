@@ -180,6 +180,9 @@
     <Compile Include="UserDataExtended.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserDataExtended2.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserPhoto.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>

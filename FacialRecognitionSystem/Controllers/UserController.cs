@@ -91,9 +91,8 @@ namespace FacialRecognitionSystem.Controllers
         {
             using (MyDbEntities db = new MyDbEntities())
             {
-                //var UserSet = db.UserDataExtendeds.Where(a => a.FirstName == model.FirstName || a.LastName == model.FirstName).ToList();
-                var UserSet = db.UserDatas.Where(a => a.FirstName == model.FirstName || a.LastName == model.FirstName).ToList();
-                //var userset = db.UserDataExtendeds.Where(a => a.FirstName == model.FirstName || a.LastName == model.LastName).ToList();
+                var UserSet = db.UserDataExtended2.Where(a => a.FirstName == model.FirstName || a.LastName == model.FirstName).ToList();
+                
                 
                 if (UserSet.Count != 0)
                 {

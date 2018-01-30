@@ -217,6 +217,32 @@ namespace FacialRecognitionSystem.Controllers.API
         }
 
         [HttpPost]
+        [Route("api/UserAccount/Code")]
+        public HttpResponseMessage Code ([FromBody]ForgotPasswordModel model)
+        {
+            using(MyDbEntities db = new MyDbEntities())
+            {
+                var user = db.UserDatas.Where(a => a.Email == model.Email).FirstOrDefault();
+                if(user != null)
+                {
+                    if(user.ResetCode == model.ResetCode )
+                    {
+                        user.Password = model.Password;
+                        return Request.CreateResponse(HttpStatusCode.OK);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Credential Provided");
+                    }
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Invalid Credential Provided");
+                }
+            }
+        }
+
+        [HttpPost]
         [Route("api/UserAccount/EditProfile")]
         public HttpResponseMessage EditProfile([FromBody]UserData user)
         {
@@ -275,6 +301,36 @@ namespace FacialRecognitionSystem.Controllers.API
 
                     // map user detail with profile 4to
                     return Request.CreateResponse(HttpStatusCode.OK, nameSearch);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/UserAccount/SearchFace")]
+        public HttpResponseMessage SearchName([FromBody]UserPhoto search)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    
+
+                    var faceSearch = db.UserDatas.Where(a => a.UserId == search.UploaderID).ToList();
+                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+
+                    //model.Link = ProfilePic.Link;
+
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, faceSearch);
                     // create the user profile and load it in the home page of mobile app
                 }
             }

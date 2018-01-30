@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<DataAccess.Celebrity>
+﻿@model PagedList.IPagedList<DataAccess.CelebrityDataExtended>
 @using PagedList.Mvc;
 @{
     ViewBag.Title = "GetCelebrity";
@@ -32,7 +32,7 @@ else
             @foreach (var celebrity in Model)
             {
                 <tr>
-                    <td>@Html.ActionLink((celebrity.FirstName + "  " + celebrity.LastName), "Changesetting", "Celebrity", new { id = celebrity.CelebrityId }, new { @class = "col col-sm-offset-1" }) </td>
+                    <td><img src="@celebrity.Link" style="height:68px;width:auto; border-radius: 50%;position: static;" /> @Html.ActionLink((celebrity.FirstName + "  " + celebrity.LastName), "Changesetting", "Celebrity", new { id = celebrity.CelebrityId }, new { @class = "col col-sm-offset-1" }) </td>
 
                 </tr>
 

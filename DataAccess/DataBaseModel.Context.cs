@@ -44,5 +44,7 @@ namespace DataAccess
         public virtual DbSet<SearchHistory> SearchHistories { get; set; }
         public virtual DbSet<UserDataExtended> UserDataExtendeds { get; set; }
         public virtual DbSet<UserData> UserDatas { get; set; }
+
+        object placeHolderVariable;
     }
 }

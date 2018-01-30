@@ -83,7 +83,7 @@ namespace FacialRecognitionSystem.Controllers
 
             }
         }
-        public String blockUser(ReportedUserModel e)
+        public ActionResult blockUser(ReportedUserModel e)
         {
             //var repId = id.ReportedUserId;
             using (MyDbEntities db = new MyDbEntities())
@@ -94,9 +94,9 @@ namespace FacialRecognitionSystem.Controllers
                 user.BlockStatus = a;
                 db.SaveChanges();
 
-
+                return View(user);
             }
-            return "blocked";
+            
         }
     }
 }

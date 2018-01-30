@@ -52,7 +52,8 @@
                     @Html.DisplayFor(modelItem => item.SuggestorId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CelebrityID)
+                    @Html.ActionLink(item.CelebrityID.ToString(), "Changesetting", "Celebrity", new { id =  item.CelebrityID }, new { @class = "col col-sm-offset-1" })
+                    
                 </td>
 
             </tr>

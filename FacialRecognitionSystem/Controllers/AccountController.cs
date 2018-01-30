@@ -32,6 +32,7 @@ namespace FacialRecognitionSystem.Controllers
         }
 
         // GET: Account
+        [Authorize]
         public ActionResult Register()
         {
             return View();
@@ -39,6 +40,7 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> Register([Bind(Exclude = "isEmailVerified , activationCode")] AdminRegisterViewModel admin)
         {
             Boolean status = false;
@@ -250,6 +252,7 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<ActionResult> ResetPassword(ResetPassword model)
         {
             var message = "";
@@ -285,6 +288,7 @@ namespace FacialRecognitionSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult> ChangeSetting()
         {
             Admin admin = new Admin();
@@ -308,6 +312,7 @@ namespace FacialRecognitionSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult ChangeSetting(Admin admin)
         {
             admin.Email = System.Web.HttpContext.Current.User.Identity.Name;
@@ -326,6 +331,52 @@ namespace FacialRecognitionSystem.Controllers
                     return View(admin);
                 }
             }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChangePassword(int id)
+        {
+            ChangePasswordModel model = new ChangePasswordModel();
+            model.AdminId = id;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<ActionResult> ChangePassword(ChangePasswordModel model)
+        {
+            string message ="";
+            if (ModelState.IsValid)
+            {
+                var serializer = new JavaScriptSerializer();
+                var json = serializer.Serialize(model);
+                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync("API/AdminAccount/ChangePassword", stringContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    message = response.Content.ReadAsAsync<string>().Result;
+                    if (message == "Succes")
+                    {
+                        
+                        return LogOut(); 
+                    }else 
+                    {
+                        ViewBag.Status = true;
+                        ViewBag.Message = message;
+                        return View();
+                    }
+                }
+                ViewBag.Status = true;
+                ViewBag.Message = "Error occurd while change password";
+                return View();
+            }
+            ViewBag.Status = true;
+            ViewBag.Message = "Error occurd while change password";
+            return View();
         }
     }
 }

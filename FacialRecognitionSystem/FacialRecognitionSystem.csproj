@@ -228,7 +228,10 @@
     <Compile Include="Models\AdminLogin.cs" />
     <Compile Include="Models\AdminRegisterViewModel.cs" />
     <Compile Include="Models\CelebrityViewModel.cs" />
+    <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\CreateCelebrityViewModel.cs" />
+    <Compile Include="Models\ForgotPasswordModel.cs" />
+    <Compile Include="Models\FrontPageModel.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
     <Compile Include="Models\PhotoUploadModel.cs" />
     <Compile Include="Models\ReportedUserModel.cs" />
@@ -308,6 +311,8 @@
     <Content Include="Views\Celebrity\GetCelebrity.cshtml" />
     <Content Include="Views\Report\blockPage.cshtml" />
     <Content Include="Views\SuggestionReport\celebritySuggestionList.cshtml" />
+    <Content Include="Views\Report\blockUser.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

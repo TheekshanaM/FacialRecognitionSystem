@@ -41,9 +41,9 @@ namespace FacialRecognitionSystem.Controllers
         {
             using(MyDbEntities db = new MyDbEntities())
             {
-                List<Celebrity> celebrity = db.Celebrities.ToList();
+                List<CelebrityDataExtended> celebrity = db.CelebrityDataExtendeds.ToList();
                 if (celebrity != null) {
-                    PagedList<Celebrity> model = new PagedList<Celebrity>(celebrity, page, pageSize);
+                    PagedList<CelebrityDataExtended> model = new PagedList<CelebrityDataExtended>(celebrity, page, pageSize);
                     return View(model);
                 }
                 return View();
@@ -222,16 +222,10 @@ namespace FacialRecognitionSystem.Controllers
             Face0 faceAPI = new Face0();
             using (var fileStream = new MemoryStream(imgData))
             {
-                int s1,s2,s3,s4,s5,count = 0;
+                
                 int[] message = await faceAPI.search(fileStream);
 
-                /*for(int k = 0; k < 5; k++)
-                {
-                    if (message[k] < 5000)
-                    {
-                        message[k] = 0;
-                    }
-                }*/
+                int s1, s2, s3, s4, s5, count = 0;
                 s1 = message[0];s2 = message[1];s3 = message[2];s4 = message[3];s5 = message[4];
                 for(int j = 0; j < 5; j++)
                 {

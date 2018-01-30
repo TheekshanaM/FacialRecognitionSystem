@@ -11,13 +11,19 @@ namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Celebrity
     {
+
         public int CelebrityId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "First Name Required !")]
         public string FirstName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Last Name Required !")]
         public string LastName { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Gender Required !")]
         public string Gender { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Feild Required !")]
         public string Feild { get; set; }
         public string Description { get; set; }
         public bool ActiveStatus { get; set; }

@@ -1,0 +1,13 @@
+﻿@model DataAccess.UserData
+@{
+    ViewBag.Title = "blockUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>blockUser</h2>
+
+<div class="col-md-5">
+    <div class="alert alert-danger">
+        @Model.FirstName @Model.LastName Blocked.
+    </div>
+</div>

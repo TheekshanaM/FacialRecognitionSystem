@@ -27,7 +27,7 @@ namespace FacialRecognitionSystem.Controllers.API
             string message = "";
             using (MyDbEntities db = new MyDbEntities())
             {
-                var user = db.Admins.Where(a => a.Email == adminLogin.Email).FirstOrDefault();
+                var user = db.Admins.Where(a => a.Email == adminLogin.Email && a.IsEmailVerified == true).FirstOrDefault();
                 if (user != null)
                 {
                     if (string.Compare(Crypto.Hash(adminLogin.Password), user.Password) == 0)
@@ -175,6 +175,38 @@ namespace FacialRecognitionSystem.Controllers.API
             }
         }
 
+        [HttpPost]
+        [Route("api/AdminAccount/ChangePassword")]
+        public HttpResponseMessage ChangePassword(ChangePasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using(MyDbEntities db = new MyDbEntities())
+                {
+                    var admin = db.Admins.Where(a => a.AdminId == model.AdminId).FirstOrDefault();
+                    if(admin != null)
+                    {
+                        if (string.Compare(Crypto.Hash(model.Password), admin.Password) == 0)
+                        {
+                            admin.Password = Crypto.Hash(model.NewPassword);
+                            db.SaveChanges();
+                            return Request.CreateResponse(HttpStatusCode.OK, "Succes");
+                        }
+                        else
+                        {
+                            return Request.CreateResponse(HttpStatusCode.OK, "Current password is wrong");
+                        }
+
+                    }
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "invalid.");
+                }
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "invalid.");
+            }
+        }
+
         [NonAction]
         public Boolean IsEmailExist(string email)
         {
@@ -248,6 +280,7 @@ namespace FacialRecognitionSystem.Controllers.API
             {
                 var adminAccount = db.Admins.Where(a => a.Email == admin.Email).FirstOrDefault();
                 Admin account = new Admin();
+                account.AdminId = adminAccount.AdminId;
                 account.FirstName = adminAccount.FirstName;
                 account.LastName = adminAccount.LastName;
                 

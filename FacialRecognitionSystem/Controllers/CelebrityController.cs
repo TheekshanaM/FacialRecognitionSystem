@@ -74,10 +74,19 @@ namespace FacialRecognitionSystem.Controllers
             {
                 
                 int s = await  faceAPI.searchFirst(fileStream);
-                if (s != 3)
+                if (s == 0)
                 {
                     ViewBag.Status = true;
-                    ViewBag.Message = "error";
+                    ViewBag.Message = "no one detected";
+                    return View();
+                }else if(s==1){
+                    ViewBag.Status = true;
+                    ViewBag.Message = "more than one person detected";
+                    return View();
+                }else if (s == 2)
+                {
+                    ViewBag.Status = true;
+                    ViewBag.Message = "there is an existing person";
                     return View();
                 }
             }
@@ -110,7 +119,7 @@ namespace FacialRecognitionSystem.Controllers
                         if(s != "Success")
                         {
                             ViewBag.Status = true;
-                            ViewBag.Message = "error";
+                            ViewBag.Message = s;
                             return View();
                         }
                     }
@@ -122,7 +131,7 @@ namespace FacialRecognitionSystem.Controllers
                     if (file.ContentLength > 0)
                     {
                         
-                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=faceitphotos;AccountKey=67nq3VNJlZ0KJArJZU62vjri4pNzqd1MERWFQytw7w7B6cfTv7Gw75iJq4LJgUN7E05Y0+3ixmkOWDyKk4yhtw==");
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=faceitphotos;AccountKey="+ ConfigurationManager.AppSettings["StorageKey"].ToString());
                         CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                         CloudBlobContainer container = blobClient.GetContainerReference("celebrityimages");
                         container.CreateIfNotExists();
@@ -370,7 +379,7 @@ namespace FacialRecognitionSystem.Controllers
                         if (file.ContentLength > 0)
                         {
 
-                            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=faceitphotos;AccountKey=67nq3VNJlZ0KJArJZU62vjri4pNzqd1MERWFQytw7w7B6cfTv7Gw75iJq4LJgUN7E05Y0+3ixmkOWDyKk4yhtw==");
+                            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=faceitphotos;AccountKey="+ConfigurationManager.AppSettings["StorageKey"].ToString());
                             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                             CloudBlobContainer container = blobClient.GetContainerReference("celebrityimages");
                             container.CreateIfNotExists();

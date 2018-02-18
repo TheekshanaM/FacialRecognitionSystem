@@ -53,7 +53,7 @@
             Select Image
             <input id="imageBrowes" name="imageBrowes" type="file" style="display:none;" onchange="return ValidateFileUpload()" required>
         </label>
-        <input class="btn btn-info" type="submit" name="submit" value="upload" id="btnupload" onclick="return imageValid()">
+        <input class="btn btn-info" type="submit" name="submit" value="Search" id="btnupload" onclick="return imageValid()">
 
         <div id="imgPreview" class="thumbnail" style="display:none">
             <img class="img-responsive" id="targetImg" />
@@ -68,13 +68,7 @@
 
     @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
     {
-        <br />
-        <hr />
-        <div class="col-md-5">
-            <div class="alert alert-danger">
-                <strong>@ViewBag.Message</strong>
-            </div>
-        </div>
+        
         <script>
             alert("@ViewBag.Message");
         </script>
@@ -93,7 +87,7 @@
 
         //To check if user upload any file
         if (FileUploadPath == '') {
-            alert("Please upload an image");
+            alert("Please Select an image");
 
         } else {
             var Extension = FileUploadPath.substring(
@@ -146,7 +140,7 @@
             FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         //To check if user upload any file
         if (FileUploadPath == '') {
-            alert("Please upload an image");
+            alert("Please select an image");
 
         } else if (Extension == "png" || Extension == "bmp"
             || Extension == "jpeg" || Extension == "jpg") {

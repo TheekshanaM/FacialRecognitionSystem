@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FacialRecognitionSystem.Controllers
 {
+    [Authorize]
     public class SuggestionReportController : Controller
     {
         // GET: SuggestionReport

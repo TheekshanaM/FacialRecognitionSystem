@@ -19,6 +19,7 @@ namespace FacialRecognitionSystem.Models
         [Display(Name = "New password")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Required")]
         [DataType(DataType.Password)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,15}", ErrorMessage = "Minimum 6 and maximum 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
         public string NewPassword { get; set; }
 
         [Display(Name = "Confirm password")]

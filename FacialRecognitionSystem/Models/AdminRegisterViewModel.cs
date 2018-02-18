@@ -10,10 +10,12 @@ namespace FacialRecognitionSystem.Models
     {
         [Display(Name = "First Name ")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "First Name is Required.")]
+        [RegularExpression(@"[a-zA-Z]*",ErrorMessage = "only use alphabet")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name ")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Last Name is Required.")]
+        [RegularExpression(@"[a-zA-Z]*", ErrorMessage = "only use alphabet")]
         public string LastName { get; set; }
 
         [Display(Name = "Email ")]
@@ -24,7 +26,7 @@ namespace FacialRecognitionSystem.Models
         [Display(Name = "Password ")]
         [DataType(DataType.Password)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "Password is Required.")]
-        [MinLength(6, ErrorMessage = "Minimum 6 characters Required.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{6,15}",ErrorMessage = "Minimum 6 and maximum 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character")]
         public string Password { get; set; }
 
         [Display(Name = "Confirm Password ")]

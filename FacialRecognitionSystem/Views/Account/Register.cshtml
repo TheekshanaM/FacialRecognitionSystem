@@ -19,7 +19,7 @@
             if (ViewBag.Message != null)
             {
                 <div class="alert alert-success">
-                    <strong>Success !</strong>
+                    <strong>Success ! Check Your Email Activate Account.</strong>
                 </div>
             }
         }
@@ -33,27 +33,27 @@
 
                 <div class="form-group">
                     <label>First Name : </label>
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name", @pattern = "[a-zA-Z]*", @title = "only use alphabet", required = "required" } })
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
                     <label>Last Name : </label>
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name", @pattern = "[a-zA-Z]*", @title = "only use alphabet", required = "required" } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
 
                 </div>
 
                 <div class="form-group">
                     <label>Email address : </label>
-                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter email" } })
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter email", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group">
                     <label>Password : </label>
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password" } })
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Password", @pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{6,15}", @title = "Minimum 6 and maximum 15 characters, at least one uppercase letter, one lowercase letter, one number and one special character", required = "required" } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
                 </div>
@@ -61,7 +61,7 @@
 
                 <div class="form-group">
                     <label>Confirm Password : </label>
-                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter confirm Password" } })
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter confirm Password", required = "required" } })
                     @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
 
                 </div>

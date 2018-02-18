@@ -50,7 +50,7 @@
                 @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @Value = Model.FirstName } })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @pattern = "[a-zA-Z]*", @title = "only use alphabet", @Value = Model.FirstName, required = "required" } })
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
 
                 </div>
@@ -60,7 +60,7 @@
                 @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @Value = Model.LastName } })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @pattern = "[a-zA-Z]*", @title = "only use alphabet", @Value = Model.LastName, required = "required" } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
 
                 </div>
@@ -81,7 +81,7 @@
                 @Html.LabelFor(model => model.Feild, htmlAttributes: new { @class = "control-label col-md-2" })
 
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", @Value = Model.Feild } })
+                    @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", @pattern = "[a-zA-Z]*", @title = "only use alphabet", @Value = Model.Feild, required = "required" } })
                     @Html.ValidationMessageFor(model => model.Feild, "", new { @class = "text-danger" })
 
                 </div>

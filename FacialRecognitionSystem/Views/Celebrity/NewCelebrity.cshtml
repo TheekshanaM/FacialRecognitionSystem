@@ -13,21 +13,16 @@
 @using (Html.BeginForm("NewCelebrity", "Celebrity", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
 <div class="form-horizontal">
-    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
-    {
-        <div class="alert alert-info">
-            <strong>@ViewBag.Message</strong>
-        </div>
-    }
+
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
 
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "First Name ...", required = "required" } })
+            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @pattern = "[a-zA-Z]*", @title = "only use alphabet", placeholder = "First Name ...", required = "required" } })
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -35,7 +30,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name ...", required = "required" } })
+            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Last Name ...", @pattern = "[a-zA-Z]*", @title = "only use alphabet", required = "required" } })
             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -53,7 +48,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Feild, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
-            @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", placeholder = "Field ...", required = "required" } })
+            @Html.EditorFor(model => model.Feild, new { htmlAttributes = new { @class = "form-control", placeholder = "Field ...", @pattern = "[a-zA-Z]*", @title = "only use alphabet", required = "required" } })
             @Html.ValidationMessageFor(model => model.Feild, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -61,7 +56,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-5">
-            @Html.TextAreaFor(model => model.Description,5,58 , new { htmlAttributes = new { @class = "form-control", placeholder = "Description ..." } })
+            @Html.TextAreaFor(model => model.Description, 5, 58, new { htmlAttributes = new { @class = "form-control", placeholder = "Description ..." } })
             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -90,6 +85,12 @@
             <input class="btn btn-md-2 btn-info" type="submit" name="submit" value="upload" id="btnupload" onclick="return imageValid()">
         </div>
     </div>
+    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+    {
+        <script>
+            alert("@ViewBag.Message");
+        </script>
+    }
 </div>
 }
 
@@ -105,12 +106,12 @@
 
         } else {
             var Extension = FileUploadPath.substring(
-                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+                FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
 
             //The file uploaded is an image
 
             if (Extension == "gif" || Extension == "png" || Extension == "bmp"
-                                || Extension == "jpeg" || Extension == "jpg") {
+                || Extension == "jpeg" || Extension == "jpg") {
 
                 // To Display
                 if (fuData.files && fuData.files[0]) {
@@ -118,7 +119,7 @@
 
                     reader.onload = function (e) {
                         $('#targetImg').attr('src', e.target.result);
-                        
+
                         $("#imgPreview").show();
                         $("#imageButton").hide();
                     }
@@ -128,16 +129,16 @@
 
             }
 
-                //The file upload is NOT an image
+            //The file upload is NOT an image
             else {
                 alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
-                
+
             }
         }
     }
 
 
-    
+
 
     var ClearPreview = function () {
         $("#imageBrowes").val('');
@@ -151,13 +152,13 @@
         var fuData = document.getElementById('imageBrowes');
         var FileUploadPath = fuData.value;
         var Extension = FileUploadPath.substring(
-                    FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+            FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
         //To check if user upload any file
         if (FileUploadPath == '') {
             alert("Please upload an image");
 
         } else if (Extension == "png" || Extension == "bmp"
-                                || Extension == "jpeg" || Extension == "jpg") {
+            || Extension == "jpeg" || Extension == "jpg") {
 
             return true;
         } else {

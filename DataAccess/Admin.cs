@@ -11,7 +11,8 @@ namespace DataAccess
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Admin
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,16 @@ namespace DataAccess
         {
             this.AdminPhotoes = new HashSet<AdminPhoto>();
         }
-    
+
         public int AdminId { get; set; }
+        [Display(Name = "First Name ")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "First Name is Required.")]
+        [RegularExpression(@"[a-zA-Z]*", ErrorMessage = "only use alphabet")]
         public string FirstName { get; set; }
+
+        [Display(Name = "Last Name ")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Last Name is Required.")]
+        [RegularExpression(@"[a-zA-Z]*", ErrorMessage = "only use alphabet")]
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }

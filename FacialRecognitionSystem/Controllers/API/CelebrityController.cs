@@ -100,8 +100,90 @@ namespace FacialRecognitionSystem.Controllers.API
             
         }
 
-        
 
-        
+        [HttpPost]
+        [Route("api/Celebrity/SearchName")]
+        public HttpResponseMessage SearchName([FromBody]SearchKeyword search)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    var nameSearch = db.Celebrities.Where(a => a.FirstName == search.Keyword || a.LastName == search.Keyword).ToList();
+                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+
+                    //model.Link = ProfilePic.Link;
+
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, nameSearch);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/Celebrity/SearchFace")]
+        public HttpResponseMessage SearchName([FromBody]CelebrityPhoto search)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    var faceSearch = db.Celebrities.Where(a => a.CelebrityId == search.CelibrityID).ToList();
+                    if (faceSearch != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, faceSearch);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Connection Error! Try Again");
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
+        [HttpPost]
+        [Route("api/Celebrity/CelebrityProfile")]
+        public HttpResponseMessage CelebrityProfile([FromBody]CelebrityPhoto user)
+        {
+            string message = "";
+            if (ModelState.IsValid)
+            {
+
+                using (MyDbEntities db = new MyDbEntities())
+                {
+                    UserViewModel model = new UserViewModel();
+
+                    var userProfile = db.CelebrityDataExtendeds.Where(a => a.CelebrityId == user.CelibrityID).FirstOrDefault();
+                    //var userProfile = db.UserPhotos.Where(c => c.UploaderID == user.UserId).FirstOrDefault();
+
+                    //model.Link = ProfilePic.Link;
+
+                    // map user detail with profile 4to
+                    return Request.CreateResponse(HttpStatusCode.OK, userProfile);
+                    // create the user profile and load it in the home page of mobile app
+                }
+            }
+            else
+            {
+                message = "Connection Error! Try Again";
+                return Request.CreateResponse(HttpStatusCode.BadRequest, message);
+            }
+
+        }
+
     }
 }

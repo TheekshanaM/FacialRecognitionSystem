@@ -11,13 +11,13 @@ using Microsoft.ProjectOxford.Face.Contract;
 using System.Web.UI;
 using System.Linq;
 using System.Threading;
-
+using System.Configuration;
 
 namespace FaceAPIFunctions
 {
     public class Face0
     {
-        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient("eda91d84d8d74e99b5afa36073cea990", "https://southeastasia.api.cognitive.microsoft.com/face/v1.0");
+        private readonly IFaceServiceClient faceServiceClient = new FaceServiceClient(ConfigurationManager.AppSettings["FaceApiKey"].ToString(), "https://southeastasia.api.cognitive.microsoft.com/face/v1.0");
         String groupId = "001";
        
 

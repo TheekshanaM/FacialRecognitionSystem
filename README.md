@@ -1,6 +1,6 @@
 # FacialRecognitionSystem
 
-file this values in webconfig folder
+file this values in webconfig file
 
     <add key="Host" value="*****" /> <!-- host address -->
     <add key="FaceApiKey" value="*****"/> <!-- face api subscription key -->
